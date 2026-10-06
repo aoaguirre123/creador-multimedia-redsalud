@@ -1,0 +1,3293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Operaciones y Jefaturas CMD - Creador Integral</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-straight/css/uicons-regular-straight.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #0099a8;
+      --primary-dark: #133D59;
+      --dark: #133D59;
+      --bg-card: #eef9fa;
+      --logo-badge-height: 54px;
+      --logo-img-height: 44px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+    html, body {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #1e293b;
+      display: flex;
+      flex-direction: column;
+      color: #334155;
+    }
+
+    header.app-header {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      flex-shrink: 0;
+      height: 56px;
+      gap: 12px;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .header-left h1 { font-size: 15px; font-weight: 700; white-space: nowrap; }
+    
+    .mode-tabs {
+      display: flex;
+      background: #1e293b;
+      padding: 4px;
+      border-radius: 8px;
+      gap: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .mode-tab-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .mode-tab-btn:hover { color: #ffffff; }
+    .mode-tab-btn.active {
+      background: #0099a8;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 153, 168, 0.35);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-action-hdr {
+      background: #334155;
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 11px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .btn-action-hdr:hover:not(:disabled) {
+      background: #475569;
+      color: #ffffff;
+    }
+    .btn-action-hdr:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .btn-danger-hdr {
+      background: #7f1d1d;
+      border-color: #991b1b;
+      color: #fecaca;
+    }
+    .btn-danger-hdr:hover:not(:disabled) {
+      background: #991b1b;
+      color: #ffffff;
+    }
+
+    .main-layout {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 56px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .editor-panel {
+      width: 540px;
+      height: 100%;
+      background: #ffffff;
+      padding: 20px;
+      overflow-y: scroll;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 4px 0 20px rgba(0,0,0,0.18);
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .label-con-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-bold-tool {
+      background: #e2e8f0;
+      border: 1px solid #cbd5e1;
+      color: #0f172a;
+      font-weight: 900;
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      user-select: none;
+    }
+    .btn-bold-tool:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .input-inline-wrap {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      width: 100%;
+    }
+    .btn-bold-inline {
+      background: #f1f5f9;
+      border: 1.5px solid #cbd5e1;
+      color: #0f172a;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 7px 11px;
+      border-radius: 6px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .btn-bold-inline:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .control-block {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .option-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #334155;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .option-row input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .route-input-row { display: flex; gap: 6px; }
+    .route-input-row input { flex: 1; }
+    .btn-add-arrow {
+      padding: 0 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .btn-add-arrow:hover {
+      background: #e2e8f0;
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #475569;
+      letter-spacing: 0.5px;
+    }
+    input[type="text"], textarea {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: #0f172a;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input[type="text"]:focus, textarea:focus { border-color: var(--primary); }
+    textarea { resize: vertical; min-height: 75px; }
+
+    .tipo-selector {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+    }
+    .interes-layout-selector {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .docs-type-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .tipo-btn {
+      padding: 9px 3px;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 11px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .tipo-btn.active {
+      border-color: var(--primary);
+      background: #e6f7f8;
+      color: var(--primary);
+    }
+
+    .detail-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .detail-main-row { display: flex; gap: 6px; align-items: center; }
+    .subitems-wrapper {
+      margin-left: 18px;
+      padding-left: 8px;
+      border-left: 2px solid #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .subitem-row { display: flex; gap: 6px; align-items: center; }
+    .btn-add-sub {
+      background: none; border: none; color: #005a9e;
+      font-size: 11px; font-weight: 700; cursor: pointer;
+      align-self: flex-start; margin-top: 2px;
+    }
+    .btn-add-sub:hover { text-decoration: underline; }
+
+    .btn-add-detail {
+      background: #f1f5f9; border: 1px dashed #94a3b8; border-radius: 6px;
+      padding: 8px; font-size: 12px; font-weight: 700; cursor: pointer; color: #334155;
+    }
+    .btn-add-detail:hover { background: #e2e8f0; }
+
+    .btn-delete {
+      background: #fee2e2; border: none; color: #ef4444; border-radius: 6px;
+      width: 28px; height: 32px; cursor: pointer; font-weight: 700; flex-shrink: 0;
+    }
+    .btn-delete:hover { background: #fca5a5; }
+
+    .btn-move {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #475569;
+      border-radius: 6px;
+      width: 28px;
+      height: 32px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-move:hover:not(:disabled) {
+      background: #e2e8f0;
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+    .btn-move:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .logos-builder-wrap { display: flex; flex-direction: column; gap: 8px; }
+    .logo-item-row { display: flex; gap: 6px; align-items: center; }
+    .upload-btn-label {
+      background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px;
+      padding: 7px 10px; font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap;
+    }
+    .upload-btn-label:hover { background: #e2e8f0; }
+
+    .btn-generate {
+      background: #10b981; color: #ffffff; border: none; padding: 13px;
+      font-size: 15px; font-weight: 700; border-radius: 8px; cursor: pointer;
+      margin-top: 6px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    }
+    .btn-generate:hover { background: #059669; }
+
+    .preview-stage {
+      flex: 1;
+      height: 100%;
+      overflow: hidden;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #334155;
+      position: relative;
+    }
+
+    .preview-card-wrap {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: visible !important;
+    }
+
+    strong, b {
+      font-weight: 800 !important;
+    }
+
+    /* MODO 1: NOTICIA CARD GENERAL */
+    .noticia-card {
+      width: 960px;
+      background-color: var(--bg-card);
+      border: 3.5px solid var(--primary);
+      border-radius: 28px;
+      padding: 34px 44px 28px;
+      position: relative;
+      overflow: visible !important;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+      flex-shrink: 0;
+      height: auto;
+    }
+    .noticia-card strong { color: #0f172a; }
+
+    .icon-megafono {
+      position: absolute; top: 32px; left: 42px; width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 38px; color: var(--primary); line-height: 1;
+    }
+
+    .header-titles { text-align: center; margin-bottom: 20px; padding: 0 50px; }
+    .header-titles .categoria { font-size: 32px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; margin-bottom: 6px; }
+    .header-titles .titulo-noticia { font-size: 19px; font-weight: 700; color: var(--primary-dark); line-height: 1.35; }
+
+    .intro-text { 
+      font-size: 13.5px; 
+      line-height: 1.55; 
+      color: #1e293b; 
+      text-align: center; 
+      max-width: 840px; 
+      margin: 0 auto 24px;
+      white-space: pre-line;
+    }
+    .intro-lateral { margin: 0; max-width: none; text-align: left; }
+
+    .cuerpo-noticia { display: flex; gap: 32px; align-items: flex-start; margin-bottom: 24px; }
+
+    .box-icono {
+      width: 135px; height: 135px; background: #ffffff; border: 2.5px solid var(--primary);
+      border-radius: 24px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    }
+    .box-icono i { font-size: 74px; color: var(--primary); line-height: 1; }
+
+    .detalles-container { flex: 1; }
+    .detalles-titulo { font-size: 14.5px; font-weight: 700; color: var(--primary); text-decoration: underline; margin-bottom: 12px; }
+
+    .lista-items { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .lista-items > li { display: flex; flex-direction: column; gap: 6px; }
+    .item-principal-row { display: flex; align-items: flex-start; gap: 12px; font-size: 13.5px; line-height: 1.45; color: #1e293b; }
+    .item-principal-row span:last-child { white-space: pre-line; }
+
+    .bullet-marker {
+      color: var(--primary); font-size: 15px; font-weight: 800; flex-shrink: 0;
+      display: inline-flex; align-items: center; height: 1.45em; line-height: 1; transform: translateY(-1px);
+    }
+
+    .sublista { list-style: none; margin-left: 32px; display: flex; flex-direction: column; gap: 6px; }
+    .sublista.sin-padre { margin-left: 0; }
+    .sublista li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #334155; }
+    .sublista li span:last-child { white-space: pre-line; }
+    .sublista-bullet { color: var(--primary); font-size: 10px; line-height: 1.8; flex-shrink: 0; }
+
+    .footer-divider { border: none; border-top: 1.5px dotted var(--primary); opacity: 0.5; margin-bottom: 14px; margin-top: 24px; }
+    
+    .footer-content { 
+      display: flex; 
+      justify-content: flex-end; 
+      align-items: center; 
+      gap: 20px; 
+      width: 100%;
+    }
+    .footer-text { 
+      font-size: 12.5px; 
+      color: #334155; 
+      font-weight: 500; 
+      margin-right: auto;
+    }
+    .footer-text strong { color: var(--primary); font-weight: 700; }
+    
+    .footer-logos-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    .partner-badge {
+      background: #ffffff;
+      border: 1.5px solid var(--primary);
+      border-radius: 12px;
+      padding: 4px 16px;
+      height: var(--logo-badge-height);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      flex-shrink: 0;
+    }
+
+    .partner-badge img {
+      height: var(--logo-img-height) !important;
+      width: auto !important;
+      max-width: 220px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .partner-badge span {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      letter-spacing: 0.3px;
+    }
+
+    .important-notice {
+      margin: 26px auto 10px;
+      color: #b45309;
+      font-size: 13.5px;
+      font-weight: 600;
+      line-height: 1.45;
+      text-align: center;
+      max-width: 820px;
+      white-space: pre-line;
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+    .important-notice strong { 
+      color: #92400e; 
+      font-weight: 800; 
+    }
+
+    .layout-con-imagen {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 24px;
+      width: 100%;
+    }
+    .col-texto-imagen { flex: 1; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+    .col-texto-imagen p { white-space: pre-line; }
+    
+    /* CONTENEDOR VISUAL CON TAMAÑO DINÁMICO */
+    .col-visual-imagen {
+      background: #ffffff;
+      border: 2.5px solid var(--primary);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .col-visual-imagen img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      border-radius: 10px;
+    }
+
+    /* SELLO FLOTANTE */
+    .sello-decorativo-box {
+      position: absolute;
+      width: 120px;
+      height: auto;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.18));
+      transition: outline 0.15s ease;
+    }
+
+    .sello-decorativo-box:hover {
+      outline: 2px dashed var(--primary);
+      outline-offset: 4px;
+    }
+
+    .sello-decorativo-box.is-dragging {
+      cursor: grabbing;
+      opacity: 0.85;
+      outline: 2px dashed #0284c7 !important;
+    }
+
+    .sello-decorativo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      pointer-events: none;
+    }
+
+    .sello-resize-handle {
+      position: absolute;
+      right: -8px;
+      bottom: -8px;
+      width: 18px;
+      height: 18px;
+      background-color: var(--primary);
+      border: 2.5px solid #ffffff;
+      border-radius: 50%;
+      cursor: nwse-resize;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      z-index: 55;
+      touch-action: none;
+    }
+
+    .flecha-externa-box {
+      position: absolute;
+      right: 50px;
+      bottom: -102px;
+      width: 78px;
+      height: 102px;
+      display: none;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .flecha-externa-svg {
+      width: 78px;
+      height: 102px;
+      display: block;
+      filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.12));
+    }
+
+    .preview-accesos-externos-wrap {
+      width: 960px;
+      margin-top: 50px;
+      display: none;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-acceso-card {
+      width: 215px;
+      height: 95px;
+      background-color: var(--bg-card);
+      border: 2.5px solid var(--primary);
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px 14px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .btn-acceso-card .btn-acceso-titulo {
+      font-size: 20px;
+      font-weight: 600;
+      color: #133D59;
+      line-height: 1.15;
+      letter-spacing: -0.2px;
+    }
+    .btn-acceso-card .btn-acceso-subtitulo {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: 0.8px;
+      line-height: 1.2;
+      text-decoration: underline;
+      margin-top: 2px;
+      text-transform: uppercase;
+    }
+
+    .noticia-card.is-global {
+      background-color: #eef9fa !important;
+      border-color: #0099a8 !important;
+      box-shadow: 0 14px 35px rgba(0, 153, 168, 0.14);
+    }
+    .noticia-card.is-global .titulo-principal {
+      text-align: center;
+      font-size: 40px;
+      font-weight: 900;
+      color: #133D59 !important;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+    .noticia-card.is-global .divider-header {
+      width: 100%;
+      height: 2px;
+      background: #0099a8;
+      opacity: 0.35;
+      margin-bottom: 26px;
+    }
+    .noticia-card.is-global .col-izquierda-global {
+      width: 190px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+    .noticia-card.is-global .subtitulo-lateral {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: #133D59 !important;
+      line-height: 1.35;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .noticia-card.is-global .box-icono-equipo {
+      width: 135px;
+      height: 135px;
+      background: #FFFFFF !important;
+      border: 2.5px solid #0099a8 !important;
+      border-radius: 26px;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: 0 8px 18px rgba(0, 153, 168, 0.14) !important;
+    }
+    .noticia-card.is-global .box-icono-equipo i {
+      font-size: 76px !important;
+      color: #0099a8 !important;
+      line-height: 1 !important;
+      display: inline-block !important;
+    }
+    .noticia-card.is-global .bullet-marker {
+      color: #0099a8 !important;
+      font-size: 11px !important;
+      margin-top: 3px;
+    }
+    .noticia-card.is-global .sublista-bullet {
+      color: #0099a8 !important;
+    }
+    .noticia-card.is-global .lista-items { color: #0f172a; }
+
+    .noticia-card.is-jefatura {
+      background-color: #eef9fa;
+      border: 3.5px solid #0099a8;
+      box-shadow: 0 14px 35px rgba(0, 153, 168, 0.15);
+    }
+    .noticia-card.is-jefatura .header-jefatura {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 18px;
+      gap: 6px;
+    }
+    .noticia-card.is-jefatura .titular-lideres {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .noticia-card.is-jefatura .palabra-atencion {
+      color: #133D59;
+      text-transform: uppercase;
+      text-shadow: 0 2px 0 rgba(19, 61, 89, 0.12);
+    }
+    .noticia-card.is-jefatura .palabra-lideres {
+      color: #0099a8;
+      text-shadow: 0 2px 0 rgba(0, 153, 168, 0.15);
+    }
+    .noticia-card.is-jefatura .subtitulo-jefatura {
+      font-size: 22px;
+      font-weight: 900;
+      color: #0099a8;
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+      line-height: 1.25;
+    }
+    .noticia-card.is-jefatura .intro-jefatura {
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: #334155;
+      margin-bottom: 22px;
+      text-align: left;
+      white-space: pre-line;
+    }
+    .noticia-card.is-jefatura .detalles-titulo-jefatura {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #133D59;
+      text-decoration: underline;
+      margin-bottom: 10px;
+    }
+    
+    .noticia-card.is-jefatura .alerta-jefatura {
+      margin: 24px auto 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #b45309;
+      text-align: center;
+      background: transparent;
+      border: none;
+      padding: 0;
+      max-width: 820px;
+      white-space: pre-line;
+    }
+    .noticia-card.is-jefatura .alerta-jefatura strong {
+      color: #92400e;
+      font-weight: 800;
+    }
+    .noticia-card.is-jefatura .alerta-jefatura .triangulo-alerta {
+      color: #d97706;
+      font-size: 18px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    /* MODO 2: BOLETÍN SEMANAL */
+    .boletin-card {
+      width: 580px;
+      background-color: #008796;
+      border: 3px solid #66b3b8;
+      border-radius: 22px;
+      padding: 0;
+      position: relative;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.3);
+      flex-shrink: 0;
+      overflow: hidden;
+      color: #ffffff;
+    }
+    .boletin-card strong { color: #ffffff !important; font-weight: 900 !important; }
+    .boletin-ondas-top, .boletin-ondas-bottom {
+      position: absolute; left: 0; width: 100%;
+      pointer-events: none; z-index: 1; opacity: 0.22;
+    }
+    .boletin-ondas-top { top: 0; height: 260px; }
+    .boletin-ondas-bottom { bottom: 0; height: 220px; }
+    .boletin-inner {
+      padding: 24px 28px 20px 28px; position: relative; z-index: 2;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .boletin-header { display: flex; align-items: center; gap: 16px; }
+    .boletin-logo-valores {
+      width: 145px; height: 50px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    }
+    .boletin-logo-valores img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .boletin-logo-placeholder {
+      border: 1.5px dashed rgba(255,255,255,0.7); border-radius: 8px;
+      padding: 6px 8px; font-size: 11px; text-align: center; color: #ffffff;
+      line-height: 1.2; font-weight: 600; width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .boletin-saludo-title {
+      font-size: 18.5px; font-weight: 800; color: #ffffff; line-height: 1.25; flex: 1; letter-spacing: -0.2px;
+    }
+    .boletin-intro-p { font-size: 12.5px; line-height: 1.55; color: #ffffff; font-weight: 500; white-space: pre-line; }
+    .boletin-divider-wrap { display: flex; align-items: center; position: relative; margin: 2px 0 4px; }
+    .boletin-divider-line { flex: 1; border: none; border-top: 1.5px dotted rgba(255, 255, 255, 0.7); }
+    .boletin-seccion-title { font-size: 13.5px; font-weight: 800; color: #ffffff; margin-bottom: 2px; }
+    .boletin-items-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .boletin-item-row { display: flex; align-items: flex-start; gap: 12px; font-size: 12px; line-height: 1.45; color: #ffffff; font-weight: 500; }
+    .boletin-item-row span:last-child { white-space: pre-line; }
+    .boletin-item-arrow { color: #ffffff; font-size: 12.5px; font-weight: 900; flex-shrink: 0; line-height: 1.35; }
+    .boletin-item-star { color: #ffffff; font-size: 12.5px; flex-shrink: 0; line-height: 1.35; }
+    .boletin-footer-bar {
+      background-color: #007784; color: #ffffff; text-align: center; padding: 13px 20px;
+      font-size: 17.5px; font-weight: 800; letter-spacing: 0.2px; position: relative; z-index: 2;
+      border-top: 1.5px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* MODO 3: DATOS DE INTERÉS */
+    .interes-card {
+      width: 540px; background-color: #dcf3f5; border-radius: 26px; padding: 20px;
+      position: relative; overflow: hidden; flex-shrink: 0; box-shadow: 0 10px 28px rgba(0, 153, 168, 0.15);
+    }
+    .interes-card.wide-format { width: 620px; }
+    .interes-inner { background-color: #ffffff; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+    .interes-title-wrap { background: #0099a8; padding: 22px 26px 18px; display: flex; align-items: center; justify-content: center; }
+    .interes-title { color: #ffffff; font-size: 19px; font-weight: 700; line-height: 1.3; text-align: center; padding: 0 10px; }
+    .interes-accent { height: 7px; background: #94d600; margin: 0; }
+    .interes-body { background: #ffffff; padding: 24px 26px 22px; display: flex; flex-direction: column; gap: 14px; }
+    .interes-intro { color: #334155; font-size: 13.5px; line-height: 1.55; text-align: left; white-space: pre-line; }
+    .interes-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 2px; }
+    .interes-list li { color: #1e293b; font-size: 13px; line-height: 1.45; display: flex; align-items: flex-start; gap: 10px; }
+    .interes-list li span:last-child { white-space: pre-line; }
+    .interes-list-bullet { color: #78bd16; font-size: 13.5px; font-weight: 900; line-height: 1.35; flex-shrink: 0; }
+    .interes-imagen-grande-wrap {
+      width: 100%; margin-top: 4px; border: 1.5px solid #d4ecee; border-radius: 8px;
+      overflow: hidden; background-color: #f8fafc; display: flex; align-items: center; justify-content: center;
+      max-height: 440px; padding: 6px;
+    }
+    .interes-imagen-grande-wrap img {
+      max-width: 100%; max-height: 425px; width: auto; height: auto;
+      object-fit: contain; display: block; margin: 0 auto;
+    }
+    .interes-alerta-importante {
+      margin-top: 14px; padding: 12px 14px; background: #fffbeb; border: 1.5px solid #fde68a;
+      border-radius: 8px; display: flex; gap: 12px; align-items: flex-start;
+    }
+    .interes-alerta-icono { font-size: 20px; line-height: 1; color: #f59e0b; flex-shrink: 0; margin-top: 2px; }
+    .interes-alerta-contenido { display: flex; flex-direction: column; gap: 3px; text-align: center; flex: 1; }
+    .interes-alerta-titulo { font-size: 11px; font-weight: 800; color: #0099a8; letter-spacing: 0.8px; text-transform: uppercase; }
+    .interes-alerta-texto { font-size: 11.5px; line-height: 1.45; color: #1e293b; white-space: pre-line; }
+    .interes-alerta-subtexto { font-size: 10.5px; line-height: 1.4; color: #64748b; margin-top: 2px; white-space: pre-line; }
+
+    /* MODO 4: DOCUMENTOS OPERACIONES */
+    .docs-grid-stage { display: flex; justify-content: center; align-items: center; width: 100%; }
+
+    .doc-portal-card-pro {
+      --doc-c: #1E9E5A;
+      position: relative;
+      width: 320px;
+      min-height: 250px;
+      background: #ffffff;
+      border: 1px solid #D3E6E9;
+      border-radius: 16px;
+      padding: 30px 24px 22px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .doc-portal-card-pro.is-slides { --doc-c: #F4B400; }
+    .doc-portal-card-pro.is-pdf { --doc-c: #DC2626; }
+
+    .doc-portal-stripe { position: absolute; left: 0; top: 0; right: 0; height: 6px; background: var(--doc-c); }
+
+    .doc-portal-app-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      background: #F2F9FA;
+      border-radius: 999px;
+      padding: 6px 14px 6px 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #16343A;
+    }
+    .doc-portal-app-dot { width: 17px; height: 17px; border-radius: 5px; background: var(--doc-c); flex-shrink: 0; }
+
+    .doc-portal-area-line {
+      margin-top: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #0097A7;
+      line-height: 1.35;
+    }
+    .doc-portal-main-title {
+      margin-top: 4px;
+      font-size: 25px;
+      font-weight: 700;
+      color: #78C93C;
+      line-height: 1.2;
+      word-break: break-word;
+    }
+
+    .doc-portal-footer-action {
+      margin-top: auto;
+      padding-top: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .doc-portal-date-box { font-size: 13px; font-weight: 400; color: #5B7378; }
+    .doc-portal-btn-formal {
+      background: #0097A7;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: none;
+      line-height: 1.2;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-left">
+      <h1>Portal Operaciones y Jefaturas CMD</h1>
+      <div class="mode-tabs">
+        <button class="mode-tab-btn active" id="tabModoNoticia" onclick="cambiarModoApp('noticia')">Noticia Individual</button>
+        <button class="mode-tab-btn" id="tabModoBoletin" onclick="cambiarModoApp('boletin')">Boletín Semanal</button>
+        <button class="mode-tab-btn" id="tabModoInteres" onclick="cambiarModoApp('interes')">Datos de Interés</button>
+        <button class="mode-tab-btn" id="tabModoDocumentos" onclick="cambiarModoApp('documentos')">Documentos Operaciones</button>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="btn-action-hdr" id="btnUndo" onclick="deshacer()" title="Deshacer (Ctrl + Z)">↶ Deshacer</button>
+      <button type="button" class="btn-action-hdr" id="btnRedo" onclick="rehacer()" title="Rehacer (Ctrl + Y)">↷ Rehacer</button>
+      <button type="button" class="btn-action-hdr btn-danger-hdr" onclick="limpiarTodo()" title="Borrar todo el contenido actual">🗑 Limpiar Todo</button>
+    </div>
+  </header>
+
+  <div class="main-layout">
+    
+    <div class="editor-panel">
+      
+      <!-- MODO 1: NOTICIAS INDIVIDUALES -->
+      <div id="panelModoNoticia" style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="form-group">
+          <label>Tipo de Formato</label>
+          <div class="tipo-selector" id="tipoSelectorContainer">
+            <div class="tipo-btn" data-tipo="dental">Dental</div>
+            <div class="tipo-btn" data-tipo="ambulatoria">Ambulatoria</div>
+            <div class="tipo-btn" data-tipo="transversal">Transversal</div>
+            <div class="tipo-btn" data-tipo="global">Visión Global</div>
+            <div class="tipo-btn active" data-tipo="jefatura">Jefatura</div>
+          </div>
+        </div>
+
+        <div class="control-block">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <label>Sello / Ícono Flotante Libre</label>
+            <span id="labelTamanoSello" style="font-size:11px; font-weight:700; color:#0099a8;">120px</span>
+          </div>
+
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <input type="file" id="inputArchivoSello" accept="image/*" style="font-size: 11px; flex: 1;">
+            <button type="button" class="btn-delete" onclick="removerSello()" title="Quitar sello" style="height: 30px;">×</button>
+          </div>
+
+          <div id="wrapperSelloControles" style="display: none; flex-direction: column; gap: 6px; margin-top: 4px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 11px; color: #64748b; font-weight: 600;">Tamaño:</span>
+              <input type="range" id="sliderTamanoSello" min="40" max="320" value="120" style="flex: 1; cursor: pointer;">
+            </div>
+            <div style="display: flex; gap: 6px;">
+              <button type="button" class="btn-add-detail" style="padding: 5px; font-size: 11px; flex: 1;" onclick="reubicarSelloEsquina('izq')">⤹ Abajo Izquierda</button>
+              <button type="button" class="btn-add-detail" style="padding: 5px; font-size: 11px; flex: 1;" onclick="reubicarSelloEsquina('der')">Abajo Derecha ⤸</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-block" id="grpOpcionImagen">
+          <label class="option-row">
+            <input type="checkbox" id="checkTieneImagen">
+            <span>Adjuntar imagen / tabla / flujo a esta noticia</span>
+          </label>
+          <div id="subirImagenBox" style="display: none; flex-direction: column; gap: 8px; margin-top: 4px;">
+            <input type="file" id="inputArchivoNoticia" accept="image/*" style="font-size: 12px; width: 100%;">
+            
+            <!-- CONTROL DE TAMAÑO / ESCALA PARA CONTENEDOR E IMAGEN -->
+            <div style="display: flex; flex-direction: column; gap: 4px; background: #ffffff; padding: 8px 10px; border-radius: 6px; border: 1px solid #cbd5e1;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 11px; font-weight: 700; color: #475569;">Tamaño del recuadro e imagen:</span>
+                <span id="labelEscalaImagen" style="font-size: 11px; font-weight: 800; color: #0099a8;">100%</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <input type="range" id="sliderEscalaImagen" min="50" max="150" value="100" style="flex: 1; cursor: pointer;">
+                <button type="button" class="btn-add-detail" onclick="resetEscalaImagen()" style="padding: 3px 8px; font-size: 10px;">Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" id="grpEncabezadoJefatura">
+          <label>Encabezado de Alerta de Jefatura</label>
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="inputJefaturaTag1" value="¡ATENCIÓN" style="width: 140px; font-weight:800; color:#133D59;">
+            <input type="text" id="inputJefaturaTag2" value="LÍDERES!" style="flex:1; font-weight:800; color:#0099a8;">
+          </div>
+        </div>
+
+        <div class="form-group" id="grpTitulo">
+          <div class="label-con-toolbar">
+            <label id="lblTitulo">Título / Tema</label>
+            <button type="button" class="btn-bold-tool" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inputTitulo')"><strong>B</strong> Negrita</button>
+          </div>
+          <input type="text" id="inputTitulo" value="NUEVO PROTOCOLO DE ATENCIÓN PLAN SOY REDSALUD DENTAL CD">
+        </div>
+
+        <div class="form-group" id="grpIntro">
+          <div class="label-con-toolbar">
+            <label>Párrafo de Bajada / Introducción</label>
+            <button type="button" class="btn-bold-tool" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inputIntro')"><strong>B</strong> Negrita</button>
+          </div>
+          <textarea id="inputIntro">Con el objetivo de fortalecer la experiencia de nuestros pacientes en Centros Dentales, se encuentra disponible el Protocolo de atención y venta Plan Soy RedSalud Dental.
+Este documento establece lineamientos para la gestión comercial en los centros, reforzando las buenas prácticas, el rol de los equipos internos y el adecuado manejo de incidentes operacionales.</textarea>
+        </div>
+
+        <div class="control-block">
+          <label class="option-row">
+            <input type="checkbox" id="checkPuntos" checked>
+            <span>Mostrar puntos y subpuntos clave</span>
+          </label>
+          <div id="wrapperDetallesCampos" style="display: flex; flex-direction: column; gap: 8px;">
+            <label style="font-size: 10px; margin-top: 4px;">Encabezado de la Columna</label>
+            <input type="text" id="inputTituloDetalles" value="">
+            <div id="detailsContainer"></div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <button type="button" class="btn-add-detail" onclick="agregarPuntoPrincipal()" style="flex: 1;">+ Agregar Punto Principal (➔)</button>
+              <button type="button" class="btn-add-detail" onclick="agregarSoloPuntosDirectos()" style="flex: 1; background: #e0f2fe; border-color: #7dd3fc; color: #0369a1;">+ Agregar Solo Puntos (●)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-block" id="grpAccesosExternos">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <label>Accesos Directos Externos (Google Sites)</label>
+            <span style="font-size:10px; color:#64748b; font-weight:700;">(PNGs individuales)</span>
+          </div>
+
+          <label class="option-row">
+            <input type="checkbox" id="checkFlechaExterna">
+            <span>Incluir flecha indicadora y cuadros de acceso</span>
+          </label>
+
+          <div id="wrapperBloqueAccesos" style="display: none; flex-direction: column; gap: 8px;">
+            <div id="accesosBuilderContainer" style="display:flex; flex-direction:column; gap:8px; margin-top:4px;"></div>
+            
+            <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:4px;">
+              <button type="button" class="btn-add-detail" onclick="agregarAccesoExterno()" style="flex:1;">+ Agregar Botón de Acceso</button>
+              <button type="button" class="btn-add-detail" onclick="descargarTodosLosAccesos()" id="btnDescargarTodosAccesos" style="flex:1; background:#f0fdf4; border-color:#86efac; color:#166534; display:none;">⬇ Descargar Todos los Botones</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-block">
+          <label class="option-row">
+            <input type="checkbox" id="checkImportante">
+            <span>Mostrar indicador de advertencia / importante</span>
+          </label>
+          <div class="input-inline-wrap" id="wrapperInputImportante" style="display: none; margin-top: 4px;">
+            <input type="text" id="inputImportante" value="" placeholder="Mensaje de advertencia..." style="flex:1;">
+            <button type="button" class="btn-bold-inline" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inputImportante')"><strong>B</strong></button>
+          </div>
+        </div>
+
+        <div class="control-block" id="grpRutaCompleta" style="display: none;">
+          <label class="option-row">
+            <input type="checkbox" id="checkRuta">
+            <span>Mostrar ruta documental en el pie</span>
+          </label>
+          <div class="route-input-row" id="wrapperInputRuta" style="display: none;">
+            <input type="text" id="inputRuta" value="" placeholder="Ej: Portal CMD ➔ Documentos...">
+            <button type="button" class="btn-bold-inline" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inputRuta')"><strong>B</strong></button>
+            <button type="button" class="btn-add-arrow" onclick="insertarFlechaRuta()" title="Agregar flecha">➔</button>
+          </div>
+        </div>
+
+        <div class="control-block" id="grpLogos">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <label>Logos / Instituciones en el Pie</label>
+            <span id="valorTamanoLogo" style="font-size:11px; font-weight:700; color:#475569;">44px</span>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+            <span style="font-size:11px; color:#64748b;">Tamaño:</span>
+            <input type="range" id="sliderTamanoLogo" min="30" max="65" value="44" style="flex:1; cursor:pointer;">
+          </div>
+
+          <div class="logos-builder-wrap" id="logosBuilder"></div>
+          <button type="button" class="btn-add-detail" onclick="agregarLogoItem()">+ Agregar Logo / Institución</button>
+        </div>
+      </div>
+
+      <!-- MODO 2: BOLETÍN SEMANAL -->
+      <div id="panelModoBoletin" style="display: none; flex-direction: column; gap: 16px;">
+        <div class="control-block">
+          <label>Logo "Valores que laten fuerte"</label>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <input type="file" id="inputLogoValoresBoletin" accept="image/*" style="font-size: 11px; flex: 1;">
+            <button type="button" class="btn-delete" id="btnQuitarLogoValores" onclick="quitarLogoValores()" title="Quitar logo" style="height:32px;">×</button>
+          </div>
+          <div id="statusLogoValores" style="font-size:11px; color:#64748b; font-weight:600; margin-top:2px;">
+            Ningún logo cargado (se muestra el cuadro gris auxiliar)[cite: 3].
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="label-con-toolbar">
+            <label>Saludo / Encabezado</label>
+            <button type="button" class="btn-bold-tool" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inputBoletinSaludo')"><strong>B</strong> Negrita</button>
+          </div>
+          <input type="text" id="inputBoletinSaludo" value="Estimado equipo CMD RedSalud:">
+        </div>
+
+        <div class="form-group">
+          <div class="label-con-toolbar">
+            <label>Texto de Bienvenida / Portal</label>
+            <button type="button" class="btn-bold-tool" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inputBoletinIntro')"><strong>B</strong> Negrita</button>
+          </div>
+          <textarea id="inputBoletinIntro">Esperando que se encuentren muy bien y tengan un excelente fin de semana.
+No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro Portal de Operaciones CMD y Portal de Jefaturas.</textarea>
+        </div>
+
+        <div class="control-block">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <label>Noticias de esta semana</label>
+            <span style="font-size:10px; color:#64748b; font-weight:600;">(Con flecha ➔)</span>
+          </div>
+          <div id="boletinNoticiasContainer" style="display: flex; flex-direction: column; gap: 6px;"></div>
+          <button type="button" class="btn-add-detail" onclick="agregarItemBoletin('noticias')">+ Agregar Noticia</button>
+        </div>
+
+        <div class="control-block">
+          <div class="label-con-toolbar">
+            <label>Título de la Sección de Datos de Interés</label>
+            <button type="button" class="btn-bold-tool" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inputBoletinTituloDatos')"><strong>B</strong> Negrita</button>
+          </div>
+          <input type="text" id="inputBoletinTituloDatos" value="Datos de interés: Mes de agosto">
+          <div id="boletinDatosContainer" style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px;"></div>
+          <button type="button" class="btn-add-detail" onclick="agregarItemBoletin('datos')">+ Agregar Dato de Interés (★)</button>
+        </div>
+
+        <div class="form-group">
+          <label>Pie / Fecha del Boletín</label>
+          <input type="text" id="inputBoletinFecha" value="Boletín Semanal CMD 31-08-2026">
+        </div>
+      </div>
+
+      <!-- MODO 3: DATOS DE INTERÉS -->
+      <div id="panelModoInteres" style="display: none; flex-direction: column; gap: 16px;">
+        <div class="form-group">
+          <label>Contenido Central</label>
+          <div class="interes-layout-selector">
+            <div class="tipo-btn active" id="btnInteresLayoutPuntos" onclick="cambiarLayoutInteres('puntos')">Lista de Puntos</div>
+            <div class="tipo-btn" id="btnInteresLayoutFoto" onclick="cambiarLayoutInteres('foto')">Foto de Tabla Grande</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="label-con-toolbar">
+            <label>Título Superior</label>
+            <button type="button" class="btn-bold-tool" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inputInteresTitulo')"><strong>B</strong> Negrita</button>
+          </div>
+          <input type="text" id="inputInteresTitulo" value="Reforzamiento: Descuento de Colaborador en Caja">
+        </div>
+
+        <div class="form-group">
+          <div class="label-con-toolbar">
+            <label>Texto Introductorio</label>
+            <button type="button" class="btn-bold-tool" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inputInteresIntro')"><strong>B</strong> Negrita</button>
+          </div>
+          <textarea id="inputInteresIntro">Se recuerda que el descuento de colaborador **NO** debe aplicarse en los siguientes casos:</textarea>
+        </div>
+
+        <div class="control-block" id="grpInteresPuntos">
+          <label>Puntos Clave</label>
+          <div id="interesItemsContainer" style="display:flex; flex-direction:column; gap:6px;"></div>
+          <button type="button" class="btn-add-detail" onclick="agregarItemInteres()">+ Agregar Punto</button>
+        </div>
+
+        <div class="control-block" id="grpInteresFotoTabla" style="display: none;">
+          <label>Captura de la Tabla / Matriz</label>
+          <input type="file" id="inputFotoTablaInteres" accept="image/*" style="font-size: 12px; width: 100%;">
+          <span style="font-size:11px; color:#64748b;">Sube la foto de la tabla para mostrarla a ancho completo[cite: 1, 3].</span>
+        </div>
+
+        <div class="control-block">
+          <label class="option-row">
+            <input type="checkbox" id="checkInteresAlerta" checked>
+            <span>Incluir advertencia "IMPORTANTE" (Alerta Amarilla)</span>
+          </label>
+          <div id="grpInteresAlertaInputs" style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
+            <div class="input-inline-wrap">
+              <input type="text" id="inputInteresAlertaTexto" value="En caso de caída de I-MED, Isapre sin convenio o Particular, el reembolso debe gestionarse mediante RED911." placeholder="Texto principal..." style="flex:1;">
+              <button type="button" class="btn-bold-inline" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inputInteresAlertaTexto')"><strong>B</strong></button>
+            </div>
+            <div class="input-inline-wrap">
+              <input type="text" id="inputInteresAlertaSubtexto" value="(Adjuntar: Comprobante de pago, bono o comprobante de reembolso (Isapre), detalle de episodio y liquidación de gastos del seguro)" placeholder="Subtexto entre paréntesis..." style="flex:1;">
+              <button type="button" class="btn-bold-inline" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inputInteresAlertaSubtexto')"><strong>B</strong></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODO 4: DOCUMENTOS OPERACIONES -->
+      <div id="panelModoDocumentos" style="display: none; flex-direction: column; gap: 16px;">
+        <div class="form-group">
+          <label>Tipo de Documento</label>
+          <div class="docs-type-selector">
+            <div class="tipo-btn active" id="btnAppSheets" onclick="cambiarAppDrive('sheets')">Planilla (Sheets)</div>
+            <div class="tipo-btn" id="btnAppSlides" onclick="cambiarAppDrive('slides')">Presentación (Slides)</div>
+            <div class="tipo-btn" id="btnAppPdf" onclick="cambiarAppDrive('pdf')">Documento PDF</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="label-con-toolbar">
+            <label>Nombre del Documento (línea turquesa)</label>
+            <button type="button" class="btn-bold-tool" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inDocTituloTurquesa')"><strong>B</strong> Negrita</button>
+          </div>
+          <input type="text" id="inDocTituloTurquesa" value="Consolidado Link" placeholder="Ej: Consolidado Link" style="font-weight: 700; color: #0099a8;">
+        </div>
+
+        <div class="form-group">
+          <label>Área / Categoría (título verde grande)</label>
+          <input type="text" id="inDocAreaVerde" value="SS - CG - SD" placeholder="Ej: SS - CG - SD" style="font-weight: 800; color: #166534;">
+        </div>
+
+        <div class="form-group">
+          <label>Fecha de Actualización / Versión</label>
+          <input type="text" id="inDocFecha" value="01-12-2023" placeholder="Ej: 01-12-2023">
+        </div>
+
+        <button type="button" class="btn-generate" onclick="descargarDocumentoPNG()">⬇ Descargar Ficha (PNG)</button>
+      </div>
+
+      <button class="btn-generate" id="btnDescargarLaminaPrincipal" onclick="descargarPNG()">⬇ Descargar Lámina Principal (PNG)</button>
+    </div>
+
+    <!-- PREVISUALIZACIÓN CENTRAL -->
+    <div class="preview-stage">
+      <div class="preview-card-wrap" id="previewCardWrap">
+        
+        <!-- CANVAS NOTICIA -->
+        <div class="noticia-card is-jefatura" id="cardExportNoticia">
+          <div id="cardContentArea"></div>
+
+          <!-- SELLO INTERACTIVO LIBRE CON RESIZE -->
+          <div class="sello-decorativo-box" id="previewSelloBox">
+            <img id="imgSelloRender" alt="Sello Decorativo">
+            <div class="sello-resize-handle" id="selloResizeHandle" title="Arrastra para redimensionar"></div>
+          </div>
+
+          <!-- FLECHA CURVA -->
+          <div class="flecha-externa-box" id="previewFlechaExterna">
+            <svg class="flecha-externa-svg" viewBox="0 0 95 125" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 72 2 C 86 26, 84 62, 50 90" 
+                    stroke="var(--primary)" 
+                    stroke-width="16" 
+                    stroke-linecap="round"/>
+              <polygon points="36,78 20,118 60,102" 
+                      fill="var(--primary)" 
+                      stroke="var(--primary)" 
+                      stroke-width="6" 
+                      stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- CONTENEDOR PREVIEW BOTONES EXTERNOS -->
+        <div class="preview-accesos-externos-wrap" id="previewAccesosExternos"></div>
+
+        <!-- CANVAS BOLETÍN -->
+        <div class="boletin-card" id="cardExportBoletin" style="display: none;">
+          <svg class="boletin-ondas-top" viewBox="0 0 580 260" preserveAspectRatio="none" fill="none">
+            <path d="M420,0 C460,80 560,120 580,180 L580,0 Z" fill="#ffffff"/>
+            <path d="M480,120 C510,180 560,220 580,260 L580,120 Z" fill="#ffffff" opacity="0.5"/>
+            <path d="M0,0 C30,60 10,140 0,180 Z" fill="#ffffff" opacity="0.4"/>
+          </svg>
+          <svg class="boletin-ondas-bottom" viewBox="0 0 580 220" preserveAspectRatio="none" fill="none">
+            <path d="M500,0 C450,60 480,140 580,180 L580,0 Z" fill="#ffffff" opacity="0.6"/>
+            <path d="M0,100 C60,140 80,180 90,220 L0,220 Z" fill="#ffffff"/>
+          </svg>
+
+          <div class="boletin-inner">
+            <div class="boletin-header">
+              <div class="boletin-logo-valores">
+                <div id="logoValoresPlaceholder" class="boletin-logo-placeholder">Logo "Valores"</div>
+                <img id="imgLogoValoresBoletin" style="display: none;" alt="Valores que laten fuerte">
+              </div>
+              <div class="boletin-saludo-title" id="previewBoletinSaludo">Estimado equipo CMD RedSalud:</div>
+            </div>
+
+            <div class="boletin-intro-p" id="previewBoletinIntro">
+              Esperando que se encuentren muy bien y tengan un excelente fin de semana.
+No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro Portal de Operaciones CMD y Portal de Jefaturas.
+            </div>
+
+            <div class="boletin-divider-wrap">
+              <hr class="boletin-divider-line">
+            </div>
+
+            <div class="boletin-seccion-title">Noticias de esta semana:</div>
+            <ul class="boletin-items-list" id="previewBoletinListaNoticias"></ul>
+
+            <div class="boletin-divider-wrap" style="margin-top: 4px;">
+              <hr class="boletin-divider-line">
+            </div>
+
+            <div class="boletin-seccion-title" id="previewBoletinTituloDatos">Datos de interés: Mes de agosto</div>
+            <ul class="boletin-items-list" id="previewBoletinListaDatos"></ul>
+          </div>
+
+          <div class="boletin-footer-bar" id="previewBoletinFecha">Boletín Semanal CMD 31-08-2026</div>
+        </div>
+
+        <!-- CANVAS DATOS DE INTERÉS -->
+        <div class="interes-card" id="cardExportInteres" style="display: none;">
+          <div class="interes-inner">
+            <div class="interes-title-wrap">
+              <div class="interes-title" id="previewInteresTitulo"></div>
+            </div>
+            
+            <div class="interes-accent"></div>
+
+            <div class="interes-body">
+              <p class="interes-intro" id="previewInteresIntro"></p>
+              
+              <ul class="interes-list" id="previewInteresItems"></ul>
+              
+              <div class="interes-imagen-grande-wrap" id="previewInteresFotoWrap" style="display: none;">
+                <img id="imgFotoTablaRender" alt="Tabla / Gráfico Adjunto">
+              </div>
+
+              <div class="interes-alerta-importante" id="previewInteresAlertaWrap">
+                <div class="interes-alerta-icono">⚠</div>
+                <div class="interes-alerta-contenido">
+                  <span class="interes-alerta-titulo">IMPORTANTE</span>
+                  <span class="interes-alerta-texto" id="previewInteresAlertaTexto"></span>
+                  <span class="interes-alerta-subtexto" id="previewInteresAlertaSubtexto"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CANVAS DOCUMENTOS OPERACIONES: TARJETA REDSALUD SIN IMAGEN -->
+        <div class="docs-grid-stage" id="cardExportDocumentos" style="display: none;">
+          <div class="doc-portal-card-pro" id="docExportUnico">
+            <div class="doc-portal-stripe"></div>
+            <span class="doc-portal-app-badge"><span class="doc-portal-app-dot"></span><span id="docPortalAppBadge">Hoja de cálculo</span></span>
+            <div class="doc-portal-area-line" id="previewDocTituloTurquesa">Consolidado Link</div>
+            <div class="doc-portal-main-title" id="previewDocAreaVerde">SS - CG - SD</div>
+            <div class="doc-portal-footer-action">
+              <div class="doc-portal-date-box" id="previewDocFecha">01-12-2023</div>
+              <span class="doc-portal-btn-formal">Abrir</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const CONFIG_AREAS = {
+      global: {
+        nombre: 'Visión Global',
+        icon: 'fi-rr-users',
+        colors: { primary: '#0099a8', dark: '#133D59', bg: '#eef9fa' },
+        defaults: {
+          tag1: '', tag2: '', titulo: 'VISIÓN GLOBAL', intro: '',
+          tituloDetalles: 'Contenidos para esta semana:', ruta: '', importante: '',
+          detalles: [
+            { texto: '**Noticias:** MiRedSalud, canal exclusivo para consultar resultados de exámenes', subitems: [] },
+            { texto: '**Lo que debes saber:** Sábado 5 de septiembre: “Cambio de hora”', subitems: [] },
+            { texto: '**Cuida tu mente:** Septiembre, una oportunidad para reunirnos y conectar', subitems: [] },
+            { texto: '**Embajadores de cultura:** Recuerda reconocer las buenas prácticas', subitems: [] },
+            { texto: 'Indicador de Accidentes Cortopunzantes y Accidentes de Trabajo de nuestros colaboradores', subitems: [] },
+            { texto: 'Información Portal de Operaciones', subitems: [] }
+          ],
+          logos: []
+        }
+      },
+      jefatura: {
+        nombre: 'Portal de Jefatura',
+        icon: 'fi-rr-briefcase',
+        colors: { primary: '#0099a8', dark: '#133D59', bg: '#eef9fa' },
+        defaults: {
+          tag1: '¡ATENCIÓN', tag2: 'LÍDERES!',
+          titulo: 'NUEVO PROTOCOLO DE ATENCIÓN PLAN SOY REDSALUD DENTAL CD',
+          intro: 'Con el objetivo de fortalecer la experiencia de nuestros pacientes en Centros Dentales, se encuentra disponible el Protocolo de atención y venta Plan Soy RedSalud Dental.\nEste documento establece lineamientos para la gestión comercial en los centros, reforzando las buenas prácticas, el rol de los equipos internos y el adecuado manejo de incidentes operacionales.',
+          tituloDetalles: '', ruta: '', importante: '',
+          detalles: [
+            { texto: 'Invitamos a todos los líderes a revisar el protocolo y asegurar su correcta aplicación, contribuyendo a mantener una atención alineada con los estándares de calidad y servicio de RedSalud.', subitems: [] }
+          ],
+          logos: []
+        }
+      },
+      dental: {
+        nombre: 'Noticia Dental',
+        icon: 'fi-rr-tooth',
+        colors: { primary: '#0099a8', dark: '#005a63', bg: '#d9f3f5' },
+        defaults: {
+          tag1: '', tag2: '',
+          titulo: 'Cambio de Precio Set de RX Convenio Consalud Tradicional (40%)',
+          intro: 'Se informa que a partir del **01 de septiembre de 2026** los pacientes afiliados al convenio **Consalud Tradicional (40%)** tendrán el beneficio de obtener el valor del set radiológico a un nuevo valor promocional de **$9.990**.',
+          tituloDetalles: 'Detalles:', ruta: 'Consolidado **Convenios Dentales** ➔ Hoja **Convenios** ➔ Fila 33', importante: '',
+          detalles: [
+            { texto: '**Aplica para los siguientes convenios:**', subitems: ['Consalud Tradicional Dental Imed', 'Consalud Tradicional Dental Contingencia'] },
+            { texto: '**Prestaciones involucradas:**', subitems: ['Set Radiográfico Inicial Adulto (Cód. **5002032**)', 'Set Radiográfico Inicial Niño (Cód. **5002033**)'] },
+            { texto: 'El valor de los códigos se **autocalculará automáticamente** en solicitudes Consalud Dental Imed.', subitems: [] }
+          ],
+          logos: []
+        }
+      },
+      ambulatoria: {
+        nombre: 'Noticia Ambulatoria',
+        icon: 'fi-rr-stethoscope',
+        colors: { primary: '#005a9e', dark: '#003b6f', bg: '#d8eaf8' },
+        defaults: {
+          tag1: '', tag2: '',
+          titulo: 'Plan Enlace: RedSalud se suma a la alianza de Caja Los Andes para reducir listas de espera',
+          intro: 'Caja Los Andes, Fonasa, el MINSAL y RedSalud formalizaron una alianza estratégica a través del **Plan Enlace** para acelerar la atención de pacientes en lista de espera No GES.',
+          tituloDetalles: 'Detalles:', ruta: 'Portal de Operaciones CMD ➔ Alianzas Estratégicas ➔ Plan Enlace', importante: '',
+          detalles: [
+            { texto: '**Beneficiarios:**', subitems: ['Afiliados a Caja Los Andes en Fonasa (tramos B, C y D).', 'Antigüedad ≥ 6 meses en lista de espera No GES al **31 de mayo de 2026**.'] },
+            { texto: '**Especialidades:** Traumatología, Oftalmología, Otorrinolaringología y Ginecología.', subitems: [] },
+            { texto: '**Copago $0:** Fonasa cubre la base y Caja Los Andes financia el copago total.', subitems: [] }
+          ],
+          logos: []
+        }
+      },
+      transversal: {
+        nombre: 'Noticia Transversal',
+        icon: 'fi-rs-puzzle-piece',
+        colors: { primary: '#4c7318', dark: '#324e0e', bg: '#f4faec' },
+        defaults: {
+          tag1: '', tag2: '', titulo: 'NUEVO ASISTENTE DE CONSULTAS MIREDSALUD',
+          intro: 'Nueva herramienta de apoyo para el equipo de recepción en la orientación de pacientes sobre MiRedSalud. En esta primera fase, encontrarás información práctica en:',
+          tituloDetalles: 'Detalles:', ruta: '', importante: '',
+          detalles: [
+            { texto: 'Visualización de exámenes', subitems: [] },
+            { texto: 'Acceso a cuenta', subitems: [] },
+            { texto: 'Recuperación de contraseña', subitems: [] }
+          ],
+          logos: []
+        }
+      }
+    };
+
+    const SVG_MEGAFONO = '<i class="fi fi-rs-megaphone icon-megafono" aria-label="Aviso"></i>';
+
+    let modoAppActual = 'noticia';
+    let tipoActual = 'jefatura';
+    let tieneImagen = false;
+    let imagenNoticiaB64 = '';
+    let escalaImagenNoticia = 100; // Porcentaje de escala para contenedor e imagen
+    let dataDetalles = JSON.parse(JSON.stringify(CONFIG_AREAS.jefatura.defaults.detalles));
+    let dataLogos = [];
+
+    /* SELLO INTERACTIVO */
+    let tieneSello = false;
+    let selloB64 = '';
+    let selloPos = { x: 36, y: 350, width: 120, height: 60, ratio: 1 };
+
+    let tieneFlechaExterna = false;
+    let dataAccesosExternos = [
+      { titulo: 'Formulario', subtitulo: 'ACCESO', url: '' },
+      { titulo: 'Panel', subtitulo: 'ACCESO', url: '' }
+    ];
+
+    /* BOLETÍN SEMANAL */
+    let logoValoresBoletinB64 = '';
+    let boletinNoticias = [
+      'Cambio de precio Set de RX Convenio Consalud Tradicional (40%)',
+      'Actualización Iniciativas Comerciales Septiembre',
+      'Término Campaña Diagnóstico Leads 2026',
+      'Plan Enlace: RedSalud se suma a la alianza de Caja Los Andes para reducir listas de espera',
+      'Beneficio Construye Tranquilo Ambulatorio - Fundación CChC',
+      'Programa Mujer Preventivo - Fundación CChC',
+      'Modificación de precios en procedimientos de gastroenterología'
+    ];
+    let boletinDatos = [
+      'Reforzamiento: Cobro de envío de Set de RX Dental'
+    ];
+
+    let layoutInteresActual = 'puntos';
+    let interesItems = [
+      'Prestaciones pagadas como **Particular**, **Fonasa A** o **Boleta Valor Convenio**.',
+      'Colaboradores Dipreca (portal e I-MED).',
+      'Colaboradores **FFAA**.',
+      'Vacunas.'
+    ];
+    let fotoTablaInteresB64 = '';
+
+    /* DATA MODO 4: DOCUMENTO PORTAL OPERACIONES (DISEÑO SOBRIO) */
+    let dataDocPortal = {
+      appDrive: 'sheets', // 'sheets', 'slides' o 'pdf'
+      tituloTurquesa: 'Consolidado Link',
+      areaVerde: 'SS - CG - SD',
+      fecha: '01-12-2023'
+    };
+
+    const historyStack = [];
+    let historyIndex = -1;
+    let isHistoryAction = false;
+    let debounceHistoryTimer = null;
+
+    const dom = {
+      root: document.documentElement,
+      stage: document.querySelector('.preview-stage'),
+      cardNoticia: document.getElementById('cardExportNoticia'),
+      cardBoletin: document.getElementById('cardExportBoletin'),
+      cardInteres: document.getElementById('cardExportInteres'),
+      cardDocumentos: document.getElementById('cardExportDocumentos'),
+      cardWrap: document.getElementById('previewCardWrap'),
+      contentArea: document.getElementById('cardContentArea'),
+      inputTitulo: document.getElementById('inputTitulo'),
+      inputIntro: document.getElementById('inputIntro'),
+      inputTituloDetalles: document.getElementById('inputTituloDetalles'),
+      inputRuta: document.getElementById('inputRuta'),
+      inputImportante: document.getElementById('inputImportante'),
+      inputJefaturaTag1: document.getElementById('inputJefaturaTag1'),
+      inputJefaturaTag2: document.getElementById('inputJefaturaTag2'),
+      grpEncabezadoJefatura: document.getElementById('grpEncabezadoJefatura'),
+      checkTieneImagen: document.getElementById('checkTieneImagen'),
+      sliderEscalaImagen: document.getElementById('sliderEscalaImagen'),
+      labelEscalaImagen: document.getElementById('labelEscalaImagen'),
+      checkPuntos: document.getElementById('checkPuntos'),
+      checkImportante: document.getElementById('checkImportante'),
+      checkRuta: document.getElementById('checkRuta'),
+      subirImagenBox: document.getElementById('subirImagenBox'),
+      wrapperDetallesCampos: document.getElementById('wrapperDetallesCampos'),
+      wrapperInputImportante: document.getElementById('wrapperInputImportante'),
+      wrapperInputRuta: document.getElementById('wrapperInputRuta'),
+      sliderTamanoLogo: document.getElementById('sliderTamanoLogo'),
+      valorTamanoLogo: document.getElementById('valorTamanoLogo'),
+      detailsContainer: document.getElementById('detailsContainer'),
+      logosBuilder: document.getElementById('logosBuilder'),
+      
+      inputArchivoSello: document.getElementById('inputArchivoSello'),
+      previewSelloBox: document.getElementById('previewSelloBox'),
+      imgSelloRender: document.getElementById('imgSelloRender'),
+      selloResizeHandle: document.getElementById('selloResizeHandle'),
+      sliderTamanoSello: document.getElementById('sliderTamanoSello'),
+      labelTamanoSello: document.getElementById('labelTamanoSello'),
+      wrapperSelloControles: document.getElementById('wrapperSelloControles'),
+
+      checkFlechaExterna: document.getElementById('checkFlechaExterna'),
+      previewFlechaExterna: document.getElementById('previewFlechaExterna'),
+      wrapperBloqueAccesos: document.getElementById('wrapperBloqueAccesos'),
+      accesosBuilderContainer: document.getElementById('accesosBuilderContainer'),
+      previewAccesosExternos: document.getElementById('previewAccesosExternos'),
+      btnDescargarTodosAccesos: document.getElementById('btnDescargarTodosAccesos'),
+
+      inputLogoValoresBoletin: document.getElementById('inputLogoValoresBoletin'),
+      statusLogoValores: document.getElementById('statusLogoValores'),
+      inputBoletinSaludo: document.getElementById('inputBoletinSaludo'),
+      inputBoletinIntro: document.getElementById('inputBoletinIntro'),
+      inputBoletinTituloDatos: document.getElementById('inputBoletinTituloDatos'),
+      inputBoletinFecha: document.getElementById('inputBoletinFecha'),
+      boletinNoticiasContainer: document.getElementById('boletinNoticiasContainer'),
+      boletinDatosContainer: document.getElementById('boletinDatosContainer'),
+      interesItemsContainer: document.getElementById('interesItemsContainer'),
+      inputInteresTitulo: document.getElementById('inputInteresTitulo'),
+      inputInteresIntro: document.getElementById('inputInteresIntro'),
+      inputFotoTablaInteres: document.getElementById('inputFotoTablaInteres'),
+      checkInteresAlerta: document.getElementById('checkInteresAlerta'),
+      inputInteresAlertaTexto: document.getElementById('inputInteresAlertaTexto'),
+      inputInteresAlertaSubtexto: document.getElementById('inputInteresAlertaSubtexto'),
+      grpInteresAlertaInputs: document.getElementById('grpInteresAlertaInputs'),
+      previewInteresTitulo: document.getElementById('previewInteresTitulo'),
+      previewInteresIntro: document.getElementById('previewInteresIntro'),
+      previewInteresItems: document.getElementById('previewInteresItems'),
+      previewInteresFotoWrap: document.getElementById('previewInteresFotoWrap'),
+      imgFotoTablaRender: document.getElementById('imgFotoTablaRender'),
+      previewInteresAlertaWrap: document.getElementById('previewInteresAlertaWrap'),
+      previewInteresAlertaTexto: document.getElementById('previewInteresAlertaTexto'),
+      previewInteresAlertaSubtexto: document.getElementById('previewInteresAlertaSubtexto'),
+      grpInteresPuntos: document.getElementById('grpInteresPuntos'),
+      grpInteresFotoTabla: document.getElementById('grpInteresFotoTabla'),
+      btnInteresLayoutPuntos: document.getElementById('btnInteresLayoutPuntos'),
+      btnInteresLayoutFoto: document.getElementById('btnInteresLayoutFoto'),
+      previewBoletinSaludo: document.getElementById('previewBoletinSaludo'),
+      previewBoletinIntro: document.getElementById('previewBoletinIntro'),
+      previewBoletinTituloDatos: document.getElementById('previewBoletinTituloDatos'),
+      previewBoletinFecha: document.getElementById('previewBoletinFecha'),
+      previewBoletinListaNoticias: document.getElementById('previewBoletinListaNoticias'),
+      previewBoletinListaDatos: document.getElementById('previewBoletinListaDatos'),
+      imgLogoValoresBoletin: document.getElementById('imgLogoValoresBoletin'),
+      logoValoresPlaceholder: document.getElementById('logoValoresPlaceholder'),
+
+      btnDescargarLaminaPrincipal: document.getElementById('btnDescargarLaminaPrincipal'),
+
+      btnUndo: document.getElementById('btnUndo'),
+      btnRedo: document.getElementById('btnRedo')
+    };
+
+    function parsearNegrita(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/(^|[^\*])\*([^\*\s][^\*]*?)\*/g, '$1<strong>$2</strong>');
+    }
+
+    function capturarEstado() {
+      return {
+        modoAppActual,
+        tipoActual,
+        tieneImagen,
+        imagenNoticiaB64,
+        escalaImagenNoticia,
+        tieneSello,
+        selloB64,
+        selloPos: { ...selloPos },
+        tieneFlechaExterna,
+        dataAccesosExternos: JSON.parse(JSON.stringify(dataAccesosExternos)),
+        dataDetalles: JSON.parse(JSON.stringify(dataDetalles)),
+        dataLogos: JSON.parse(JSON.stringify(dataLogos)),
+        logoValoresBoletinB64,
+        boletinNoticias: [...boletinNoticias],
+        boletinDatos: [...boletinDatos],
+        layoutInteresActual,
+        interesItems: [...interesItems],
+        fotoTablaInteresB64,
+        dataDocPortal: { ...dataDocPortal },
+        inputs: {
+          inputTitulo: dom.inputTitulo ? dom.inputTitulo.value : '',
+          inputIntro: dom.inputIntro ? dom.inputIntro.value : '',
+          inputTituloDetalles: dom.inputTituloDetalles ? dom.inputTituloDetalles.value : '',
+          inputRuta: dom.inputRuta ? dom.inputRuta.value : '',
+          inputImportante: dom.inputImportante ? dom.inputImportante.value : '',
+          inputJefaturaTag1: dom.inputJefaturaTag1 ? dom.inputJefaturaTag1.value : '',
+          inputJefaturaTag2: dom.inputJefaturaTag2 ? dom.inputJefaturaTag2.value : '',
+          checkTieneImagen: dom.checkTieneImagen.checked,
+          sliderEscalaImagen: dom.sliderEscalaImagen ? dom.sliderEscalaImagen.value : 100,
+          checkPuntos: dom.checkPuntos.checked,
+          checkImportante: dom.checkImportante.checked,
+          checkRuta: dom.checkRuta.checked,
+          checkFlechaExterna: dom.checkFlechaExterna.checked,
+          sliderTamanoLogo: dom.sliderTamanoLogo.value,
+          inputBoletinSaludo: dom.inputBoletinSaludo ? dom.inputBoletinSaludo.value : '',
+          inputBoletinIntro: dom.inputBoletinIntro ? dom.inputBoletinIntro.value : '',
+          inputBoletinTituloDatos: dom.inputBoletinTituloDatos ? dom.inputBoletinTituloDatos.value : '',
+          inputBoletinFecha: dom.inputBoletinFecha ? dom.inputBoletinFecha.value : '',
+          inputInteresTitulo: dom.inputInteresTitulo ? dom.inputInteresTitulo.value : '',
+          inputInteresIntro: dom.inputInteresIntro ? dom.inputInteresIntro.value : '',
+          checkInteresAlerta: dom.checkInteresAlerta.checked,
+          inputInteresAlertaTexto: dom.inputInteresAlertaTexto ? dom.inputInteresAlertaTexto.value : '',
+          inputInteresAlertaSubtexto: dom.inputInteresAlertaSubtexto ? dom.inputInteresAlertaSubtexto.value : ''
+        }
+      };
+    }
+
+    function guardarHistorial(inmediato = false) {
+      if (isHistoryAction) return;
+      if (inmediato) {
+        if (debounceHistoryTimer) clearTimeout(debounceHistoryTimer);
+        ejecutarGuardadoHistorial();
+      } else {
+        if (debounceHistoryTimer) clearTimeout(debounceHistoryTimer);
+        debounceHistoryTimer = setTimeout(ejecutarGuardadoHistorial, 250);
+      }
+    }
+
+    function ejecutarGuardadoHistorial() {
+      const snap = JSON.stringify(capturarEstado());
+      if (historyIndex >= 0 && historyStack[historyIndex] === snap) return;
+      
+      if (historyIndex < historyStack.length - 1) {
+        historyStack.splice(historyIndex + 1);
+      }
+      historyStack.push(snap);
+      if (historyStack.length > 50) historyStack.shift();
+      historyIndex = historyStack.length - 1;
+      actualizarBotonesUndoRedo();
+    }
+
+    function actualizarBotonesUndoRedo() {
+      dom.btnUndo.disabled = historyIndex <= 0;
+      dom.btnRedo.disabled = historyIndex >= historyStack.length - 1;
+    }
+
+    function restaurarEstado(estadoObj) {
+      isHistoryAction = true;
+      modoAppActual = estadoObj.modoAppActual;
+      tipoActual = estadoObj.tipoActual;
+      tieneImagen = estadoObj.tieneImagen;
+      imagenNoticiaB64 = estadoObj.imagenNoticiaB64;
+      escalaImagenNoticia = estadoObj.escalaImagenNoticia || 100;
+      tieneSello = estadoObj.tieneSello ?? false;
+      selloB64 = estadoObj.selloB64 || '';
+      selloPos = estadoObj.selloPos ? { ...estadoObj.selloPos } : { x: 36, y: 350, width: 120, height: 60, ratio: 1 };
+      tieneFlechaExterna = estadoObj.tieneFlechaExterna ?? false;
+      dataAccesosExternos = JSON.parse(JSON.stringify(estadoObj.dataAccesosExternos || []));
+      dataDetalles = JSON.parse(JSON.stringify(estadoObj.dataDetalles));
+      dataLogos = JSON.parse(JSON.stringify(estadoObj.dataLogos));
+      
+      logoValoresBoletinB64 = estadoObj.logoValoresBoletinB64 || '';
+      boletinNoticias = [...estadoObj.boletinNoticias];
+      boletinDatos = [...estadoObj.boletinDatos];
+      layoutInteresActual = estadoObj.layoutInteresActual;
+      interesItems = [...estadoObj.interesItems];
+      fotoTablaInteresB64 = estadoObj.fotoTablaInteresB64;
+      if (estadoObj.dataDocPortal) {
+        dataDocPortal = { ...estadoObj.dataDocPortal };
+      }
+
+      const inp = estadoObj.inputs;
+      if (dom.inputTitulo) dom.inputTitulo.value = inp.inputTitulo;
+      if (dom.inputIntro) dom.inputIntro.value = inp.inputIntro;
+      if (dom.inputTituloDetalles) dom.inputTituloDetalles.value = inp.inputTituloDetalles;
+      if (dom.inputRuta) dom.inputRuta.value = inp.inputRuta;
+      if (dom.inputImportante) dom.inputImportante.value = inp.inputImportante;
+      if (dom.inputJefaturaTag1) dom.inputJefaturaTag1.value = inp.inputJefaturaTag1;
+      if (dom.inputJefaturaTag2) dom.inputJefaturaTag2.value = inp.inputJefaturaTag2;
+      dom.checkTieneImagen.checked = inp.checkTieneImagen;
+      if (dom.sliderEscalaImagen) {
+        dom.sliderEscalaImagen.value = escalaImagenNoticia;
+        dom.labelEscalaImagen.innerText = `${escalaImagenNoticia}%`;
+      }
+      dom.checkPuntos.checked = inp.checkPuntos;
+      dom.checkImportante.checked = inp.checkImportante;
+      dom.checkRuta.checked = inp.checkRuta;
+      dom.checkFlechaExterna.checked = inp.checkFlechaExterna ?? false;
+      if (inp.sliderTamanoLogo) {
+        dom.sliderTamanoLogo.value = inp.sliderTamanoLogo;
+        ajustarTamanoLogos(inp.sliderTamanoLogo);
+      }
+
+      dom.subirImagenBox.style.display = tieneImagen ? 'flex' : 'none';
+      dom.wrapperDetallesCampos.style.display = dom.checkPuntos.checked ? 'flex' : 'none';
+      dom.wrapperInputImportante.style.display = dom.checkImportante.checked ? 'flex' : 'none';
+      dom.wrapperInputRuta.style.display = dom.checkRuta.checked ? 'flex' : 'none';
+
+      aplicarEstilosSello();
+
+      if (dom.inputBoletinSaludo) dom.inputBoletinSaludo.value = inp.inputBoletinSaludo;
+      if (dom.inputBoletinIntro) dom.inputBoletinIntro.value = inp.inputBoletinIntro;
+      if (dom.inputBoletinTituloDatos) dom.inputBoletinTituloDatos.value = inp.inputBoletinTituloDatos;
+      if (dom.inputBoletinFecha) dom.inputBoletinFecha.value = inp.inputBoletinFecha;
+
+      if (dom.inputInteresTitulo) dom.inputInteresTitulo.value = inp.inputInteresTitulo;
+      if (dom.inputInteresIntro) dom.inputInteresIntro.value = inp.inputInteresIntro;
+      dom.checkInteresAlerta.checked = inp.checkInteresAlerta;
+      if (dom.inputInteresAlertaTexto) dom.inputInteresAlertaTexto.value = inp.inputInteresAlertaTexto;
+      if (dom.inputInteresAlertaSubtexto) dom.inputInteresAlertaSubtexto.value = inp.inputInteresAlertaSubtexto;
+      dom.grpInteresAlertaInputs.style.display = dom.checkInteresAlerta.checked ? 'flex' : 'none';
+
+      cambiarModoApp(modoAppActual, false);
+      cambiarTipo(tipoActual, false, false);
+      cambiarLayoutInteres(layoutInteresActual, false);
+
+      renderFormularioDetalles();
+      renderFormularioLogos();
+      renderFormularioAccesos();
+      renderFormularioBoletin();
+      renderFormularioInteres();
+      renderFormularioDocPortal();
+
+      actualizarVista();
+      actualizarVistaBoletin();
+      actualizarVistaInteres();
+      actualizarVistaDocPortal();
+
+      isHistoryAction = false;
+      actualizarBotonesUndoRedo();
+    }
+
+    // Corregido: Manejo robusto de Deshacer y Rehacer
+    function deshacer() {
+      if (historyIndex > 0) {
+        historyIndex--;
+        try {
+          restaurarEstado(JSON.parse(historyStack[historyIndex]));
+        } catch (e) {
+          console.error("Error al deshacer:", e);
+        }
+      }
+    }
+
+    function rehacer() {
+      if (historyIndex < historyStack.length - 1) {
+        historyIndex++;
+        try {
+          restaurarEstado(JSON.parse(historyStack[historyIndex]));
+        } catch (e) {
+          console.error("Error al rehacer:", e);
+        }
+      }
+    }
+
+    function limpiarTodo() {
+      if (!confirm('¿Seguro que deseas limpiar todo el contenido del modo activo? Podrás deshacerlo con Ctrl + Z.')) return;
+      guardarHistorial(true);
+
+      if (modoAppActual === 'noticia') {
+        dom.inputTitulo.value = '';
+        dom.inputIntro.value = '';
+        dom.inputImportante.value = '';
+        dom.inputRuta.value = '';
+        dataDetalles = [];
+        dataLogos = [];
+        dataAccesosExternos = [];
+        tieneImagen = false;
+        imagenNoticiaB64 = '';
+        escalaImagenNoticia = 100;
+        if (dom.sliderEscalaImagen) {
+          dom.sliderEscalaImagen.value = 100;
+          dom.labelEscalaImagen.innerText = '100%';
+        }
+        tieneSello = false;
+        selloB64 = '';
+        tieneFlechaExterna = false;
+        dom.checkTieneImagen.checked = false;
+        dom.checkFlechaExterna.checked = false;
+        dom.subirImagenBox.style.display = 'none';
+        dom.inputArchivoSello.value = '';
+        renderFormularioDetalles();
+        renderFormularioLogos();
+        renderFormularioAccesos();
+        actualizarVista();
+      } else if (modoAppActual === 'boletin') {
+        dom.inputBoletinIntro.value = '';
+        boletinNoticias = [];
+        boletinDatos = [];
+        logoValoresBoletinB64 = '';
+        if (dom.inputLogoValoresBoletin) dom.inputLogoValoresBoletin.value = '';
+        renderFormularioBoletin();
+        actualizarVistaBoletin();
+      } else if (modoAppActual === 'interes') {
+        dom.inputInteresTitulo.value = '';
+        dom.inputInteresIntro.value = '';
+        interesItems = [];
+        fotoTablaInteresB64 = '';
+        renderFormularioInteres();
+        actualizarVistaInteres();
+      } else if (modoAppActual === 'documentos') {
+        dataDocPortal = { appDrive: 'sheets', tituloTurquesa: '', areaVerde: '', fecha: '' };
+        renderFormularioDocPortal();
+        actualizarVistaDocPortal();
+      }
+      guardarHistorial(true);
+    }
+
+    function aplicarNegritaElemento(el) {
+      if (!el) return;
+      el.focus();
+      const start = el.selectionStart;
+      const end = el.selectionEnd;
+      if (start === undefined || end === undefined) return;
+
+      const valor = el.value;
+      const seleccion = valor.substring(start, end);
+
+      if (!seleccion) return;
+
+      let nuevoValor = '';
+      if (seleccion.startsWith('**') && seleccion.endsWith('**') && seleccion.length >= 4) {
+        const limpia = seleccion.slice(2, -2);
+        nuevoValor = valor.substring(0, start) + limpia + valor.substring(end);
+        el.value = nuevoValor;
+        el.setSelectionRange(start, start + limpia.length);
+      } else {
+        const destacada = `**${seleccion}**`;
+        nuevoValor = valor.substring(0, start) + destacada + valor.substring(end);
+        el.value = nuevoValor;
+        el.setSelectionRange(start, start + destacada.length);
+      }
+
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+      el.focus();
+    }
+
+    function aplicarNegritaCampo(idCampo) {
+      const el = document.getElementById(idCampo);
+      aplicarNegritaElemento(el);
+    }
+
+    /* ESCALA DE IMAGEN ADJUNTA Y CONTENEDOR */
+    function resetEscalaImagen() {
+      escalaImagenNoticia = 100;
+      if (dom.sliderEscalaImagen) dom.sliderEscalaImagen.value = 100;
+      if (dom.labelEscalaImagen) dom.labelEscalaImagen.innerText = '100%';
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    /* SELLO LIBRE */
+    function aplicarEstilosSello() {
+      if (!dom.previewSelloBox) return;
+      const w = selloPos.width || 120;
+      const h = selloPos.height || Math.round(w / (selloPos.ratio || 1));
+      dom.previewSelloBox.style.left = `${selloPos.x}px`;
+      dom.previewSelloBox.style.top = `${selloPos.y}px`;
+      dom.previewSelloBox.style.width = `${w}px`;
+      dom.previewSelloBox.style.height = `${h}px`;
+      if (dom.sliderTamanoSello) dom.sliderTamanoSello.value = w;
+      if (dom.labelTamanoSello) dom.labelTamanoSello.innerText = `${w}px`;
+    }
+
+    function reubicarSelloEsquina(pos) {
+      const cardW = dom.cardNoticia.offsetWidth || 960;
+      const cardH = dom.cardNoticia.offsetHeight || 420;
+      const w = selloPos.width || 120;
+      const h = selloPos.height || Math.round(w / (selloPos.ratio || 1));
+
+      if (pos === 'izq') {
+        selloPos.x = 36;
+        selloPos.y = cardH - h - 24;
+      } else {
+        selloPos.x = cardW - w - 36;
+        selloPos.y = cardH - h - 24;
+      }
+      aplicarEstilosSello();
+      guardarHistorial(true);
+    }
+
+    function removerSello() {
+      tieneSello = false;
+      selloB64 = '';
+      dom.inputArchivoSello.value = '';
+      dom.wrapperSelloControles.style.display = 'none';
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function obtenerEscalaCard() {
+      if (!dom.cardWrap) return 1;
+      const transform = window.getComputedStyle(dom.cardWrap).transform;
+      if (transform && transform !== 'none') {
+        const matrix = transform.match(/^matrix\((.+)\)$/);
+        if (matrix) {
+          const values = matrix[1].split(',');
+          return parseFloat(values[0]);
+        }
+      }
+      return 1;
+    }
+
+    function setupSelloInteractivo() {
+      let isDragging = false;
+      let isResizing = false;
+      let startX = 0, startY = 0;
+      let initLeft = 0, initTop = 0, initWidth = 0;
+
+      dom.previewSelloBox.addEventListener('pointerdown', (e) => {
+        if (e.target === dom.selloResizeHandle) return;
+        e.preventDefault();
+        isDragging = true;
+        dom.previewSelloBox.classList.add('is-dragging');
+        dom.previewSelloBox.setPointerCapture(e.pointerId);
+
+        const escala = obtenerEscalaCard();
+        startX = e.clientX;
+        startY = e.clientY;
+        initLeft = selloPos.x;
+        initTop = selloPos.y;
+      });
+
+      dom.selloResizeHandle.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        isResizing = true;
+        dom.selloResizeHandle.setPointerCapture(e.pointerId);
+
+        startX = e.clientX;
+        startY = e.clientY;
+        initWidth = selloPos.width || 120;
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        const escala = obtenerEscalaCard();
+
+        if (isDragging) {
+          const dx = (e.clientX - startX) / escala;
+          const dy = (e.clientY - startY) / escala;
+          selloPos.x = Math.round(initLeft + dx);
+          selloPos.y = Math.round(initTop + dy);
+          aplicarEstilosSello();
+        } else if (isResizing) {
+          const dx = (e.clientX - startX) / escala;
+          const nuevoAncho = Math.min(350, Math.max(40, Math.round(initWidth + dx)));
+          selloPos.width = nuevoAncho;
+          selloPos.height = Math.round(nuevoAncho / (selloPos.ratio || 1));
+          aplicarEstilosSello();
+        }
+      });
+
+      window.addEventListener('pointerup', () => {
+        if (isDragging || isResizing) {
+          dom.previewSelloBox.classList.remove('is-dragging');
+          isDragging = false;
+          isResizing = false;
+          guardarHistorial(true);
+        }
+      });
+
+      if (dom.sliderTamanoSello) {
+        dom.sliderTamanoSello.addEventListener('input', (e) => {
+          selloPos.width = parseInt(e.target.value, 10);
+          selloPos.height = Math.round(selloPos.width / (selloPos.ratio || 1));
+          aplicarEstilosSello();
+          guardarHistorial(false);
+        });
+      }
+    }
+
+    /* GESTIÓN LOGO VALORES BOLETÍN */
+    function quitarLogoValores() {
+      logoValoresBoletinB64 = '';
+      if (dom.inputLogoValoresBoletin) dom.inputLogoValoresBoletin.value = '';
+      actualizarVistaBoletin();
+      guardarHistorial(true);
+    }
+
+    function cambiarModoApp(modo, guardar = true) {
+      modoAppActual = modo;
+      document.getElementById('tabModoNoticia').classList.toggle('active', modo === 'noticia');
+      document.getElementById('tabModoBoletin').classList.toggle('active', modo === 'boletin');
+      document.getElementById('tabModoInteres').classList.toggle('active', modo === 'interes');
+      document.getElementById('tabModoDocumentos').classList.toggle('active', modo === 'documentos');
+
+      document.getElementById('panelModoNoticia').style.display = modo === 'noticia' ? 'flex' : 'none';
+      document.getElementById('panelModoBoletin').style.display = modo === 'boletin' ? 'flex' : 'none';
+      document.getElementById('panelModoInteres').style.display = modo === 'interes' ? 'flex' : 'none';
+      document.getElementById('panelModoDocumentos').style.display = modo === 'documentos' ? 'flex' : 'none';
+
+      dom.cardNoticia.style.display = modo === 'noticia' ? 'block' : 'none';
+      dom.cardBoletin.style.display = modo === 'boletin' ? 'block' : 'none';
+      dom.cardInteres.style.display = modo === 'interes' ? 'block' : 'none';
+      dom.cardDocumentos.style.display = modo === 'documentos' ? 'flex' : 'none';
+
+      dom.btnDescargarLaminaPrincipal.style.display = (modo === 'documentos') ? 'none' : 'block';
+
+      if (modo !== 'noticia') {
+        dom.previewSelloBox.style.display = 'none';
+        dom.previewFlechaExterna.style.display = 'none';
+        dom.previewAccesosExternos.style.display = 'none';
+      }
+
+      if (modo === 'boletin') {
+        actualizarVistaBoletin();
+      } else if (modo === 'interes') {
+        actualizarVistaInteres();
+      } else if (modo === 'documentos') {
+        actualizarVistaDocPortal();
+      } else {
+        actualizarVista();
+      }
+      setTimeout(ajustarEscalaVista, 20);
+      if (guardar) guardarHistorial(true);
+    }
+
+    function cambiarLayoutInteres(layout, guardar = true) {
+      layoutInteresActual = layout;
+      dom.btnInteresLayoutPuntos.classList.toggle('active', layout === 'puntos');
+      dom.btnInteresLayoutFoto.classList.toggle('active', layout === 'foto');
+
+      dom.grpInteresPuntos.style.display = layout === 'puntos' ? 'flex' : 'none';
+      dom.grpInteresFotoTabla.style.display = layout === 'foto' ? 'flex' : 'none';
+
+      if (layout === 'foto') {
+        dom.cardInteres.classList.add('wide-format');
+        dom.inputInteresTitulo.value = "Reforzamiento de Medios de Pago";
+        dom.inputInteresIntro.value = "";
+        dom.checkInteresAlerta.checked = false;
+        dom.grpInteresAlertaInputs.style.display = 'none';
+      } else {
+        dom.cardInteres.classList.remove('wide-format');
+        dom.inputInteresTitulo.value = "Reforzamiento: Descuento de Colaborador en Caja";
+        dom.inputInteresIntro.value = "Se recuerda que el descuento de colaborador **NO** debe aplicarse en los siguientes casos:";
+        dom.checkInteresAlerta.checked = true;
+        dom.grpInteresAlertaInputs.style.display = 'flex';
+      }
+
+      renderFormularioInteres();
+      actualizarVistaInteres();
+      if (guardar) guardarHistorial(true);
+    }
+
+    function renderFormularioAccesos() {
+      dom.accesosBuilderContainer.innerHTML = '';
+      dom.btnDescargarTodosAccesos.style.display = (dataAccesosExternos.length > 0 && tieneFlechaExterna) ? 'inline-block' : 'none';
+
+      dataAccesosExternos.forEach((acc, idx) => {
+        const item = document.createElement('div');
+        item.className = 'detail-card';
+        item.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:11px; font-weight:800; color:var(--primary);">Botón #${idx + 1}</span>
+            <div style="display:flex; gap:4px;">
+              <button type="button" class="btn-move" onclick="moverAccesoExterno(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} title="Mover hacia la izquierda o arriba">▲</button>
+              <button type="button" class="btn-move" onclick="moverAccesoExterno(${idx}, 1)" ${idx === dataAccesosExternos.length - 1 ? 'disabled' : ''} title="Mover hacia la derecha o abajo">▼</button>
+              <button type="button" class="btn-delete" onclick="eliminarAccesoExterno(${idx})">×</button>
+            </div>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <input type="text" placeholder="Título (ej: Formulario, Panel)..." value="${acc.titulo.replace(/"/g, '&quot;')}" oninput="actualizarAccesoExterno(${idx}, 'titulo', this.value)" style="flex:1; font-weight:600;">
+            <input type="text" placeholder="Acción (ej: ACCESO)..." value="${acc.subtitulo.replace(/"/g, '&quot;')}" oninput="actualizarAccesoExterno(${idx}, 'subtitulo', this.value)" style="width:120px; font-weight:700; color:var(--primary);">
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2px;">
+            <span style="font-size:10px; color:#64748b;">(Se descarga con fondo transparente)</span>
+            <button type="button" style="background:#0099a8; color:#fff; border:none; padding:5px 10px; font-size:11px; font-weight:700; border-radius:4px; cursor:pointer;" onclick="descargarBotonAcceso(${idx})">⬇ Descargar este Botón (PNG)</button>
+          </div>
+        `;
+        dom.accesosBuilderContainer.appendChild(item);
+      });
+    }
+
+    function agregarAccesoExterno() {
+      dataAccesosExternos.push({ titulo: 'Nuevo Acceso', subtitulo: 'ACCESO', url: '' });
+      renderFormularioAccesos();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function eliminarAccesoExterno(idx) {
+      dataAccesosExternos.splice(idx, 1);
+      renderFormularioAccesos();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    // Corregido: Mover elemento en el array de accesos externos
+    function moverAccesoExterno(idx, dir) {
+      const nuevo = idx + dir;
+      if (nuevo < 0 || nuevo >= dataAccesosExternos.length) return;
+      const tmp = dataAccesosExternos[idx];
+      dataAccesosExternos[idx] = dataAccesosExternos[nuevo];
+      dataAccesosExternos[nuevo] = tmp;
+      renderFormularioAccesos();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function actualizarAccesoExterno(idx, campo, valor) {
+      if (dataAccesosExternos[idx]) {
+        dataAccesosExternos[idx][campo] = valor;
+        actualizarVista();
+        guardarHistorial(false);
+      }
+    }
+
+    function descargarBotonAcceso(idx) {
+      const el = document.getElementById(`btnAccesoExport_${idx}`);
+      if (!el) return;
+      const tituloLimpio = (dataAccesosExternos[idx].titulo || 'Acceso').trim().replace(/[^a-zA-Z0-9]/g, '_');
+      html2canvas(el, {
+        scale: 3,
+        backgroundColor: null
+      }).then(canvas => {
+        const a = document.createElement('a');
+        a.download = `Boton_${tipoActual.toUpperCase()}_${tituloLimpio}.png`;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      });
+    }
+
+    function descargarTodosLosAccesos() {
+      dataAccesosExternos.forEach((_, idx) => {
+        setTimeout(() => descargarBotonAcceso(idx), idx * 400);
+      });
+    }
+
+    function renderFormularioInteres() {
+      dom.interesItemsContainer.innerHTML = '';
+      interesItems.forEach((texto, idx) => {
+        const row = document.createElement('div');
+        row.className = 'detail-main-row';
+        row.innerHTML = `
+          <button type="button" class="btn-move" onclick="moverItemInteres(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} title="Subir">▲</button>
+          <button type="button" class="btn-move" onclick="moverItemInteres(${idx}, 1)" ${idx === interesItems.length - 1 ? 'disabled' : ''} title="Bajar">▼</button>
+          <input type="text" id="inInteresItem_${idx}" value="${texto.replace(/"/g, '&quot;')}" oninput="actualizarItemInteres(${idx}, this.value)" style="flex:1;">
+          <button type="button" class="btn-bold-inline" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inInteresItem_${idx}')"><strong>B</strong></button>
+          <button type="button" class="btn-delete" onclick="eliminarItemInteres(${idx})">×</button>
+        `;
+        dom.interesItemsContainer.appendChild(row);
+      });
+    }
+
+    function moverItemInteres(index, direccion) {
+      const nuevoIndex = index + direccion;
+      if (nuevoIndex < 0 || nuevoIndex >= interesItems.length) return;
+      const temp = interesItems[index];
+      interesItems[index] = interesItems[nuevoIndex];
+      interesItems[nuevoIndex] = temp;
+      renderFormularioInteres();
+      actualizarVistaInteres();
+      guardarHistorial(true);
+    }
+
+    function agregarItemInteres() {
+      interesItems.push('');
+      renderFormularioInteres();
+      actualizarVistaInteres();
+      guardarHistorial(true);
+    }
+
+    function eliminarItemInteres(idx) {
+      interesItems.splice(idx, 1);
+      renderFormularioInteres();
+      actualizarVistaInteres();
+      guardarHistorial(true);
+    }
+
+    function actualizarItemInteres(idx, valor) {
+      interesItems[idx] = valor;
+      actualizarVistaInteres();
+      guardarHistorial(false);
+    }
+
+    function actualizarVistaInteres() {
+      dom.previewInteresTitulo.innerHTML = parsearNegrita(dom.inputInteresTitulo.value);
+      
+      const intro = dom.inputInteresIntro.value.trim();
+      if (intro) {
+        dom.previewInteresIntro.style.display = 'block';
+        dom.previewInteresIntro.innerHTML = parsearNegrita(intro).replace(/\n/g, '<br>');
+      } else {
+        dom.previewInteresIntro.style.display = 'none';
+      }
+
+      if (layoutInteresActual === 'puntos') {
+        dom.previewInteresItems.style.display = 'flex';
+        dom.previewInteresFotoWrap.style.display = 'none';
+        dom.previewInteresItems.innerHTML = interesItems
+          .filter(texto => texto.trim())
+          .map(texto => `
+            <li>
+              <span class="interes-list-bullet">➜</span>
+              <span>${parsearNegrita(texto)}</span>
+            </li>
+          `).join('');
+      } else {
+        dom.previewInteresItems.style.display = 'none';
+        dom.previewInteresFotoWrap.style.display = 'block';
+        if (fotoTablaInteresB64) {
+          dom.imgFotoTablaRender.src = fotoTablaInteresB64;
+          dom.imgFotoTablaRender.style.display = 'block';
+        } else {
+          dom.imgFotoTablaRender.style.display = 'none';
+        }
+      }
+
+      if (dom.checkInteresAlerta.checked) {
+        dom.previewInteresAlertaWrap.style.display = 'flex';
+        dom.previewInteresAlertaTexto.innerHTML = parsearNegrita(dom.inputInteresAlertaTexto.value);
+        dom.previewInteresAlertaSubtexto.innerHTML = parsearNegrita(dom.inputInteresAlertaSubtexto.value);
+      } else {
+        dom.previewInteresAlertaWrap.style.display = 'none';
+      }
+
+      setTimeout(ajustarEscalaVista, 20);
+    }
+
+    function renderFormularioBoletin() {
+      dom.boletinNoticiasContainer.innerHTML = '';
+      boletinNoticias.forEach((texto, idx) => {
+        const row = document.createElement('div');
+        row.className = 'detail-main-row';
+        row.innerHTML = `
+          <button type="button" class="btn-move" onclick="moverItemBoletin('noticias', ${idx}, -1)" ${idx === 0 ? 'disabled' : ''} title="Subir">▲</button>
+          <button type="button" class="btn-move" onclick="moverItemBoletin('noticias', ${idx}, 1)" ${idx === boletinNoticias.length - 1 ? 'disabled' : ''} title="Bajar">▼</button>
+          <input type="text" id="inBoletinNoticia_${idx}" value="${texto.replace(/"/g, '&quot;')}" oninput="actualizarTextoBoletin('noticias', ${idx}, this.value)" style="flex:1;">
+          <button type="button" class="btn-bold-inline" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inBoletinNoticia_${idx}')"><strong>B</strong></button>
+          <button type="button" class="btn-delete" onclick="eliminarItemBoletin('noticias', ${idx})">×</button>
+        `;
+        dom.boletinNoticiasContainer.appendChild(row);
+      });
+
+      dom.boletinDatosContainer.innerHTML = '';
+      boletinDatos.forEach((texto, idx) => {
+        const row = document.createElement('div');
+        row.className = 'detail-main-row';
+        row.innerHTML = `
+          <button type="button" class="btn-move" onclick="moverItemBoletin('datos', ${idx}, -1)" ${idx === 0 ? 'disabled' : ''} title="Subir">▲</button>
+          <button type="button" class="btn-move" onclick="moverItemBoletin('datos', ${idx}, 1)" ${idx === boletinDatos.length - 1 ? 'disabled' : ''} title="Bajar">▼</button>
+          <input type="text" id="inBoletinDato_${idx}" value="${texto.replace(/"/g, '&quot;')}" oninput="actualizarTextoBoletin('datos', ${idx}, this.value)" style="flex:1;">
+          <button type="button" class="btn-bold-inline" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inBoletinDato_${idx}')"><strong>B</strong></button>
+          <button type="button" class="btn-delete" onclick="eliminarItemBoletin('datos', ${idx})">×</button>
+        `;
+        dom.boletinDatosContainer.appendChild(row);
+      });
+    }
+
+    function moverItemBoletin(seccion, index, direccion) {
+      const arr = seccion === 'noticias' ? boletinNoticias : boletinDatos;
+      const nuevoIndex = index + direccion;
+      if (nuevoIndex < 0 || nuevoIndex >= arr.length) return;
+      const temp = arr[index];
+      arr[index] = arr[nuevoIndex];
+      arr[nuevoIndex] = temp;
+      renderFormularioBoletin();
+      actualizarVistaBoletin();
+      guardarHistorial(true);
+    }
+
+    function agregarItemBoletin(seccion) {
+      if (seccion === 'noticias') {
+        boletinNoticias.push('');
+      } else {
+        boletinDatos.push('');
+      }
+      renderFormularioBoletin();
+      actualizarVistaBoletin();
+      guardarHistorial(true);
+    }
+
+    function eliminarItemBoletin(seccion, idx) {
+      if (seccion === 'noticias') {
+        boletinNoticias.splice(idx, 1);
+      } else {
+        boletinDatos.splice(idx, 1);
+      }
+      renderFormularioBoletin();
+      actualizarVistaBoletin();
+      guardarHistorial(true);
+    }
+
+    function actualizarTextoBoletin(seccion, idx, valor) {
+      if (seccion === 'noticias') {
+        boletinNoticias[idx] = valor;
+      } else {
+        boletinDatos[idx] = valor;
+      }
+      actualizarVistaBoletin();
+      guardarHistorial(false);
+    }
+
+    function actualizarVistaBoletin() {
+      dom.previewBoletinSaludo.innerHTML = parsearNegrita(dom.inputBoletinSaludo.value);
+      dom.previewBoletinIntro.innerHTML = parsearNegrita(dom.inputBoletinIntro.value);
+      dom.previewBoletinTituloDatos.innerHTML = parsearNegrita(dom.inputBoletinTituloDatos.value);
+      dom.previewBoletinFecha.innerText = dom.inputBoletinFecha.value;
+
+      if (logoValoresBoletinB64) {
+        dom.imgLogoValoresBoletin.src = logoValoresBoletinB64;
+        dom.imgLogoValoresBoletin.style.display = 'block';
+        dom.logoValoresPlaceholder.style.display = 'none';
+        if (dom.statusLogoValores) {
+          dom.statusLogoValores.innerHTML = '<span style="color:#10b981;">✓ Logo cargado correctamente</span>';
+        }
+      } else {
+        dom.imgLogoValoresBoletin.removeAttribute('src');
+        dom.imgLogoValoresBoletin.style.display = 'none';
+        dom.logoValoresPlaceholder.style.display = 'flex';
+        if (dom.statusLogoValores) {
+          dom.statusLogoValores.innerText = 'Ningún logo cargado (se muestra el cuadro gris auxiliar)[cite: 3].';
+        }
+      }
+
+      dom.previewBoletinListaNoticias.innerHTML = boletinNoticias
+        .filter(t => t.trim())
+        .map(t => `
+          <li class="boletin-item-row">
+            <span class="boletin-item-arrow">➔</span>
+            <span>${parsearNegrita(t)}</span>
+          </li>
+        `).join('');
+
+      dom.previewBoletinListaDatos.innerHTML = boletinDatos
+        .filter(t => t.trim())
+        .map(t => `
+          <li class="boletin-item-row">
+            <span class="boletin-item-star">★</span>
+            <span>${parsearNegrita(t)}</span>
+          </li>
+        `).join('');
+
+      setTimeout(ajustarEscalaVista, 20);
+    }
+
+    function ajustarTamanoLogos(val) {
+      const v = parseInt(val, 10);
+      dom.root.style.setProperty('--logo-img-height', `${v}px`);
+      dom.root.style.setProperty('--logo-badge-height', `${v + 10}px`);
+      dom.valorTamanoLogo.innerText = `${v}px`;
+    }
+
+    function ajustarEscalaVista() {
+      if (!dom.stage || !dom.cardWrap) return;
+      let cardVisible = null;
+      if (modoAppActual === 'noticia') cardVisible = dom.cardNoticia;
+      else if (modoAppActual === 'boletin') cardVisible = dom.cardBoletin;
+      else if (modoAppActual === 'interes') cardVisible = dom.cardInteres;
+      else if (modoAppActual === 'documentos') cardVisible = dom.cardDocumentos;
+
+      if (!cardVisible || cardVisible.style.display === 'none') return;
+
+      const s = getComputedStyle(dom.stage);
+      const availW = dom.stage.clientWidth - parseFloat(s.paddingLeft) - parseFloat(s.paddingRight);
+      const availH = dom.stage.clientHeight - parseFloat(s.paddingTop) - parseFloat(s.paddingBottom);
+      const totalH = dom.cardWrap.scrollHeight || 600;
+      const cardW = modoAppActual === 'documentos' ? 360 : 960;
+      const scale = Math.min(1, availW / cardW, availH / totalH);
+
+      dom.cardWrap.style.transform = `scale(${scale})`;
+      dom.cardWrap.style.transformOrigin = 'center center';
+    }
+
+    function cambiarTipo(tipo, rellenarDatos, guardar = true) {
+      tipoActual = tipo;
+      const area = CONFIG_AREAS[tipo];
+
+      dom.root.style.setProperty('--primary', area.colors.primary);
+      dom.root.style.setProperty('--primary-dark', area.colors.dark);
+      dom.root.style.setProperty('--dark', area.colors.dark);
+      dom.root.style.setProperty('--bg-card', area.colors.bg);
+
+      document.querySelectorAll('#tipoSelectorContainer .tipo-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tipo === tipo);
+      });
+
+      const esGlobal = tipo === 'global';
+      const esJefatura = tipo === 'jefatura';
+
+      dom.cardNoticia.classList.toggle('is-global', esGlobal);
+      dom.cardNoticia.classList.toggle('is-jefatura', esJefatura);
+
+      document.getElementById('grpEncabezadoJefatura').style.display = esJefatura ? 'flex' : 'none';
+      document.getElementById('grpTitulo').style.display = esGlobal ? 'none' : 'flex';
+      document.getElementById('grpIntro').style.display = esGlobal ? 'none' : 'flex';
+      document.getElementById('grpLogos').style.display = esGlobal ? 'none' : 'flex';
+      document.getElementById('grpRutaCompleta').style.display = esGlobal ? 'none' : 'flex';
+      document.getElementById('grpOpcionImagen').style.display = esGlobal ? 'none' : 'flex';
+
+      if (rellenarDatos) {
+        if (esJefatura) {
+          dom.inputJefaturaTag1.value = area.defaults.tag1;
+          dom.inputJefaturaTag2.value = area.defaults.tag2;
+        }
+        dom.inputTitulo.value = area.defaults.titulo;
+        dom.inputIntro.value = area.defaults.intro;
+        dom.inputTituloDetalles.value = area.defaults.tituloDetalles;
+        dom.inputRuta.value = area.defaults.ruta || '';
+        dom.inputImportante.value = area.defaults.importante || '';
+        dom.checkImportante.checked = !!area.defaults.importante;
+        dom.wrapperInputImportante.style.display = dom.checkImportante.checked ? 'flex' : 'none';
+
+        dataDetalles = JSON.parse(JSON.stringify(area.defaults.detalles));
+        dataLogos = [];
+        renderFormularioDetalles();
+        renderFormularioLogos();
+      }
+
+      actualizarVista();
+      if (guardar) guardarHistorial(true);
+    }
+
+    function renderFormularioDetalles() {
+      dom.detailsContainer.innerHTML = '';
+      dataDetalles.forEach((item, pIdx) => {
+        const card = document.createElement('div');
+        card.className = 'detail-card';
+
+        const subItemsHtml = (item.subitems || []).map((sub, sIdx) => `
+          <div class="subitem-row">
+            <button type="button" class="btn-move" onclick="moverSubpunto(${pIdx}, ${sIdx}, -1)" ${sIdx === 0 ? 'disabled' : ''} title="Subir subpunto">▲</button>
+            <button type="button" class="btn-move" onclick="moverSubpunto(${pIdx}, ${sIdx}, 1)" ${sIdx === item.subitems.length - 1 ? 'disabled' : ''} title="Bajar subpunto">▼</button>
+            <input type="text" id="inSub_${pIdx}_${sIdx}" placeholder="Punto (●)..." value="${sub.replace(/"/g, '&quot;')}" oninput="actualizarSubpunto(${pIdx}, ${sIdx}, this.value)" style="flex:1">
+            <button type="button" class="btn-bold-inline" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inSub_${pIdx}_${sIdx}')"><strong>B</strong></button>
+            <button type="button" class="btn-delete" onclick="eliminarSubpunto(${pIdx}, ${sIdx})">×</button>
+          </div>
+        `).join('');
+
+        const tieneTextoPrincipal = item.texto.trim().length > 0;
+        const placeholderPrincipal = tieneTextoPrincipal ? "Punto principal (➔)..." : "Dejar en blanco para mostrar SOLO puntos (●)...";
+
+        card.innerHTML = `
+          <div class="detail-main-row">
+            <button type="button" class="btn-move" onclick="moverPuntoPrincipal(${pIdx}, -1)" ${pIdx === 0 ? 'disabled' : ''} title="Subir punto">▲</button>
+            <button type="button" class="btn-move" onclick="moverPuntoPrincipal(${pIdx}, 1)" ${pIdx === dataDetalles.length - 1 ? 'disabled' : ''} title="Bajar punto">▼</button>
+            <input type="text" id="inPunto_${pIdx}" placeholder="${placeholderPrincipal}" value="${item.texto.replace(/"/g, '&quot;')}" oninput="actualizarPunto(${pIdx}, this.value)" style="flex:1; font-weight:600;">
+            <button type="button" class="btn-bold-inline" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inPunto_${pIdx}')"><strong>B</strong></button>
+            <button type="button" class="btn-delete" onclick="eliminarPuntoPrincipal(${pIdx})">×</button>
+          </div>
+          <div class="subitems-wrapper" style="${!tieneTextoPrincipal ? 'margin-left: 0; padding-left: 4px; border-left: 2px dashed #94a3b8;' : ''}">
+            ${subItemsHtml}
+            <button type="button" class="btn-add-sub" onclick="agregarSubpunto(${pIdx})">+ Agregar Punto (●)</button>
+          </div>
+        `;
+        dom.detailsContainer.appendChild(card);
+      });
+    }
+
+    function moverPuntoPrincipal(index, direccion) {
+      const nuevoIndex = index + direccion;
+      if (nuevoIndex < 0 || nuevoIndex >= dataDetalles.length) return;
+      const temp = dataDetalles[index];
+      dataDetalles[index] = dataDetalles[nuevoIndex];
+      dataDetalles[nuevoIndex] = temp;
+      renderFormularioDetalles();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function moverSubpunto(pIdx, sIdx, direccion) {
+      const arr = dataDetalles[pIdx].subitems;
+      const nuevoIndex = sIdx + direccion;
+      if (nuevoIndex < 0 || nuevoIndex >= arr.length) return;
+      const temp = arr[sIdx];
+      arr[sIdx] = arr[nuevoIndex];
+      arr[nuevoIndex] = temp;
+      renderFormularioDetalles();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function agregarPuntoPrincipal() {
+      dataDetalles.push({ texto: '', subitems: [] });
+      renderFormularioDetalles();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function agregarSoloPuntosDirectos() {
+      dataDetalles.push({ texto: '', subitems: [''] });
+      renderFormularioDetalles();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function eliminarPuntoPrincipal(i) {
+      dataDetalles.splice(i, 1);
+      renderFormularioDetalles();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+    function actualizarPunto(i, v) { 
+      dataDetalles[i].texto = v; 
+      actualizarVista();
+      guardarHistorial(false);
+    }
+    function agregarSubpunto(i) {
+      dataDetalles[i].subitems.push('');
+      renderFormularioDetalles();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+    function eliminarSubpunto(p, s) {
+      dataDetalles[p].subitems.splice(s, 1);
+      renderFormularioDetalles();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+    function actualizarSubpunto(p, s, v) { 
+      dataDetalles[p].subitems[s] = v; 
+      actualizarVista();
+      guardarHistorial(false);
+    }
+
+    function insertarFlechaRuta() {
+      const el = dom.inputRuta;
+      const start = el.selectionStart ?? el.value.length;
+      const end = el.selectionEnd ?? start;
+      el.value = el.value.slice(0, start) + '➔' + el.value.slice(end);
+      el.focus();
+      el.setSelectionRange(start + 1, start + 1);
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function renderFormularioLogos() {
+      dom.logosBuilder.innerHTML = '';
+      dataLogos.forEach((logo, idx) => {
+        const row = document.createElement('div');
+        row.className = 'logo-item-row';
+        
+        if (logo.tipo === 'texto') {
+          row.innerHTML = `
+            <input type="text" value="${logo.valor.replace(/"/g, '&quot;')}" placeholder="Nombre de la institución..." oninput="actualizarTextoLogo(${idx}, this.value)" style="flex:1">
+            <label class="upload-btn-label">
+              Subir PNG
+              <input type="file" accept="image/*" style="display:none" onchange="cargarArchivoLogoManual(${idx}, this)">
+            </label>
+            <button type="button" class="btn-delete" onclick="eliminarLogo(${idx})">×</button>
+          `;
+        } else {
+          row.innerHTML = `
+            <div style="flex:1; display:flex; align-items:center; gap:8px; background:#f1f5f9; padding:6px 12px; border-radius:6px; border:1px solid #cbd5e1;">
+              <img src="${logo.valor}" style="height:32px; max-width:80px; object-fit:contain;">
+              <span style="font-size:11px; color:#10b981; font-weight:600;">✓ Guardado en sesión</span>
+            </div>
+            <button type="button" class="upload-btn-label" onclick="cambiarATextoLogo(${idx})">Modo Texto</button>
+            <button type="button" class="btn-delete" onclick="eliminarLogo(${idx})">×</button>
+          `;
+        }
+        dom.logosBuilder.appendChild(row);
+      });
+    }
+
+    function actualizarTextoLogo(idx, valor) {
+      dataLogos[idx].valor = valor;
+      const clave = valor.trim().toLowerCase().replace(/\s+/g, '_');
+      const enSesion = sessionStorage.getItem(`sesion_logo_${clave}`);
+      if (enSesion) {
+        dataLogos[idx] = { tipo: 'imagen', valor: enSesion, nombre: valor };
+        renderFormularioLogos();
+      }
+      actualizarVista();
+      guardarHistorial(false);
+    }
+
+    function agregarLogoItem() {
+      dataLogos.push({ tipo: 'texto', valor: '' });
+      renderFormularioLogos();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function eliminarLogo(i) {
+      dataLogos.splice(i, 1);
+      renderFormularioLogos();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function cambiarATextoLogo(i) {
+      const nombreActual = dataLogos[i].nombre || '';
+      dataLogos[i] = { tipo: 'texto', valor: nombreActual };
+      renderFormularioLogos();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function cargarArchivoLogoManual(idx, inputElement) {
+      if (!inputElement.files[0]) return;
+      const nombre = dataLogos[idx].valor || 'institucion';
+      const clave = nombre.trim().toLowerCase().replace(/\s+/g, '_');
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const b64 = e.target.result;
+        if (clave) {
+          sessionStorage.setItem(`sesion_logo_${clave}`, b64);
+        }
+        dataLogos[idx] = { tipo: 'imagen', valor: b64, nombre: nombre };
+        renderFormularioLogos();
+        actualizarVista();
+        guardarHistorial(true);
+      };
+      reader.readAsDataURL(inputElement.files[0]);
+    }
+
+    function actualizarVista() {
+      const areaCfg = CONFIG_AREAS[tipoActual];
+      const bulletChar = tipoActual === 'global' ? '●' : '➔';
+
+      const bulletsHtml = dataDetalles
+        .filter(d => d.texto.trim() || (d.subitems && d.subitems.some(s => s.trim())))
+        .map(item => {
+          const tienePrincipal = item.texto.trim().length > 0;
+          const subs = (item.subitems || []).filter(s => s.trim()).map(s => 
+            `<li><span class="sublista-bullet">●</span><span>${parsearNegrita(s)}</span></li>`
+          ).join('');
+
+          if (tienePrincipal) {
+            return `
+              <li>
+                <div class="item-principal-row">
+                  <span class="bullet-marker">${bulletChar}</span>
+                  <span>${parsearNegrita(item.texto)}</span>
+                </div>
+                ${subs ? `<ul class="sublista">${subs}</ul>` : ''}
+              </li>
+            `;
+          } else {
+            return `
+              <li>
+                <ul class="sublista sin-padre">${subs}</ul>
+              </li>
+            `;
+          }
+        }).join('');
+
+      const importanteHtml = dom.checkImportante.checked && dom.inputImportante.value.trim()
+        ? (tipoActual === 'jefatura' 
+            ? `<div class="alerta-jefatura"><span class="triangulo-alerta">⚠</span><span>${parsearNegrita(dom.inputImportante.value.trim())}</span></div>`
+            : `<div class="important-notice"><span style="color:#d97706; margin-right:6px; font-weight:800;">⚠</span><span>${parsearNegrita(dom.inputImportante.value.trim())}</span></div>`
+          )
+        : '';
+
+      const logosHtml = dataLogos.filter(l => (l.valor && l.valor.trim()) || l.tipo === 'imagen').map(l => {
+        if (l.tipo === 'texto') {
+          return `<div class="partner-badge"><span>${l.valor}</span></div>`;
+        }
+        return `<div class="partner-badge"><img src="${l.valor}" alt="Logo Institucional"></div>`;
+      }).join('');
+
+      const rutaHtml = dom.checkRuta.checked && dom.inputRuta.value.trim()
+        ? `<div class="footer-text">Detalles disponibles en: <strong>${parsearNegrita(dom.inputRuta.value.trim())}</strong></div>`
+        : '';
+
+      const footerHtml = (rutaHtml || logosHtml)
+        ? `<hr class="footer-divider"><div class="footer-content">${rutaHtml}${logosHtml ? `<div class="footer-logos-box">${logosHtml}</div>` : ''}</div>`
+        : '';
+
+      // CÁLCULO PROPORCIONAL DE TAMAÑO PARA CONTENEDOR E IMAGEN
+      const factorEscala = (escalaImagenNoticia / 100);
+      const flexVisual = (1.25 * factorEscala).toFixed(2);
+      const alturaContenedor = Math.round(380 * factorEscala);
+
+      if (tipoActual === 'jefatura') {
+        const tag1 = dom.inputJefaturaTag1.value.trim();
+        const tag2 = dom.inputJefaturaTag2.value.trim();
+
+        if (tieneImagen) {
+          const visual = imagenNoticiaB64 
+            ? `<img src="${imagenNoticiaB64}" alt="Captura">`
+            : `<span style="font-size:12px; font-weight:700; color:#94a3b8; text-align:center; padding:25px; width:100%;">Carga o pega una captura aquí</span>`;
+
+          dom.contentArea.innerHTML = `
+            <div class="header-jefatura">
+              <div class="titular-lideres">
+                <span class="palabra-atencion">${tag1}</span>
+                <span class="palabra-lideres">${tag2}</span>
+              </div>
+              <div class="subtitulo-jefatura">${parsearNegrita(dom.inputTitulo.value)}</div>
+            </div>
+            <div class="layout-con-imagen">
+              <div class="col-texto-imagen">
+                <p class="intro-jefatura" style="margin-bottom:0;">${parsearNegrita(dom.inputIntro.value)}</p>
+                ${dom.checkPuntos.checked && bulletsHtml ? `<div class="detalles-titulo-jefatura">${parsearNegrita(dom.inputTituloDetalles.value)}</div><ul class="lista-items">${bulletsHtml}</ul>` : ''}
+              </div>
+              <div class="col-visual-imagen" style="flex: ${flexVisual}; height: ${alturaContenedor}px;">${visual}</div>
+            </div>
+            ${importanteHtml}${footerHtml}
+          `;
+        } else {
+          dom.contentArea.innerHTML = `
+            <div class="header-jefatura">
+              <div class="titular-lideres">
+                <span class="palabra-atencion">${tag1}</span>
+                <span class="palabra-lideres">${tag2}</span>
+              </div>
+              <div class="subtitulo-jefatura">${parsearNegrita(dom.inputTitulo.value)}</div>
+            </div>
+            <p class="intro-jefatura">${parsearNegrita(dom.inputIntro.value)}</p>
+            ${dom.checkPuntos.checked && bulletsHtml ? `<div class="detalles-titulo-jefatura">${parsearNegrita(dom.inputTituloDetalles.value)}</div><ul class="lista-items">${bulletsHtml}</ul>` : ''}
+            ${importanteHtml}${footerHtml}
+          `;
+        }
+      } else if (tipoActual === 'global') {
+        dom.contentArea.innerHTML = `
+          <h1 class="titulo-principal">${parsearNegrita(dom.inputTitulo.value)}</h1>
+          <div class="divider-header"></div>
+          <div style="display:flex; gap:36px; align-items:flex-start;">
+            <div class="col-izquierda-global">
+              <div class="subtitulo-lateral">
+                <span style="font-size:16px; line-height:1.2;">●</span>
+                <span>${parsearNegrita(dom.inputTituloDetalles.value)}</span>
+              </div>
+              <div class="box-icono-equipo"><i class="fi ${areaCfg.icon}"></i></div>
+            </div>
+            <div style="flex:1; padding-top:4px;"><ul class="lista-items" style="gap:14px;">${bulletsHtml}</ul></div>
+          </div>
+          ${importanteHtml}${footerHtml}
+        `;
+      } else if (tieneImagen) {
+        const visual = imagenNoticiaB64 
+          ? `<img src="${imagenNoticiaB64}" alt="Captura">`
+          : `<span style="font-size:12px; font-weight:700; color:#94a3b8; text-align:center; padding:25px; width:100%;">Carga o pega una captura aquí</span>`;
+
+        dom.contentArea.innerHTML = `
+          ${SVG_MEGAFONO}
+          <div class="header-titles">
+            <div class="categoria">${areaCfg.nombre}</div>
+            <div class="titulo-noticia">${parsearNegrita(dom.inputTitulo.value)}</div>
+          </div>
+          <div class="layout-con-imagen">
+            <div class="col-texto-imagen">
+              <p style="font-size:14px; line-height:1.55; color:#1e293b;">${parsearNegrita(dom.inputIntro.value)}</p>
+              ${dom.checkPuntos.checked && bulletsHtml ? `<div class="detalles-titulo">${parsearNegrita(dom.inputTituloDetalles.value)}</div><ul class="lista-items">${bulletsHtml}</ul>` : ''}
+            </div>
+            <div class="col-visual-imagen" style="flex: ${flexVisual}; height: ${alturaContenedor}px;">${visual}</div>
+          </div>
+          ${importanteHtml}${footerHtml}
+        `;
+      } else {
+        const cuerpoCentral = dom.checkPuntos.checked
+          ? `<div class="detalles-titulo">${parsearNegrita(dom.inputTituloDetalles.value)}</div><ul class="lista-items">${bulletsHtml}</ul>`
+          : `<p class="intro-text intro-lateral">${parsearNegrita(dom.inputIntro.value)}</p>`;
+
+        dom.contentArea.innerHTML = `
+          ${SVG_MEGAFONO}
+          <div class="header-titles">
+            <div class="categoria">${areaCfg.nombre}</div>
+            <div class="titulo-noticia">${parsearNegrita(dom.inputTitulo.value)}</div>
+          </div>
+          ${dom.checkPuntos.checked ? `<p class="intro-text">${parsearNegrita(dom.inputIntro.value)}</p>` : ''}
+          <div class="cuerpo-noticia">
+            <div class="box-icono"><i class="fi ${areaCfg.icon}"></i></div>
+            <div class="detalles-container">${cuerpoCentral}</div>
+          </div>
+          ${importanteHtml}${footerHtml}
+        `;
+      }
+
+      // RENDER SELLO FLOTANTE
+      if (modoAppActual === 'noticia' && tieneSello && selloB64) {
+        dom.previewSelloBox.style.display = 'flex';
+        dom.imgSelloRender.src = selloB64;
+        dom.imgSelloRender.style.display = 'block';
+        aplicarEstilosSello();
+      } else {
+        dom.previewSelloBox.style.display = 'none';
+        dom.imgSelloRender.style.display = 'none';
+      }
+
+      const mostrarAccesosYFlecha = (modoAppActual === 'noticia' && tieneFlechaExterna);
+
+      dom.previewFlechaExterna.style.display = mostrarAccesosYFlecha ? 'block' : 'none';
+      dom.wrapperBloqueAccesos.style.display = (modoAppActual === 'noticia' && tieneFlechaExterna) ? 'flex' : 'none';
+
+      if (mostrarAccesosYFlecha && dataAccesosExternos.length > 0) {
+        dom.previewAccesosExternos.style.display = 'flex';
+        dom.previewAccesosExternos.innerHTML = dataAccesosExternos.map((acc, idx) => `
+          <div id="btnAccesoExport_${idx}" class="btn-acceso-card">
+            <div class="btn-acceso-titulo">${acc.titulo || 'Formulario'}</div>
+            <div class="btn-acceso-subtitulo">${acc.subtitulo || 'ACCESO'}</div>
+          </div>
+        `).join('');
+      } else {
+        dom.previewAccesosExternos.style.display = 'none';
+        dom.previewAccesosExternos.innerHTML = '';
+      }
+
+      setTimeout(ajustarEscalaVista, 20);
+    }
+
+    /* MODO 4: LÓGICA DE DOCUMENTO PORTAL OPERACIONES (DISEÑO SOBRIO CON PDF) */
+    function renderFormularioDocPortal() {
+      const inTitulo = document.getElementById('inDocTituloTurquesa');
+      const inArea = document.getElementById('inDocAreaVerde');
+      const inFecha = document.getElementById('inDocFecha');
+
+      if (inTitulo) inTitulo.value = dataDocPortal.tituloTurquesa;
+      if (inArea) inArea.value = dataDocPortal.areaVerde;
+      if (inFecha) inFecha.value = dataDocPortal.fecha;
+
+      document.getElementById('btnAppSheets').classList.toggle('active', dataDocPortal.appDrive === 'sheets');
+      document.getElementById('btnAppSlides').classList.toggle('active', dataDocPortal.appDrive === 'slides');
+      document.getElementById('btnAppPdf').classList.toggle('active', dataDocPortal.appDrive === 'pdf');
+    }
+
+    function cambiarAppDrive(app) {
+      dataDocPortal.appDrive = app;
+      document.getElementById('btnAppSheets').classList.toggle('active', app === 'sheets');
+      document.getElementById('btnAppSlides').classList.toggle('active', app === 'slides');
+      document.getElementById('btnAppPdf').classList.toggle('active', app === 'pdf');
+      actualizarVistaDocPortal();
+      guardarHistorial(true);
+    }
+
+    function actualizarVistaDocPortal() {
+      const card = document.getElementById('docExportUnico');
+      const badgeText = document.getElementById('docPortalAppBadge');
+
+      card.classList.remove('is-slides', 'is-pdf');
+
+      if (dataDocPortal.appDrive === 'slides') {
+        card.classList.add('is-slides');
+        badgeText.innerText = 'Presentación';
+      } else if (dataDocPortal.appDrive === 'pdf') {
+        card.classList.add('is-pdf');
+        badgeText.innerText = 'Documento PDF';
+      } else {
+        badgeText.innerText = 'Hoja de cálculo';
+      }
+
+      document.getElementById('previewDocTituloTurquesa').innerHTML = parsearNegrita(dataDocPortal.tituloTurquesa || 'Nombre del documento');
+      document.getElementById('previewDocAreaVerde').innerText = dataDocPortal.areaVerde || 'Área';
+      document.getElementById('previewDocFecha').innerText = dataDocPortal.fecha || '';
+      setTimeout(ajustarEscalaVista, 20);
+    }
+
+    function descargarDocumentoPNG() {
+      const el = document.getElementById('docExportUnico');
+      if (!el) return;
+      const tituloSafe = (dataDocPortal.tituloTurquesa || 'Documento').trim().replace(/[^a-zA-Z0-9]/g, '_');
+
+      html2canvas(el, {
+        scale: 3,
+        backgroundColor: null
+      }).then(canvas => {
+        const a = document.createElement('a');
+        a.download = `Doc_${tituloSafe}_${(dataDocPortal.areaVerde || '').trim().replace(/[^a-zA-Z0-9]/g, '_')}.png`;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      });
+    }
+
+    function descargarPNG() {
+      const cardVisible = modoAppActual === 'boletin'
+        ? dom.cardBoletin
+        : modoAppActual === 'interes' ? dom.cardInteres : dom.cardNoticia;
+      let nombreArchivo = '';
+
+      if (modoAppActual === 'boletin') {
+        nombreArchivo = dom.inputBoletinFecha.value.trim().replace(/[^a-zA-Z0-9]/g, '_') + '.png';
+      } else if (modoAppActual === 'interes') {
+        nombreArchivo = `Datos_Interes_${dom.inputInteresTitulo.value.trim().substring(0, 24).replace(/[^a-zA-Z0-9]/g, '_')}.png`;
+      } else {
+        const tituloSafe = dom.inputTitulo.value.trim().substring(0, 20).replace(/[^a-zA-Z0-9]/g, '_');
+        nombreArchivo = tipoActual === 'global' ? 'Lamina_GLOBAL_VisionGlobal.png' : (tipoActual === 'jefatura' ? `Lamina_JEFATURA_${tituloSafe}.png` : `Lamina_${tipoActual.toUpperCase()}_${tituloSafe}.png`);
+      }
+
+      const transformOriginal = dom.cardWrap.style.transform;
+      const w = selloPos.width || 120;
+      const h = selloPos.height || Math.round(w / (selloPos.ratio || 1));
+      
+      if (dom.selloResizeHandle) dom.selloResizeHandle.style.display = 'none';
+      if (dom.previewSelloBox) {
+        dom.previewSelloBox.style.outline = 'none';
+        dom.previewSelloBox.style.width = `${w}px`;
+        dom.previewSelloBox.style.height = `${h}px`;
+      }
+      dom.cardWrap.style.transform = 'none';
+
+      // Cálculo de límites del sello si sobresale de la tarjeta para no cortarlo
+      let extraX = 0;
+      let extraY = 0;
+      let extraW = 0;
+      let extraH = 0;
+
+      if (modoAppActual === 'noticia' && tieneSello) {
+        if (selloPos.x < 0) extraX = Math.abs(selloPos.x);
+        if (selloPos.y < 0) extraY = Math.abs(selloPos.y);
+        
+        const cardW = cardVisible.offsetWidth;
+        const cardH = cardVisible.offsetHeight;
+        
+        if (selloPos.x + w > cardW) extraW = (selloPos.x + w) - cardW;
+        if (selloPos.y + h > cardH) extraH = (selloPos.y + h) - cardH;
+      }
+
+      const extraAltoFlecha = (modoAppActual === 'noticia' && tieneFlechaExterna) ? 105 : 0;
+      const finalExtraH = Math.max(extraH, extraAltoFlecha);
+
+      html2canvas(cardVisible, { 
+        scale: 2, 
+        backgroundColor: null,
+        x: -extraX,
+        y: -extraY,
+        width: cardVisible.offsetWidth + extraX + extraW,
+        height: cardVisible.offsetHeight + extraY + finalExtraH
+      }).then(canvas => {
+        dom.cardWrap.style.transform = transformOriginal;
+        if (dom.selloResizeHandle) dom.selloResizeHandle.style.display = 'block';
+        if (dom.previewSelloBox) dom.previewSelloBox.style.outline = '';
+
+        const a = document.createElement('a');
+        a.download = nombreArchivo;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      }).catch(err => {
+        dom.cardWrap.style.transform = transformOriginal;
+        if (dom.selloResizeHandle) dom.selloResizeHandle.style.display = 'block';
+        if (dom.previewSelloBox) dom.previewSelloBox.style.outline = '';
+        console.error(err);
+      });
+    }
+
+    function init() {
+      setupEvents();
+      setupSelloInteractivo();
+      
+      tieneSello = false;
+      selloB64 = '';
+      tieneFlechaExterna = false;
+      dom.checkFlechaExterna.checked = false;
+
+      cambiarTipo('jefatura', false, false);
+      ajustarTamanoLogos(44);
+      renderFormularioDetalles();
+      renderFormularioLogos();
+      renderFormularioAccesos();
+      renderFormularioBoletin();
+      renderFormularioInteres();
+      renderFormularioDocPortal();
+      actualizarVista();
+      actualizarVistaBoletin();
+      actualizarVistaInteres();
+      actualizarVistaDocPortal();
+
+      guardarHistorial(true);
+    }
+
+    function setupEvents() {
+      document.getElementById('tipoSelectorContainer').addEventListener('click', (e) => {
+        const btn = e.target.closest('.tipo-btn');
+        if (btn && btn.dataset.tipo) cambiarTipo(btn.dataset.tipo, true, true);
+      });
+
+      [
+        dom.inputTitulo, dom.inputIntro, dom.inputTituloDetalles, dom.inputRuta, dom.inputImportante, dom.inputJefaturaTag1, dom.inputJefaturaTag2,
+        dom.inputBoletinSaludo, dom.inputBoletinIntro, dom.inputBoletinTituloDatos, dom.inputBoletinFecha,
+        dom.inputInteresTitulo, dom.inputInteresIntro, dom.inputInteresAlertaTexto, dom.inputInteresAlertaSubtexto
+      ].forEach(el => {
+        if (el) {
+          el.addEventListener('input', () => {
+            if (modoAppActual === 'noticia') actualizarVista();
+            else if (modoAppActual === 'boletin') actualizarVistaBoletin();
+            else if (modoAppActual === 'interes') actualizarVistaInteres();
+            guardarHistorial(false);
+          });
+        }
+      });
+
+      if (dom.sliderEscalaImagen) {
+        dom.sliderEscalaImagen.addEventListener('input', (e) => {
+          escalaImagenNoticia = parseInt(e.target.value, 10);
+          dom.labelEscalaImagen.innerText = `${escalaImagenNoticia}%`;
+          actualizarVista();
+          guardarHistorial(false);
+        });
+      }
+
+      if (dom.inputLogoValoresBoletin) {
+        dom.inputLogoValoresBoletin.addEventListener('change', function() {
+          if (!this.files || !this.files[0]) return;
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            logoValoresBoletinB64 = e.target.result;
+            actualizarVistaBoletin();
+            guardarHistorial(true);
+          };
+          reader.readAsDataURL(this.files[0]);
+        });
+      }
+
+      // Detiene la propagación del evento para que Google Sites no interfiera
+      document.querySelectorAll('input, textarea').forEach(input => {
+        input.addEventListener('keydown', (e) => {
+          if ((e.ctrlKey || e.metaKey) && (e.key === 'z' || e.key === 'y' || e.key === 'Z')) {
+            e.stopPropagation(); // Evita que el evento salga del iframe
+          }
+        });
+      });
+
+      ['inDocTituloTurquesa', 'inDocAreaVerde', 'inDocFecha'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('input', () => {
+            dataDocPortal.tituloTurquesa = document.getElementById('inDocTituloTurquesa').value;
+            dataDocPortal.areaVerde = document.getElementById('inDocAreaVerde').value;
+            dataDocPortal.fecha = document.getElementById('inDocFecha').value;
+            actualizarVistaDocPortal();
+            guardarHistorial(false);
+          });
+        }
+      });
+
+      dom.checkTieneImagen.addEventListener('change', () => {
+        tieneImagen = dom.checkTieneImagen.checked;
+        dom.subirImagenBox.style.display = tieneImagen ? 'flex' : 'none';
+        actualizarVista();
+        guardarHistorial(true);
+      });
+
+      dom.inputArchivoSello.addEventListener('change', function() {
+        if (!this.files[0]) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            selloB64 = e.target.result;
+            tieneSello = true;
+            if (dom.wrapperSelloControles) dom.wrapperSelloControles.style.display = 'flex';
+
+            selloPos.ratio = img.naturalWidth / img.naturalHeight;
+            selloPos.width = Math.min(220, Math.max(80, img.naturalWidth > 200 ? 150 : img.naturalWidth));
+            selloPos.height = Math.round(selloPos.width / selloPos.ratio);
+
+            const cardH = dom.cardNoticia.offsetHeight || 420;
+            selloPos.x = 36;
+            selloPos.y = cardH - selloPos.height - 24;
+
+            dom.imgSelloRender.src = selloB64;
+            dom.previewSelloBox.style.display = 'flex';
+            aplicarEstilosSello();
+            actualizarVista();
+            guardarHistorial(true);
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(this.files[0]);
+      });
+
+      dom.checkFlechaExterna.addEventListener('change', () => {
+        tieneFlechaExterna = dom.checkFlechaExterna.checked;
+        actualizarVista();
+        renderFormularioAccesos();
+        guardarHistorial(true);
+      });
+
+      dom.checkPuntos.addEventListener('change', () => {
+        dom.wrapperDetallesCampos.style.display = dom.checkPuntos.checked ? 'flex' : 'none';
+        actualizarVista();
+        guardarHistorial(true);
+      });
+
+      // AUTOCOMPLETADO INTELIGENTE AL ACTIVAR EL CHECK DE ADVERTENCIA
+      dom.checkImportante.addEventListener('change', () => {
+        dom.wrapperInputImportante.style.display = dom.checkImportante.checked ? 'flex' : 'none';
+        if (dom.checkImportante.checked && !dom.inputImportante.value.trim()) {
+          dom.inputImportante.value = "Recordar que este procedimiento entra en vigencia inmediata en todas las sedes.";
+        }
+        actualizarVista();
+        guardarHistorial(true);
+      });
+
+      // AUTOCOMPLETADO INTELIGENTE AL ACTIVAR EL CHECK DE RUTA
+      dom.checkRuta.addEventListener('change', () => {
+        dom.wrapperInputRuta.style.display = dom.checkRuta.checked ? 'flex' : 'none';
+        if (dom.checkRuta.checked && !dom.inputRuta.value.trim()) {
+          dom.inputRuta.value = "Portal de Operaciones CMD ➔ Documentos ➔ Carpeta General";
+        }
+        actualizarVista();
+        guardarHistorial(true);
+      });
+
+      dom.sliderTamanoLogo.addEventListener('input', (e) => {
+        ajustarTamanoLogos(e.target.value);
+        guardarHistorial(false);
+      });
+
+      document.getElementById('inputArchivoNoticia').addEventListener('change', function() {
+        if (!this.files[0]) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          imagenNoticiaB64 = e.target.result;
+          tieneImagen = true;
+          dom.checkTieneImagen.checked = true;
+          dom.subirImagenBox.style.display = 'flex';
+          actualizarVista();
+          guardarHistorial(true);
+        };
+        reader.readAsDataURL(this.files[0]);
+      });
+
+      dom.inputFotoTablaInteres.addEventListener('change', function() {
+        if (!this.files[0]) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          fotoTablaInteresB64 = e.target.result;
+          actualizarVistaInteres();
+          guardarHistorial(true);
+        };
+        reader.readAsDataURL(this.files[0]);
+      });
+
+      dom.checkInteresAlerta.addEventListener('change', () => {
+        dom.grpInteresAlertaInputs.style.display = dom.checkInteresAlerta.checked ? 'flex' : 'none';
+        actualizarVistaInteres();
+        guardarHistorial(true);
+      });
+
+      window.addEventListener('paste', (e) => {
+        const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+        for (let index in items) {
+          const item = items[index];
+          if (item.kind === 'file' && item.type.startsWith('image/')) {
+            const blob = item.getAsFile();
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              const b64 = event.target.result;
+              if (modoAppActual === 'noticia') {
+                imagenNoticiaB64 = b64;
+                tieneImagen = true;
+                dom.checkTieneImagen.checked = true;
+                dom.subirImagenBox.style.display = 'flex';
+                actualizarVista();
+              } else if (modoAppActual === 'interes') {
+                fotoTablaInteresB64 = b64;
+                cambiarLayoutInteres('foto', true);
+              } else if (modoAppActual === 'boletin') {
+                logoValoresBoletinB64 = b64;
+                actualizarVistaBoletin();
+              }
+              guardarHistorial(true);
+            };
+            reader.readAsDataURL(blob);
+            break;
+          }
+        }
+      });
+
+      // Listener global para atajos de teclado Ctrl+Z y Ctrl+Y
+      document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+          if (e.shiftKey) {
+            e.preventDefault();
+            rehacer();
+          } else {
+            e.preventDefault();
+            deshacer();
+          }
+        } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
+          e.preventDefault();
+          rehacer();
+        }
+      });
+
+      window.addEventListener('resize', ajustarEscalaVista);
+    }
+
+    init();
+  </script>
+</body>
+</html>
