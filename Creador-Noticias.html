@@ -20,6 +20,12 @@
       --bg-card: #eef9fa;
       --logo-badge-height: 54px;
       --logo-img-height: 44px;
+
+      /* Variables Oficiales Botón RedSalud */
+      --btn-corp-logo: #006e7a;
+      --btn-corp-texto: #0097a7;
+      --btn-corp-fondo: #f3f3f3;
+      --btn-corp-borde: #eeeeee;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
@@ -247,7 +253,7 @@
       color: #475569;
       letter-spacing: 0.5px;
     }
-    input[type="text"], textarea {
+    input[type="text"], input[type="number"], textarea, select {
       border: 1.5px solid #cbd5e1;
       border-radius: 8px;
       padding: 8px 12px;
@@ -256,7 +262,7 @@
       outline: none;
       transition: border-color 0.2s;
     }
-    input[type="text"]:focus, textarea:focus { border-color: var(--primary); }
+    input[type="text"]:focus, input[type="number"]:focus, textarea:focus, select:focus { border-color: var(--primary); }
     textarea { resize: vertical; min-height: 75px; }
 
     .tipo-selector {
@@ -395,7 +401,7 @@
       font-weight: 800 !important;
     }
 
-    /* MODO 1: NOTICIA CARD GENERAL */
+    /* MODO NOTICIA GENERAL */
     .noticia-card {
       width: 960px;
       background-color: var(--bg-card);
@@ -466,8 +472,10 @@
     
     .footer-logos-box {
       display: flex;
+      flex-direction: row-reverse;
       align-items: center;
       gap: 12px;
+      margin-left: auto;
       flex-shrink: 0;
     }
 
@@ -564,18 +572,15 @@
       filter: drop-shadow(0 4px 10px rgba(0,0,0,0.18));
       transition: outline 0.15s ease;
     }
-
     .sello-decorativo-box:hover {
       outline: 2px dashed var(--primary);
       outline-offset: 4px;
     }
-
     .sello-decorativo-box.is-dragging {
       cursor: grabbing;
       opacity: 0.85;
       outline: 2px dashed #0284c7 !important;
     }
-
     .sello-decorativo-box img {
       width: 100%;
       height: 100%;
@@ -583,7 +588,6 @@
       display: block;
       pointer-events: none;
     }
-
     .sello-resize-handle {
       position: absolute;
       right: -8px;
@@ -609,7 +613,6 @@
       pointer-events: none;
       z-index: 10;
     }
-
     .flecha-externa-svg {
       width: 78px;
       height: 102px;
@@ -810,7 +813,7 @@
       line-height: 1;
     }
 
-    /* MODO 2: BOLETÍN SEMANAL */
+    /* MODO BOLETÍN */
     .boletin-card {
       width: 580px;
       background-color: #008796;
@@ -864,7 +867,7 @@
       border-top: 1.5px solid rgba(255, 255, 255, 0.15);
     }
 
-    /* MODO 3: DATOS DE INTERÉS */
+    /* MODO DATOS DE INTERÉS */
     .interes-card {
       width: 540px; background-color: #dcf3f5; border-radius: 26px; padding: 20px;
       position: relative; overflow: hidden; flex-shrink: 0; box-shadow: 0 10px 28px rgba(0, 153, 168, 0.15);
@@ -899,9 +902,8 @@
     .interes-alerta-texto { font-size: 11.5px; line-height: 1.45; color: #1e293b; white-space: pre-line; }
     .interes-alerta-subtexto { font-size: 10.5px; line-height: 1.4; color: #64748b; margin-top: 2px; white-space: pre-line; }
 
-    /* MODO 4: DOCUMENTOS OPERACIONES */
+    /* MODO DOCUMENTOS OPERACIONES */
     .docs-grid-stage { display: flex; justify-content: center; align-items: center; width: 100%; }
-
     .doc-portal-card-pro {
       --doc-c: #1E9E5A;
       position: relative;
@@ -919,9 +921,7 @@
     }
     .doc-portal-card-pro.is-slides { --doc-c: #F4B400; }
     .doc-portal-card-pro.is-pdf { --doc-c: #DC2626; }
-
     .doc-portal-stripe { position: absolute; left: 0; top: 0; right: 0; height: 6px; background: var(--doc-c); }
-
     .doc-portal-app-badge {
       display: inline-flex;
       align-items: center;
@@ -935,7 +935,6 @@
       color: #16343A;
     }
     .doc-portal-app-dot { width: 17px; height: 17px; border-radius: 5px; background: var(--doc-c); flex-shrink: 0; }
-
     .doc-portal-area-line {
       margin-top: 24px;
       font-size: 14px;
@@ -951,7 +950,6 @@
       line-height: 1.2;
       word-break: break-word;
     }
-
     .doc-portal-footer-action {
       margin-top: auto;
       padding-top: 22px;
@@ -972,6 +970,159 @@
       line-height: 1.2;
       cursor: default;
     }
+
+    /* MODO 5: CREADOR DE BOTONES OFICIALES REDSALUD (7.41cm x 3.34cm -> 280px x 126px) */
+    .btn-redsalud-canvas-card {
+      width: 280px;
+      height: 126px;
+      background-color: var(--btn-corp-fondo);
+      border: 1px solid var(--btn-corp-borde);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      padding: 12px 18px;
+      gap: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      user-select: none;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .btn-redsalud-icon-slot {
+      width: 78px;
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .btn-redsalud-icon-slot img {
+      max-width: 76px;
+      max-height: 76px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: none;
+    }
+
+    .placeholder-logo-btn {
+      width: 100%;
+      height: 100%;
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      line-height: 1.2;
+      padding: 6px;
+    }
+
+    .btn-redsalud-text-slot {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .btn-redsalud-text-slot span {
+      color: var(--btn-corp-texto);
+      font-size: 13.5px;
+      font-weight: 800;
+      line-height: 1.25;
+      letter-spacing: -0.2px;
+      text-transform: uppercase;
+      white-space: pre-line;
+      word-break: break-word;
+    }
+
+    /* RECUADRO GUÍA DEL COLOR DE LOS LOGOS */
+    .color-guide-box {
+      background: #f0fdfa;
+      border: 1.5px solid #ccfbf1;
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .color-sample {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background-color: var(--btn-corp-logo);
+      border: 1.5px solid rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+    .color-info-text {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .color-info-text span:first-child {
+      font-size: 10px;
+      font-weight: 700;
+      color: #0f766e;
+      text-transform: uppercase;
+    }
+    .color-info-text code {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--btn-corp-logo);
+      font-family: monospace;
+    }
+    .btn-copy-color {
+      background: #ffffff;
+      border: 1px solid #99f6e4;
+      color: #0f766e;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-copy-color:hover {
+      background: var(--btn-corp-logo);
+      color: #ffffff;
+      border-color: var(--btn-corp-logo);
+    }
+
+    .file-input-inline-wrap {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      width: 100%;
+    }
+    .file-input-inline-wrap input[type="file"] {
+      flex: 1;
+      min-width: 0;
+      padding: 6px 8px;
+    }
+    .btn-quitar-logo-inline {
+      background: #fee2e2;
+      border: 1.5px solid #fecaca;
+      color: #ef4444;
+      border-radius: 6px;
+      width: 36px;
+      height: 38px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 18px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    .btn-quitar-logo-inline:hover { background: #fca5a5; }
   </style>
 </head>
 <body>
@@ -984,6 +1135,7 @@
         <button class="mode-tab-btn" id="tabModoBoletin" onclick="cambiarModoApp('boletin')">Boletín Semanal</button>
         <button class="mode-tab-btn" id="tabModoInteres" onclick="cambiarModoApp('interes')">Datos de Interés</button>
         <button class="mode-tab-btn" id="tabModoDocumentos" onclick="cambiarModoApp('documentos')">Documentos Operaciones</button>
+        <button class="mode-tab-btn" id="tabModoBotones" onclick="cambiarModoApp('botones')">Creador de Botones</button>
       </div>
     </div>
     <div class="header-actions">
@@ -1002,11 +1154,11 @@
         <div class="form-group">
           <label>Tipo de Formato</label>
           <div class="tipo-selector" id="tipoSelectorContainer">
-            <div class="tipo-btn" data-tipo="dental">Dental</div>
+            <div class="tipo-btn active" data-tipo="dental">Dental</div>
             <div class="tipo-btn" data-tipo="ambulatoria">Ambulatoria</div>
             <div class="tipo-btn" data-tipo="transversal">Transversal</div>
             <div class="tipo-btn" data-tipo="global">Visión Global</div>
-            <div class="tipo-btn active" data-tipo="jefatura">Jefatura</div>
+            <div class="tipo-btn" data-tipo="jefatura">Jefatura</div>
           </div>
         </div>
 
@@ -1153,7 +1305,7 @@ Este documento establece lineamientos para la gestión comercial en los centros,
             <button type="button" class="btn-delete" id="btnQuitarLogoValores" onclick="quitarLogoValores()" title="Quitar logo" style="height:32px;">×</button>
           </div>
           <div id="statusLogoValores" style="font-size:11px; color:#64748b; font-weight:600; margin-top:2px;">
-            Ningún logo cargado (se muestra el cuadro gris auxiliar)[cite: 3].
+            Ningún logo cargado (se muestra el cuadro gris auxiliar).
           </div>
         </div>
 
@@ -1234,7 +1386,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         <div class="control-block" id="grpInteresFotoTabla" style="display: none;">
           <label>Captura de la Tabla / Matriz</label>
           <input type="file" id="inputFotoTablaInteres" accept="image/*" style="font-size: 12px; width: 100%;">
-          <span style="font-size:11px; color:#64748b;">Sube la foto de la tabla para mostrarla a ancho completo[cite: 1, 3].</span>
+          <span style="font-size:11px; color:#64748b;">Sube la foto de la tabla para mostrarla a ancho completo.</span>
         </div>
 
         <div class="control-block">
@@ -1285,6 +1437,51 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         </div>
 
         <button type="button" class="btn-generate" onclick="descargarDocumentoPNG()">⬇ Descargar Ficha (PNG)</button>
+      </div>
+
+      <!-- MODO 5: CREADOR DE BOTONES OFICIALES (INTEGRADO) -->
+      <div id="panelModoBotones" style="display: none; flex-direction: column; gap: 14px;">
+        <!-- RECUADRO GUÍA DEL COLOR DE LOS LOGOS -->
+        <div class="color-guide-box">
+          <div class="color-sample"></div>
+          <div class="color-info-text">
+            <span>Color del Ícono / Logo:</span>
+            <code>#006E7A</code>
+          </div>
+          <button type="button" class="btn-copy-color" onclick="copiarColorIconoGlobal(this)">Copiar</button>
+        </div>
+
+        <div class="form-group">
+          <label>Texto del Botón</label>
+          <textarea id="inBotonTexto" rows="2" placeholder="Escribe el texto...">LOGÍSTICA</textarea>
+        </div>
+
+        <div class="control-block">
+          <label>Logo / Ícono Propio (PNG o SVG)</label>
+          <div class="file-input-inline-wrap">
+            <input type="file" id="inBotonIconoCustom" accept="image/*" style="font-size:11px;">
+            <button type="button" class="btn-quitar-logo-inline" onclick="quitarLogoBoton()" title="Quitar logo">×</button>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:6px;">
+            <span style="font-size:11px; color:#64748b;">Tamaño:</span>
+            <input type="range" id="sliderTamanoLogoBoton" min="50" max="150" value="100" style="flex:1; cursor:pointer;">
+            <span id="valorTamanoLogoBoton" style="font-size:11px; font-weight:700; color:#475569; min-width:38px; text-align:right;">100%</span>
+          </div>
+          <span style="font-size:10.5px; color:#64748b; margin-top:2px;">También puedes copiar una imagen y pegarla con <strong>Ctrl + V</strong>.</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label>Tamaño Texto (px)</label>
+            <input type="number" id="inBotonFontSize" value="13.5" min="10" max="22" step="0.5">
+          </div>
+          <div class="form-group">
+            <label>Radio Curva (px)</label>
+            <input type="number" id="inBotonRadius" value="20" min="8" max="35">
+          </div>
+        </div>
+
+        <button type="button" class="btn-generate" onclick="descargarBotonCorporativoPNG()">⬇ Descargar Botón (PNG Transparente)</button>
       </div>
 
       <button class="btn-generate" id="btnDescargarLaminaPrincipal" onclick="descargarPNG()">⬇ Descargar Lámina Principal (PNG)</button>
@@ -1346,7 +1543,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
 
             <div class="boletin-intro-p" id="previewBoletinIntro">
               Esperando que se encuentren muy bien y tengan un excelente fin de semana.
-No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro Portal de Operaciones CMD y Portal de Jefaturas.
+No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro Portal de Operaciones CMD y Portal de Jefaturas.
             </div>
 
             <div class="boletin-divider-wrap">
@@ -1397,7 +1594,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
           </div>
         </div>
 
-        <!-- CANVAS DOCUMENTOS OPERACIONES: TARJETA REDSALUD SIN IMAGEN -->
+        <!-- CANVAS DOCUMENTOS OPERACIONES -->
         <div class="docs-grid-stage" id="cardExportDocumentos" style="display: none;">
           <div class="doc-portal-card-pro" id="docExportUnico">
             <div class="doc-portal-stripe"></div>
@@ -1407,6 +1604,19 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
             <div class="doc-portal-footer-action">
               <div class="doc-portal-date-box" id="previewDocFecha">01-12-2023</div>
               <span class="doc-portal-btn-formal">Abrir</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CANVAS BOTÓN OFICIAL REDSALUD (7.41cm x 3.34cm -> 280px x 126px) -->
+        <div id="cardExportBotonWrap" style="display: none; padding: 20px;">
+          <div class="btn-redsalud-canvas-card" id="btnRedsaludCanvasCard">
+            <div class="btn-redsalud-icon-slot" id="btnRedsaludIconSlot">
+              <div class="placeholder-logo-btn" id="placeholderLogoBtn">Subir Logo</div>
+              <img id="imgLogoBotonRender" alt="Logo Botón">
+            </div>
+            <div class="btn-redsalud-text-slot">
+              <span id="textBotonRender">LOGÍSTICA</span>
             </div>
           </div>
         </div>
@@ -1491,7 +1701,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
         colors: { primary: '#4c7318', dark: '#324e0e', bg: '#f4faec' },
         defaults: {
           tag1: '', tag2: '', titulo: 'NUEVO ASISTENTE DE CONSULTAS MIREDSALUD',
-          intro: 'Nueva herramienta de apoyo para el equipo de recepción en la orientación de pacientes sobre MiRedSalud. En esta primera fase, encontrarás información práctica en:',
+          intro: 'Nueva herramienta de apoyo para el equipo de recepción en la orientación de pacientes sobre MiRedSalud. En esta primera fase, encontrarás información practical en:',
           tituloDetalles: 'Detalles:', ruta: '', importante: '',
           detalles: [
             { texto: 'Visualización de exámenes', subitems: [] },
@@ -1506,7 +1716,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
     const SVG_MEGAFONO = '<i class="fi fi-rs-megaphone icon-megafono" aria-label="Aviso"></i>';
 
     let modoAppActual = 'noticia';
-    let tipoActual = 'jefatura';
+    let tipoActual = 'dental';
     let tieneImagen = false;
     let imagenNoticiaB64 = '';
     let dataDetalles = JSON.parse(JSON.stringify(CONFIG_AREAS.jefatura.defaults.detalles));
@@ -1547,12 +1757,21 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
     ];
     let fotoTablaInteresB64 = '';
 
-    /* DATA MODO 4: DOCUMENTO PORTAL OPERACIONES (DISEÑO SOBRIO) */
+    /* DOCUMENTO PORTAL OPERACIONES */
     let dataDocPortal = {
       appDrive: 'sheets',
       tituloTurquesa: 'Consolidado Link',
       areaVerde: 'SS - CG - SD',
       fecha: '01-12-2023'
+    };
+
+    /* BOTÓN OFICIAL REDSALUD DATA (7.41cm x 3.34cm) */
+    let dataBotonRedsalud = {
+      texto: 'LOGÍSTICA',
+      logoB64: '',
+      logoScale: 100,
+      fontSize: 13.5,
+      radius: 20
     };
 
     const historyStack = [];
@@ -1567,6 +1786,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       cardBoletin: document.getElementById('cardExportBoletin'),
       cardInteres: document.getElementById('cardExportInteres'),
       cardDocumentos: document.getElementById('cardExportDocumentos'),
+      cardBotonWrap: document.getElementById('cardExportBotonWrap'),
       cardWrap: document.getElementById('previewCardWrap'),
       contentArea: document.getElementById('cardContentArea'),
       inputTitulo: document.getElementById('inputTitulo'),
@@ -1607,6 +1827,8 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
 
       inputLogoValoresBoletin: document.getElementById('inputLogoValoresBoletin'),
       statusLogoValores: document.getElementById('statusLogoValores'),
+      sliderTamanoLogoBoton: document.getElementById('sliderTamanoLogoBoton'),
+      valorTamanoLogoBoton: document.getElementById('valorTamanoLogoBoton'),
       inputBoletinSaludo: document.getElementById('inputBoletinSaludo'),
       inputBoletinIntro: document.getElementById('inputBoletinIntro'),
       inputBoletinTituloDatos: document.getElementById('inputBoletinTituloDatos'),
@@ -1655,6 +1877,20 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
         .replace(/(^|[^\*])\*([^\*\s][^\*]*?)\*/g, '$1<strong>$2</strong>');
     }
 
+    function copiarColorIconoGlobal(btn) {
+      navigator.clipboard.writeText('#006E7A').then(() => {
+        const txt = btn.innerText;
+        btn.innerText = '¡Copiado!';
+        btn.style.background = '#006E7A';
+        btn.style.color = '#ffffff';
+        setTimeout(() => {
+          btn.innerText = txt;
+          btn.style.background = '';
+          btn.style.color = '';
+        }, 1500);
+      });
+    }
+
     function capturarEstado() {
       return {
         modoAppActual,
@@ -1675,6 +1911,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
         interesItems: [...interesItems],
         fotoTablaInteresB64,
         dataDocPortal: { ...dataDocPortal },
+        dataBotonRedsalud: { ...dataBotonRedsalud },
         inputs: {
           inputTitulo: dom.inputTitulo ? dom.inputTitulo.value : '',
           inputIntro: dom.inputIntro ? dom.inputIntro.value : '',
@@ -1751,9 +1988,8 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       layoutInteresActual = estadoObj.layoutInteresActual;
       interesItems = [...estadoObj.interesItems];
       fotoTablaInteresB64 = estadoObj.fotoTablaInteresB64;
-      if (estadoObj.dataDocPortal) {
-        dataDocPortal = { ...estadoObj.dataDocPortal };
-      }
+      if (estadoObj.dataDocPortal) dataDocPortal = { ...estadoObj.dataDocPortal };
+      if (estadoObj.dataBotonRedsalud) dataBotonRedsalud = { ...estadoObj.dataBotonRedsalud };
 
       const inp = estadoObj.inputs;
       if (dom.inputTitulo) dom.inputTitulo.value = inp.inputTitulo;
@@ -1785,6 +2021,10 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       if (dom.inputBoletinTituloDatos) dom.inputBoletinTituloDatos.value = inp.inputBoletinTituloDatos;
       if (dom.inputBoletinFecha) dom.inputBoletinFecha.value = inp.inputBoletinFecha;
 
+      if (dom.sliderTamanoLogoBoton) {
+        dom.sliderTamanoLogoBoton.value = estadoObj.dataBotonRedsalud.logoScale || 100;
+      }
+
       if (dom.inputInteresTitulo) dom.inputInteresTitulo.value = inp.inputInteresTitulo;
       if (dom.inputInteresIntro) dom.inputInteresIntro.value = inp.inputInteresIntro;
       dom.checkInteresAlerta.checked = inp.checkInteresAlerta;
@@ -1802,11 +2042,13 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       renderFormularioBoletin();
       renderFormularioInteres();
       renderFormularioDocPortal();
+      renderFormularioBotonRedsalud();
 
       actualizarVista();
       actualizarVistaBoletin();
       actualizarVistaInteres();
       actualizarVistaDocPortal();
+      actualizarVistaBotonRedsalud();
 
       isHistoryAction = false;
       actualizarBotonesUndoRedo();
@@ -1869,6 +2111,11 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
         dataDocPortal = { appDrive: 'sheets', tituloTurquesa: '', areaVerde: '', fecha: '' };
         renderFormularioDocPortal();
         actualizarVistaDocPortal();
+      } else if (modoAppActual === 'botones') {
+        dataBotonRedsalud.texto = '';
+        dataBotonRedsalud.logoB64 = '';
+        renderFormularioBotonRedsalud();
+        actualizarVistaBotonRedsalud();
       }
       guardarHistorial(true);
     }
@@ -2027,7 +2274,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       }
     }
 
-    /* GESTIÓN LOGO VALORES BOLETÍN */
+    /* LOGO VALORES BOLETÍN */
     function quitarLogoValores() {
       logoValoresBoletinB64 = '';
       if (dom.inputLogoValoresBoletin) dom.inputLogoValoresBoletin.value = '';
@@ -2041,18 +2288,21 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       document.getElementById('tabModoBoletin').classList.toggle('active', modo === 'boletin');
       document.getElementById('tabModoInteres').classList.toggle('active', modo === 'interes');
       document.getElementById('tabModoDocumentos').classList.toggle('active', modo === 'documentos');
+      document.getElementById('tabModoBotones').classList.toggle('active', modo === 'botones');
 
       document.getElementById('panelModoNoticia').style.display = modo === 'noticia' ? 'flex' : 'none';
       document.getElementById('panelModoBoletin').style.display = modo === 'boletin' ? 'flex' : 'none';
       document.getElementById('panelModoInteres').style.display = modo === 'interes' ? 'flex' : 'none';
       document.getElementById('panelModoDocumentos').style.display = modo === 'documentos' ? 'flex' : 'none';
+      document.getElementById('panelModoBotones').style.display = modo === 'botones' ? 'flex' : 'none';
 
       dom.cardNoticia.style.display = modo === 'noticia' ? 'block' : 'none';
       dom.cardBoletin.style.display = modo === 'boletin' ? 'block' : 'none';
       dom.cardInteres.style.display = modo === 'interes' ? 'block' : 'none';
       dom.cardDocumentos.style.display = modo === 'documentos' ? 'flex' : 'none';
+      dom.cardBotonWrap.style.display = modo === 'botones' ? 'flex' : 'none';
 
-      dom.btnDescargarLaminaPrincipal.style.display = (modo === 'documentos') ? 'none' : 'block';
+      dom.btnDescargarLaminaPrincipal.style.display = (modo === 'documentos' || modo === 'botones') ? 'none' : 'block';
 
       if (modo !== 'noticia') {
         dom.previewSelloBox.style.display = 'none';
@@ -2060,15 +2310,12 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
         dom.previewAccesosExternos.style.display = 'none';
       }
 
-      if (modo === 'boletin') {
-        actualizarVistaBoletin();
-      } else if (modo === 'interes') {
-        actualizarVistaInteres();
-      } else if (modo === 'documentos') {
-        actualizarVistaDocPortal();
-      } else {
-        actualizarVista();
-      }
+      if (modo === 'boletin') actualizarVistaBoletin();
+      else if (modo === 'interes') actualizarVistaInteres();
+      else if (modo === 'documentos') actualizarVistaDocPortal();
+      else if (modo === 'botones') actualizarVistaBotonRedsalud();
+      else actualizarVista();
+
       setTimeout(ajustarEscalaVista, 20);
       if (guardar) guardarHistorial(true);
     }
@@ -2315,33 +2562,24 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
     }
 
     function agregarItemBoletin(seccion) {
-      if (seccion === 'noticias') {
-        boletinNoticias.push('');
-      } else {
-        boletinDatos.push('');
-      }
+      if (seccion === 'noticias') boletinNoticias.push('');
+      else boletinDatos.push('');
       renderFormularioBoletin();
       actualizarVistaBoletin();
       guardarHistorial(true);
     }
 
     function eliminarItemBoletin(seccion, idx) {
-      if (seccion === 'noticias') {
-        boletinNoticias.splice(idx, 1);
-      } else {
-        boletinDatos.splice(idx, 1);
-      }
+      if (seccion === 'noticias') boletinNoticias.splice(idx, 1);
+      else boletinDatos.splice(idx, 1);
       renderFormularioBoletin();
       actualizarVistaBoletin();
       guardarHistorial(true);
     }
 
     function actualizarTextoBoletin(seccion, idx, valor) {
-      if (seccion === 'noticias') {
-        boletinNoticias[idx] = valor;
-      } else {
-        boletinDatos[idx] = valor;
-      }
+      if (seccion === 'noticias') boletinNoticias[idx] = valor;
+      else boletinDatos[idx] = valor;
       actualizarVistaBoletin();
       guardarHistorial(false);
     }
@@ -2364,7 +2602,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
         dom.imgLogoValoresBoletin.style.display = 'none';
         dom.logoValoresPlaceholder.style.display = 'flex';
         if (dom.statusLogoValores) {
-          dom.statusLogoValores.innerText = 'Ningún logo cargado (se muestra el cuadro gris auxiliar)[cite: 3].';
+          dom.statusLogoValores.innerText = 'Ningún logo cargado (se muestra el cuadro gris auxiliar).';
         }
       }
 
@@ -2403,6 +2641,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       else if (modoAppActual === 'boletin') cardVisible = dom.cardBoletin;
       else if (modoAppActual === 'interes') cardVisible = dom.cardInteres;
       else if (modoAppActual === 'documentos') cardVisible = dom.cardDocumentos;
+      else if (modoAppActual === 'botones') cardVisible = dom.cardBotonWrap;
 
       if (!cardVisible || cardVisible.style.display === 'none') return;
 
@@ -2410,7 +2649,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       const availW = dom.stage.clientWidth - parseFloat(s.paddingLeft) - parseFloat(s.paddingRight);
       const availH = dom.stage.clientHeight - parseFloat(s.paddingTop) - parseFloat(s.paddingBottom);
       const totalH = dom.cardWrap.scrollHeight || 600;
-      const cardW = modoAppActual === 'documentos' ? 360 : 960;
+      const cardW = (modoAppActual === 'documentos' || modoAppActual === 'botones') ? 360 : 960;
       const scale = Math.min(1, availW / cardW, availH / totalH);
 
       dom.cardWrap.style.transform = `scale(${scale})`;
@@ -2841,7 +3080,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       setTimeout(ajustarEscalaVista, 20);
     }
 
-    /* MODO 4: LÓGICA DE DOCUMENTO PORTAL OPERACIONES (DISEÑO SOBRIO CON PDF) */
+    /* MODO 4: LÓGICA DE DOCUMENTO PORTAL OPERACIONES */
     function renderFormularioDocPortal() {
       const inTitulo = document.getElementById('inDocTituloTurquesa');
       const inArea = document.getElementById('inDocAreaVerde');
@@ -2903,6 +3142,80 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       });
     }
 
+    /* MODO 5: CONTROLADOR BOTÓN OFICIAL REDSALUD (7.41cm x 3.34cm) */
+    function renderFormularioBotonRedsalud() {
+      const inTxt = document.getElementById('inBotonTexto');
+      const inFSize = document.getElementById('inBotonFontSize');
+      const inRadius = document.getElementById('inBotonRadius');
+
+      if (inTxt) inTxt.value = dataBotonRedsalud.texto;
+      if (inFSize) inFSize.value = dataBotonRedsalud.fontSize;
+      if (inRadius) inRadius.value = dataBotonRedsalud.radius;
+      if (dom.sliderTamanoLogoBoton) dom.sliderTamanoLogoBoton.value = dataBotonRedsalud.logoScale || 100;
+      actualizarEtiquetaTamanoLogoBoton();
+    }
+
+    function actualizarEtiquetaTamanoLogoBoton() {
+      if (dom.valorTamanoLogoBoton) {
+        dom.valorTamanoLogoBoton.innerText = `${dataBotonRedsalud.logoScale || 100}%`;
+      }
+    }
+
+    function actualizarVistaBotonRedsalud() {
+      const card = document.getElementById('btnRedsaludCanvasCard');
+      const textSpan = document.getElementById('textBotonRender');
+      const logoImg = document.getElementById('imgLogoBotonRender');
+      const logoPlaceholder = document.getElementById('placeholderLogoBtn');
+
+      if (!card || !textSpan) return;
+
+      textSpan.innerText = (dataBotonRedsalud.texto || 'BOTÓN').toUpperCase();
+      textSpan.style.fontSize = `${dataBotonRedsalud.fontSize}px`;
+      card.style.borderRadius = `${dataBotonRedsalud.radius}px`;
+
+      if (dataBotonRedsalud.logoB64) {
+        logoImg.src = dataBotonRedsalud.logoB64;
+        logoImg.style.display = 'block';
+        logoImg.style.transform = `scale(${(dataBotonRedsalud.logoScale || 100) / 100})`;
+        logoPlaceholder.style.display = 'none';
+      } else {
+        logoImg.removeAttribute('src');
+        logoImg.style.display = 'none';
+        logoImg.style.transform = '';
+        logoPlaceholder.style.display = 'flex';
+      }
+
+      setTimeout(ajustarEscalaVista, 20);
+    }
+
+    function quitarLogoBoton() {
+      dataBotonRedsalud.logoB64 = '';
+      const inp = document.getElementById('inBotonIconoCustom');
+      if (inp) inp.value = '';
+      actualizarVistaBotonRedsalud();
+      guardarHistorial(true);
+    }
+
+    function descargarBotonCorporativoPNG() {
+      const el = document.getElementById('btnRedsaludCanvasCard');
+      if (!el) return;
+      const nombreLimpio = (dataBotonRedsalud.texto || 'Boton')
+        .trim()
+        .replace(/[\r\n]+/g, '_')
+        .replace(/[^a-zA-Z0-9]/g, '_')
+        .substring(0, 30);
+
+      html2canvas(el, {
+        scale: 3,
+        backgroundColor: null
+      }).then(canvas => {
+        const a = document.createElement('a');
+        a.download = `Boton_RedSalud_${nombreLimpio}.png`;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      });
+    }
+
     function descargarPNG() {
       const cardVisible = modoAppActual === 'boletin'
         ? dom.cardBoletin
@@ -2930,7 +3243,6 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       }
       dom.cardWrap.style.transform = 'none';
 
-      // Cálculo de límites del sello si sobresale de la tarjeta
       let extraX = 0;
       let extraY = 0;
       let extraW = 0;
@@ -2983,7 +3295,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       tieneFlechaExterna = false;
       dom.checkFlechaExterna.checked = false;
 
-      cambiarTipo('jefatura', false, false);
+      cambiarTipo('dental', true, false);
       ajustarTamanoLogos(44);
       renderFormularioDetalles();
       renderFormularioLogos();
@@ -2991,10 +3303,13 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       renderFormularioBoletin();
       renderFormularioInteres();
       renderFormularioDocPortal();
+      renderFormularioBotonRedsalud();
+
       actualizarVista();
       actualizarVistaBoletin();
       actualizarVistaInteres();
       actualizarVistaDocPortal();
+      actualizarVistaBotonRedsalud();
 
       guardarHistorial(true);
     }
@@ -3018,6 +3333,43 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
             guardarHistorial(false);
           });
         }
+      });
+
+      /* EVENTOS MODO BOTONES REDSALUD */
+      document.getElementById('inBotonTexto').addEventListener('input', (e) => {
+        dataBotonRedsalud.texto = e.target.value;
+        actualizarVistaBotonRedsalud();
+        guardarHistorial(false);
+      });
+
+      document.getElementById('inBotonFontSize').addEventListener('input', (e) => {
+        dataBotonRedsalud.fontSize = parseFloat(e.target.value) || 13.5;
+        actualizarVistaBotonRedsalud();
+        guardarHistorial(false);
+      });
+
+      document.getElementById('inBotonRadius').addEventListener('input', (e) => {
+        dataBotonRedsalud.radius = parseInt(e.target.value, 10) || 20;
+        actualizarVistaBotonRedsalud();
+        guardarHistorial(false);
+      });
+
+      dom.sliderTamanoLogoBoton.addEventListener('input', (e) => {
+        dataBotonRedsalud.logoScale = parseInt(e.target.value, 10) || 100;
+        actualizarEtiquetaTamanoLogoBoton();
+        actualizarVistaBotonRedsalud();
+        guardarHistorial(false);
+      });
+
+      document.getElementById('inBotonIconoCustom').addEventListener('change', function() {
+        if (!this.files || !this.files[0]) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          dataBotonRedsalud.logoB64 = e.target.result;
+          actualizarVistaBotonRedsalud();
+          guardarHistorial(true);
+        };
+        reader.readAsDataURL(this.files[0]);
       });
 
       if (dom.inputLogoValoresBoletin) {
@@ -3095,7 +3447,6 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
         guardarHistorial(true);
       });
 
-      // AUTOCOMPLETADO INTELIGENTE AL ACTIVAR EL CHECK DE ADVERTENCIA
       dom.checkImportante.addEventListener('change', () => {
         dom.wrapperInputImportante.style.display = dom.checkImportante.checked ? 'flex' : 'none';
         if (dom.checkImportante.checked && !dom.inputImportante.value.trim()) {
@@ -3105,7 +3456,6 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
         guardarHistorial(true);
       });
 
-      // AUTOCOMPLETADO INTELIGENTE AL ACTIVAR EL CHECK DE RUTA
       dom.checkRuta.addEventListener('change', () => {
         dom.wrapperInputRuta.style.display = dom.checkRuta.checked ? 'flex' : 'none';
         if (dom.checkRuta.checked && !dom.inputRuta.value.trim()) {
@@ -3172,6 +3522,9 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
               } else if (modoAppActual === 'boletin') {
                 logoValoresBoletinB64 = b64;
                 actualizarVistaBoletin();
+              } else if (modoAppActual === 'botones') {
+                dataBotonRedsalud.logoB64 = b64;
+                actualizarVistaBotonRedsalud();
               }
               guardarHistorial(true);
             };
