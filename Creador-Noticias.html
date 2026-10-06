@@ -460,20 +460,8 @@
     .sublista-bullet { color: var(--primary); font-size: 10px; line-height: 1.8; flex-shrink: 0; }
 
     .footer-divider { border: none; border-top: 1.5px dotted var(--primary); opacity: 0.5; margin-bottom: 14px; margin-top: 24px; }
-    
-    .footer-content { 
-      display: flex; 
-      justify-content: flex-end; 
-      align-items: center; 
-      gap: 20px; 
-      width: 100%;
-    }
-    .footer-text { 
-      font-size: 12.5px; 
-      color: #334155; 
-      font-weight: 500; 
-      margin-right: auto;
-    }
+    .footer-content { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .footer-text { font-size: 12.5px; color: #334155; font-weight: 500; flex: 1; }
     .footer-text strong { color: var(--primary); font-weight: 700; }
     
     .footer-logos-box {
@@ -481,7 +469,6 @@
       align-items: center;
       gap: 12px;
       flex-shrink: 0;
-      margin-left: auto;
     }
 
     .partner-badge {
@@ -535,13 +522,11 @@
       gap: 28px;
       align-items: center;
       margin-bottom: 24px;
-      width: 100%;
     }
-    .col-texto-imagen { flex: 1; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+    .col-texto-imagen { flex: 1; display: flex; flex-direction: column; gap: 14px; }
     .col-texto-imagen p { white-space: pre-line; }
-    
-    /* CONTENEDOR VISUAL CON TAMAÑO DINÁMICO */
     .col-visual-imagen {
+      flex: 1.25;
       background: #ffffff;
       border: 2.5px solid var(--primary);
       border-radius: 18px;
@@ -550,18 +535,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 8px;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
+      max-height: 380px;
+      min-height: 190px;
+      padding: 6px;
     }
     .col-visual-imagen img {
       max-width: 100%;
-      max-height: 100%;
+      max-height: 365px;
       width: auto;
       height: auto;
       object-fit: contain;
       display: block;
-      border-radius: 10px;
+      border-radius: 12px;
     }
 
     /* SELLO FLOTANTE */
@@ -1053,20 +1038,8 @@
             <input type="checkbox" id="checkTieneImagen">
             <span>Adjuntar imagen / tabla / flujo a esta noticia</span>
           </label>
-          <div id="subirImagenBox" style="display: none; flex-direction: column; gap: 8px; margin-top: 4px;">
+          <div id="subirImagenBox" style="display: none; margin-top: 4px;">
             <input type="file" id="inputArchivoNoticia" accept="image/*" style="font-size: 12px; width: 100%;">
-            
-            <!-- CONTROL DE TAMAÑO / ESCALA PARA CONTENEDOR E IMAGEN -->
-            <div style="display: flex; flex-direction: column; gap: 4px; background: #ffffff; padding: 8px 10px; border-radius: 6px; border: 1px solid #cbd5e1;">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 11px; font-weight: 700; color: #475569;">Tamaño del recuadro e imagen:</span>
-                <span id="labelEscalaImagen" style="font-size: 11px; font-weight: 800; color: #0099a8;">100%</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <input type="range" id="sliderEscalaImagen" min="50" max="150" value="100" style="flex: 1; cursor: pointer;">
-                <button type="button" class="btn-add-detail" onclick="resetEscalaImagen()" style="padding: 3px 8px; font-size: 10px;">Reset</button>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -1536,7 +1509,6 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
     let tipoActual = 'jefatura';
     let tieneImagen = false;
     let imagenNoticiaB64 = '';
-    let escalaImagenNoticia = 100; // Porcentaje de escala para contenedor e imagen
     let dataDetalles = JSON.parse(JSON.stringify(CONFIG_AREAS.jefatura.defaults.detalles));
     let dataLogos = [];
 
@@ -1577,7 +1549,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
 
     /* DATA MODO 4: DOCUMENTO PORTAL OPERACIONES (DISEÑO SOBRIO) */
     let dataDocPortal = {
-      appDrive: 'sheets', // 'sheets', 'slides' o 'pdf'
+      appDrive: 'sheets',
       tituloTurquesa: 'Consolidado Link',
       areaVerde: 'SS - CG - SD',
       fecha: '01-12-2023'
@@ -1606,8 +1578,6 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       inputJefaturaTag2: document.getElementById('inputJefaturaTag2'),
       grpEncabezadoJefatura: document.getElementById('grpEncabezadoJefatura'),
       checkTieneImagen: document.getElementById('checkTieneImagen'),
-      sliderEscalaImagen: document.getElementById('sliderEscalaImagen'),
-      labelEscalaImagen: document.getElementById('labelEscalaImagen'),
       checkPuntos: document.getElementById('checkPuntos'),
       checkImportante: document.getElementById('checkImportante'),
       checkRuta: document.getElementById('checkRuta'),
@@ -1691,7 +1661,6 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
         tipoActual,
         tieneImagen,
         imagenNoticiaB64,
-        escalaImagenNoticia,
         tieneSello,
         selloB64,
         selloPos: { ...selloPos },
@@ -1715,7 +1684,6 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
           inputJefaturaTag1: dom.inputJefaturaTag1 ? dom.inputJefaturaTag1.value : '',
           inputJefaturaTag2: dom.inputJefaturaTag2 ? dom.inputJefaturaTag2.value : '',
           checkTieneImagen: dom.checkTieneImagen.checked,
-          sliderEscalaImagen: dom.sliderEscalaImagen ? dom.sliderEscalaImagen.value : 100,
           checkPuntos: dom.checkPuntos.checked,
           checkImportante: dom.checkImportante.checked,
           checkRuta: dom.checkRuta.checked,
@@ -1769,7 +1737,6 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       tipoActual = estadoObj.tipoActual;
       tieneImagen = estadoObj.tieneImagen;
       imagenNoticiaB64 = estadoObj.imagenNoticiaB64;
-      escalaImagenNoticia = estadoObj.escalaImagenNoticia || 100;
       tieneSello = estadoObj.tieneSello ?? false;
       selloB64 = estadoObj.selloB64 || '';
       selloPos = estadoObj.selloPos ? { ...estadoObj.selloPos } : { x: 36, y: 350, width: 120, height: 60, ratio: 1 };
@@ -1797,10 +1764,6 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       if (dom.inputJefaturaTag1) dom.inputJefaturaTag1.value = inp.inputJefaturaTag1;
       if (dom.inputJefaturaTag2) dom.inputJefaturaTag2.value = inp.inputJefaturaTag2;
       dom.checkTieneImagen.checked = inp.checkTieneImagen;
-      if (dom.sliderEscalaImagen) {
-        dom.sliderEscalaImagen.value = escalaImagenNoticia;
-        dom.labelEscalaImagen.innerText = `${escalaImagenNoticia}%`;
-      }
       dom.checkPuntos.checked = inp.checkPuntos;
       dom.checkImportante.checked = inp.checkImportante;
       dom.checkRuta.checked = inp.checkRuta;
@@ -1810,7 +1773,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
         ajustarTamanoLogos(inp.sliderTamanoLogo);
       }
 
-      dom.subirImagenBox.style.display = tieneImagen ? 'flex' : 'none';
+      dom.subirImagenBox.style.display = tieneImagen ? 'block' : 'none';
       dom.wrapperDetallesCampos.style.display = dom.checkPuntos.checked ? 'flex' : 'none';
       dom.wrapperInputImportante.style.display = dom.checkImportante.checked ? 'flex' : 'none';
       dom.wrapperInputRuta.style.display = dom.checkRuta.checked ? 'flex' : 'none';
@@ -1849,26 +1812,17 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       actualizarBotonesUndoRedo();
     }
 
-    // Corregido: Manejo robusto de Deshacer y Rehacer
     function deshacer() {
       if (historyIndex > 0) {
         historyIndex--;
-        try {
-          restaurarEstado(JSON.parse(historyStack[historyIndex]));
-        } catch (e) {
-          console.error("Error al deshacer:", e);
-        }
+        restaurarEstado(JSON.parse(historyStack[historyIndex]));
       }
     }
 
     function rehacer() {
       if (historyIndex < historyStack.length - 1) {
         historyIndex++;
-        try {
-          restaurarEstado(JSON.parse(historyStack[historyIndex]));
-        } catch (e) {
-          console.error("Error al rehacer:", e);
-        }
+        restaurarEstado(JSON.parse(historyStack[historyIndex]));
       }
     }
 
@@ -1885,12 +1839,6 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
         dataLogos = [];
         dataAccesosExternos = [];
         tieneImagen = false;
-        imagenNoticiaB64 = '';
-        escalaImagenNoticia = 100;
-        if (dom.sliderEscalaImagen) {
-          dom.sliderEscalaImagen.value = 100;
-          dom.labelEscalaImagen.innerText = '100%';
-        }
         tieneSello = false;
         selloB64 = '';
         tieneFlechaExterna = false;
@@ -1957,15 +1905,6 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
     function aplicarNegritaCampo(idCampo) {
       const el = document.getElementById(idCampo);
       aplicarNegritaElemento(el);
-    }
-
-    /* ESCALA DE IMAGEN ADJUNTA Y CONTENEDOR */
-    function resetEscalaImagen() {
-      escalaImagenNoticia = 100;
-      if (dom.sliderEscalaImagen) dom.sliderEscalaImagen.value = 100;
-      if (dom.labelEscalaImagen) dom.labelEscalaImagen.innerText = '100%';
-      actualizarVista();
-      guardarHistorial(true);
     }
 
     /* SELLO LIBRE */
@@ -2204,7 +2143,6 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       guardarHistorial(true);
     }
 
-    // Corregido: Mover elemento en el array de accesos externos
     function moverAccesoExterno(idx, dir) {
       const nuevo = idx + dir;
       if (nuevo < 0 || nuevo >= dataAccesosExternos.length) return;
@@ -2217,11 +2155,9 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
     }
 
     function actualizarAccesoExterno(idx, campo, valor) {
-      if (dataAccesosExternos[idx]) {
-        dataAccesosExternos[idx][campo] = valor;
-        actualizarVista();
-        guardarHistorial(false);
-      }
+      dataAccesosExternos[idx][campo] = valor;
+      actualizarVista();
+      guardarHistorial(false);
     }
 
     function descargarBotonAcceso(idx) {
@@ -2777,11 +2713,6 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
         ? `<hr class="footer-divider"><div class="footer-content">${rutaHtml}${logosHtml ? `<div class="footer-logos-box">${logosHtml}</div>` : ''}</div>`
         : '';
 
-      // CÁLCULO PROPORCIONAL DE TAMAÑO PARA CONTENEDOR E IMAGEN
-      const factorEscala = (escalaImagenNoticia / 100);
-      const flexVisual = (1.25 * factorEscala).toFixed(2);
-      const alturaContenedor = Math.round(380 * factorEscala);
-
       if (tipoActual === 'jefatura') {
         const tag1 = dom.inputJefaturaTag1.value.trim();
         const tag2 = dom.inputJefaturaTag2.value.trim();
@@ -2804,7 +2735,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
                 <p class="intro-jefatura" style="margin-bottom:0;">${parsearNegrita(dom.inputIntro.value)}</p>
                 ${dom.checkPuntos.checked && bulletsHtml ? `<div class="detalles-titulo-jefatura">${parsearNegrita(dom.inputTituloDetalles.value)}</div><ul class="lista-items">${bulletsHtml}</ul>` : ''}
               </div>
-              <div class="col-visual-imagen" style="flex: ${flexVisual}; height: ${alturaContenedor}px;">${visual}</div>
+              <div class="col-visual-imagen">${visual}</div>
             </div>
             ${importanteHtml}${footerHtml}
           `;
@@ -2854,7 +2785,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
               <p style="font-size:14px; line-height:1.55; color:#1e293b;">${parsearNegrita(dom.inputIntro.value)}</p>
               ${dom.checkPuntos.checked && bulletsHtml ? `<div class="detalles-titulo">${parsearNegrita(dom.inputTituloDetalles.value)}</div><ul class="lista-items">${bulletsHtml}</ul>` : ''}
             </div>
-            <div class="col-visual-imagen" style="flex: ${flexVisual}; height: ${alturaContenedor}px;">${visual}</div>
+            <div class="col-visual-imagen">${visual}</div>
           </div>
           ${importanteHtml}${footerHtml}
         `;
@@ -2999,7 +2930,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
       }
       dom.cardWrap.style.transform = 'none';
 
-      // Cálculo de límites del sello si sobresale de la tarjeta para no cortarlo
+      // Cálculo de límites del sello si sobresale de la tarjeta
       let extraX = 0;
       let extraY = 0;
       let extraW = 0;
@@ -3089,15 +3020,6 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
         }
       });
 
-      if (dom.sliderEscalaImagen) {
-        dom.sliderEscalaImagen.addEventListener('input', (e) => {
-          escalaImagenNoticia = parseInt(e.target.value, 10);
-          dom.labelEscalaImagen.innerText = `${escalaImagenNoticia}%`;
-          actualizarVista();
-          guardarHistorial(false);
-        });
-      }
-
       if (dom.inputLogoValoresBoletin) {
         dom.inputLogoValoresBoletin.addEventListener('change', function() {
           if (!this.files || !this.files[0]) return;
@@ -3110,15 +3032,6 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
           reader.readAsDataURL(this.files[0]);
         });
       }
-
-      // Detiene la propagación del evento para que Google Sites no interfiera
-      document.querySelectorAll('input, textarea').forEach(input => {
-        input.addEventListener('keydown', (e) => {
-          if ((e.ctrlKey || e.metaKey) && (e.key === 'z' || e.key === 'y' || e.key === 'Z')) {
-            e.stopPropagation(); // Evita que el evento salga del iframe
-          }
-        });
-      });
 
       ['inDocTituloTurquesa', 'inDocAreaVerde', 'inDocFecha'].forEach(id => {
         const el = document.getElementById(id);
@@ -3135,7 +3048,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
 
       dom.checkTieneImagen.addEventListener('change', () => {
         tieneImagen = dom.checkTieneImagen.checked;
-        dom.subirImagenBox.style.display = tieneImagen ? 'flex' : 'none';
+        dom.subirImagenBox.style.display = tieneImagen ? 'block' : 'none';
         actualizarVista();
         guardarHistorial(true);
       });
@@ -3214,7 +3127,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
           imagenNoticiaB64 = e.target.result;
           tieneImagen = true;
           dom.checkTieneImagen.checked = true;
-          dom.subirImagenBox.style.display = 'flex';
+          dom.subirImagenBox.style.display = 'block';
           actualizarVista();
           guardarHistorial(true);
         };
@@ -3251,7 +3164,7 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
                 imagenNoticiaB64 = b64;
                 tieneImagen = true;
                 dom.checkTieneImagen.checked = true;
-                dom.subirImagenBox.style.display = 'flex';
+                dom.subirImagenBox.style.display = 'block';
                 actualizarVista();
               } else if (modoAppActual === 'interes') {
                 fotoTablaInteresB64 = b64;
@@ -3268,19 +3181,19 @@ No olviden enterarte de todas las noticias de esta semana e ingresar a nuestro P
         }
       });
 
-      // Listener global para atajos de teclado Ctrl+Z y Ctrl+Y
-      document.addEventListener('keydown', function(e) {
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
-          if (e.shiftKey) {
-            e.preventDefault();
-            rehacer();
-          } else {
-            e.preventDefault();
-            deshacer();
-          }
-        } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
+      document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && (e.key === 'z' || e.key === 'Z') && !e.shiftKey) {
+          e.preventDefault();
+          deshacer();
+        } else if ((e.ctrlKey || e.metaKey) && (e.key === 'y' || e.key === 'Y' || (e.shiftKey && (e.key === 'z' || e.key === 'Z')))) {
           e.preventDefault();
           rehacer();
+        } else if ((e.ctrlKey || e.metaKey) && (e.key === 'b' || e.key === 'B')) {
+          const activo = document.activeElement;
+          if (activo && (activo.tagName === 'INPUT' || activo.tagName === 'TEXTAREA') && activo.type !== 'file') {
+            e.preventDefault();
+            aplicarNegritaElemento(activo);
+          }
         }
       });
 
