@@ -421,6 +421,12 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 38px; color: var(--primary); line-height: 1;
     }
+    .icon-megafono.icono-area-encabezado {
+      width: 38px;
+      height: 38px;
+      font-size: 38px;
+      color: var(--primary);
+    }
 
     .header-titles { text-align: center; margin-bottom: 20px; padding: 0 50px; }
     .header-titles .categoria { font-size: 32px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; margin-bottom: 6px; }
@@ -473,9 +479,11 @@
     .footer-logos-box {
       display: flex;
       flex-direction: row-reverse;
+      justify-content: flex-start;
       align-items: center;
       gap: 12px;
       margin-left: auto;
+      margin-right: 0;
       flex-shrink: 0;
     }
 
@@ -505,6 +513,12 @@
       font-weight: 700;
       color: var(--primary-dark);
       letter-spacing: 0.3px;
+    }
+
+    .footer-logos-plain .partner-badge {
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
     }
 
     .important-notice {
@@ -815,10 +829,10 @@
 
     /* MODO BOLETÍN */
     .boletin-card {
-      width: 580px;
-      background-color: #008796;
+      width: 690px;
+      background-color: #087f89;
       border: 3px solid #66b3b8;
-      border-radius: 22px;
+      border-radius: 4px;
       padding: 0;
       position: relative;
       box-shadow: 0 14px 35px rgba(0, 0, 0, 0.3);
@@ -827,43 +841,43 @@
       color: #ffffff;
     }
     .boletin-card strong { color: #ffffff !important; font-weight: 900 !important; }
-    .boletin-ondas-top, .boletin-ondas-bottom {
+      .boletin-ondas-top, .boletin-ondas-bottom {
       position: absolute; left: 0; width: 100%;
-      pointer-events: none; z-index: 1; opacity: 0.22;
-    }
-    .boletin-ondas-top { top: 0; height: 260px; }
-    .boletin-ondas-bottom { bottom: 0; height: 220px; }
+        pointer-events: none; z-index: 1; opacity: 0.58;
+      }
+    .boletin-ondas-top { top: 0; height: 300px; }
+    .boletin-ondas-bottom { bottom: 0; height: 230px; }
     .boletin-inner {
-      padding: 24px 28px 20px 28px; position: relative; z-index: 2;
-      display: flex; flex-direction: column; gap: 14px;
+      padding: 30px 36px 24px 36px; position: relative; z-index: 2;
+      display: flex; flex-direction: column; gap: 18px;
     }
-    .boletin-header { display: flex; align-items: center; gap: 16px; }
+    .boletin-header { display: flex; align-items: center; gap: 22px; }
     .boletin-logo-valores {
-      width: 145px; height: 50px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      width: 160px; height: 64px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
     }
     .boletin-logo-valores img { width: 100%; height: 100%; object-fit: contain; display: block; }
     .boletin-logo-placeholder {
       border: 1.5px dashed rgba(255,255,255,0.7); border-radius: 8px;
-      padding: 6px 8px; font-size: 11px; text-align: center; color: #ffffff;
+      padding: 6px 8px; font-size: 12px; text-align: center; color: #ffffff;
       line-height: 1.2; font-weight: 600; width: 100%; height: 100%;
       display: flex; align-items: center; justify-content: center;
       background: rgba(255, 255, 255, 0.08);
     }
     .boletin-saludo-title {
-      font-size: 18.5px; font-weight: 800; color: #ffffff; line-height: 1.25; flex: 1; letter-spacing: -0.2px;
+      font-size: 25px; font-weight: 800; color: #ffffff; line-height: 1.25; flex: 1;
     }
-    .boletin-intro-p { font-size: 12.5px; line-height: 1.55; color: #ffffff; font-weight: 500; white-space: pre-line; }
-    .boletin-divider-wrap { display: flex; align-items: center; position: relative; margin: 2px 0 4px; }
-    .boletin-divider-line { flex: 1; border: none; border-top: 1.5px dotted rgba(255, 255, 255, 0.7); }
-    .boletin-seccion-title { font-size: 13.5px; font-weight: 800; color: #ffffff; margin-bottom: 2px; }
-    .boletin-items-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-    .boletin-item-row { display: flex; align-items: flex-start; gap: 12px; font-size: 12px; line-height: 1.45; color: #ffffff; font-weight: 500; }
+    .boletin-intro-p { font-size: 16px; line-height: 1.45; color: #ffffff; font-weight: 600; white-space: pre-line; }
+    .boletin-divider-wrap { display: flex; align-items: center; position: relative; margin: 0; }
+    .boletin-divider-line { flex: 1; border: none; border-top: 2px dotted rgba(255, 255, 255, 0.75); }
+    .boletin-seccion-title { font-size: 17px; font-weight: 800; color: #ffffff; margin-bottom: 0; }
+    .boletin-items-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .boletin-item-row { display: flex; align-items: flex-start; gap: 14px; font-size: 15px; line-height: 1.45; color: #ffffff; font-weight: 500; }
     .boletin-item-row span:last-child { white-space: pre-line; }
-    .boletin-item-arrow { color: #ffffff; font-size: 12.5px; font-weight: 900; flex-shrink: 0; line-height: 1.35; }
-    .boletin-item-star { color: #ffffff; font-size: 12.5px; flex-shrink: 0; line-height: 1.35; }
+    .boletin-item-arrow { color: #ffffff; font-size: 17px; font-weight: 900; flex-shrink: 0; line-height: 1.25; }
+    .boletin-item-star { color: #ffffff; font-size: 17px; flex-shrink: 0; line-height: 1.25; }
     .boletin-footer-bar {
-      background-color: #007784; color: #ffffff; text-align: center; padding: 13px 20px;
-      font-size: 17.5px; font-weight: 800; letter-spacing: 0.2px; position: relative; z-index: 2;
+      background-color: #007784; color: #ffffff; text-align: center; padding: 15px 20px;
+      font-size: 24px; font-weight: 800; letter-spacing: 0.2px; position: relative; z-index: 2;
       border-top: 1.5px solid rgba(255, 255, 255, 0.15);
     }
 
@@ -1220,6 +1234,13 @@
 Este documento establece lineamientos para la gestión comercial en los centros, reforzando las buenas prácticas, el rol de los equipos internos y el adecuado manejo de incidentes operacionales.</textarea>
         </div>
 
+        <div class="control-block" id="grpIconoEncabezado">
+          <label class="option-row">
+            <input type="checkbox" id="checkIconoEncabezado">
+            <span id="lblIconoEncabezado">Usar ícono grande en lugar del megáfono</span>
+          </label>
+        </div>
+
         <div class="control-block">
           <label class="option-row">
             <input type="checkbox" id="checkPuntos" checked>
@@ -1290,6 +1311,11 @@ Este documento establece lineamientos para la gestión comercial en los centros,
             <span style="font-size:11px; color:#64748b;">Tamaño:</span>
             <input type="range" id="sliderTamanoLogo" min="30" max="65" value="44" style="flex:1; cursor:pointer;">
           </div>
+
+          <label class="option-row">
+            <input type="checkbox" id="checkFondoLogos" checked>
+            <span>Mostrar fondo blanco y borde detrás de los logos</span>
+          </label>
 
           <div class="logos-builder-wrap" id="logosBuilder"></div>
           <button type="button" class="btn-add-detail" onclick="agregarLogoItem()">+ Agregar Logo / Institución</button>
@@ -1523,13 +1549,25 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         <!-- CANVAS BOLETÍN -->
         <div class="boletin-card" id="cardExportBoletin" style="display: none;">
           <svg class="boletin-ondas-top" viewBox="0 0 580 260" preserveAspectRatio="none" fill="none">
-            <path d="M420,0 C460,80 560,120 580,180 L580,0 Z" fill="#ffffff"/>
-            <path d="M480,120 C510,180 560,220 580,260 L580,120 Z" fill="#ffffff" opacity="0.5"/>
-            <path d="M0,0 C30,60 10,140 0,180 Z" fill="#ffffff" opacity="0.4"/>
+            <path d="M0 0 H178 C144 28 138 64 160 92 C182 120 218 136 250 146 C205 148 162 136 126 112 C88 86 48 82 0 104 Z" fill="#0a6e79" opacity="0.72"/>
+            <path d="M0 36 C54 22 106 42 136 82 C166 122 202 139 244 148" stroke="#1aa0a7" stroke-width="16" stroke-linecap="round" opacity="0.7"/>
+            <path d="M360 0 C430 34 462 80 540 92 C568 96 580 92 580 92 L580 0 Z" fill="#0a6e79"/>
+            <path d="M414 0 C474 34 494 62 580 70 L580 0 Z" fill="#1497a0" opacity="0.72"/>
+            <path d="M386 0 C424 38 462 54 504 58 C538 62 560 74 580 94" stroke="#1aa0a7" stroke-width="13" stroke-linecap="round" opacity="0.8"/>
+            <path d="M580 112 C548 126 536 154 548 182 C556 202 570 214 580 218 L580 112 Z" fill="#0a6e79" opacity="0.82"/>
+            <path d="M0 202 C56 174 86 188 118 226 C136 247 148 258 172 260 L0 260 Z" fill="#0a6e79"/>
+            <path d="M0 226 C46 204 78 216 104 246 C112 255 120 259 130 260 L0 260 Z" fill="#1497a0" opacity="0.68"/>
+            <path d="M0 186 C44 166 82 177 116 211 C142 237 168 249 202 254" stroke="#1aa0a7" stroke-width="11" stroke-linecap="round" opacity="0.78"/>
           </svg>
           <svg class="boletin-ondas-bottom" viewBox="0 0 580 220" preserveAspectRatio="none" fill="none">
-            <path d="M500,0 C450,60 480,140 580,180 L580,0 Z" fill="#ffffff" opacity="0.6"/>
-            <path d="M0,100 C60,140 80,180 90,220 L0,220 Z" fill="#ffffff"/>
+            <path d="M580 0 C532 20 518 58 532 92 C544 124 566 138 580 142 Z" fill="#0a6e79"/>
+            <path d="M580 18 C548 36 540 64 550 88 C558 108 572 116 580 120 Z" fill="#1497a0" opacity="0.7"/>
+            <path d="M580 8 C536 38 526 74 542 112 C552 136 568 150 580 156" stroke="#1aa0a7" stroke-width="14" stroke-linecap="round" opacity="0.78"/>
+            <path d="M0 182 C72 168 110 174 146 204 C162 218 180 220 205 220 L0 220 Z" fill="#0a6e79"/>
+            <path d="M0 204 C52 192 88 196 122 218 L0 220 Z" fill="#1497a0" opacity="0.72"/>
+            <path d="M0 164 C64 148 108 162 146 192 C174 214 206 220 250 220" stroke="#1aa0a7" stroke-width="13" stroke-linecap="round" opacity="0.78"/>
+            <path d="M290 220 C342 184 426 186 472 212 C480 216 488 218 500 220 Z" fill="#1aa0a7" opacity="0.8"/>
+            <path d="M292 220 C342 190 418 190 480 214" stroke="#62c5c7" stroke-width="9" stroke-linecap="round" opacity="0.72"/>
           </svg>
 
           <div class="boletin-inner">
@@ -1721,6 +1759,8 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
     let imagenNoticiaB64 = '';
     let dataDetalles = JSON.parse(JSON.stringify(CONFIG_AREAS.jefatura.defaults.detalles));
     let dataLogos = [];
+    let mostrarFondoLogos = true;
+    let usarIconoEncabezado = false;
 
     /* SELLO INTERACTIVO */
     let tieneSello = false;
@@ -1799,6 +1839,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       grpEncabezadoJefatura: document.getElementById('grpEncabezadoJefatura'),
       checkTieneImagen: document.getElementById('checkTieneImagen'),
       checkPuntos: document.getElementById('checkPuntos'),
+      checkIconoEncabezado: document.getElementById('checkIconoEncabezado'),
       checkImportante: document.getElementById('checkImportante'),
       checkRuta: document.getElementById('checkRuta'),
       subirImagenBox: document.getElementById('subirImagenBox'),
@@ -1807,6 +1848,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       wrapperInputRuta: document.getElementById('wrapperInputRuta'),
       sliderTamanoLogo: document.getElementById('sliderTamanoLogo'),
       valorTamanoLogo: document.getElementById('valorTamanoLogo'),
+      checkFondoLogos: document.getElementById('checkFondoLogos'),
       detailsContainer: document.getElementById('detailsContainer'),
       logosBuilder: document.getElementById('logosBuilder'),
       
@@ -1904,6 +1946,8 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         dataAccesosExternos: JSON.parse(JSON.stringify(dataAccesosExternos)),
         dataDetalles: JSON.parse(JSON.stringify(dataDetalles)),
         dataLogos: JSON.parse(JSON.stringify(dataLogos)),
+        mostrarFondoLogos,
+        usarIconoEncabezado,
         logoValoresBoletinB64,
         boletinNoticias: [...boletinNoticias],
         boletinDatos: [...boletinDatos],
@@ -1922,10 +1966,12 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
           inputJefaturaTag2: dom.inputJefaturaTag2 ? dom.inputJefaturaTag2.value : '',
           checkTieneImagen: dom.checkTieneImagen.checked,
           checkPuntos: dom.checkPuntos.checked,
+          checkIconoEncabezado: dom.checkIconoEncabezado.checked,
           checkImportante: dom.checkImportante.checked,
           checkRuta: dom.checkRuta.checked,
           checkFlechaExterna: dom.checkFlechaExterna.checked,
           sliderTamanoLogo: dom.sliderTamanoLogo.value,
+          checkFondoLogos: dom.checkFondoLogos.checked,
           inputBoletinSaludo: dom.inputBoletinSaludo ? dom.inputBoletinSaludo.value : '',
           inputBoletinIntro: dom.inputBoletinIntro ? dom.inputBoletinIntro.value : '',
           inputBoletinTituloDatos: dom.inputBoletinTituloDatos ? dom.inputBoletinTituloDatos.value : '',
@@ -1981,6 +2027,8 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       dataAccesosExternos = JSON.parse(JSON.stringify(estadoObj.dataAccesosExternos || []));
       dataDetalles = JSON.parse(JSON.stringify(estadoObj.dataDetalles));
       dataLogos = JSON.parse(JSON.stringify(estadoObj.dataLogos));
+      mostrarFondoLogos = estadoObj.mostrarFondoLogos ?? true;
+      usarIconoEncabezado = estadoObj.usarIconoEncabezado ?? false;
       
       logoValoresBoletinB64 = estadoObj.logoValoresBoletinB64 || '';
       boletinNoticias = [...estadoObj.boletinNoticias];
@@ -2001,9 +2049,11 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       if (dom.inputJefaturaTag2) dom.inputJefaturaTag2.value = inp.inputJefaturaTag2;
       dom.checkTieneImagen.checked = inp.checkTieneImagen;
       dom.checkPuntos.checked = inp.checkPuntos;
+      dom.checkIconoEncabezado.checked = inp.checkIconoEncabezado ?? usarIconoEncabezado;
       dom.checkImportante.checked = inp.checkImportante;
       dom.checkRuta.checked = inp.checkRuta;
       dom.checkFlechaExterna.checked = inp.checkFlechaExterna ?? false;
+      dom.checkFondoLogos.checked = inp.checkFondoLogos ?? mostrarFondoLogos;
       if (inp.sliderTamanoLogo) {
         dom.sliderTamanoLogo.value = inp.sliderTamanoLogo;
         ajustarTamanoLogos(inp.sliderTamanoLogo);
@@ -2676,6 +2726,10 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       dom.cardNoticia.classList.toggle('is-jefatura', esJefatura);
 
       document.getElementById('grpEncabezadoJefatura').style.display = esJefatura ? 'flex' : 'none';
+      document.getElementById('grpIconoEncabezado').style.display = esJefatura ? 'none' : 'flex';
+      document.getElementById('lblIconoEncabezado').innerText = esGlobal
+        ? 'Eliminar ícono grande'
+        : 'Usar ícono grande en lugar del megáfono';
       document.getElementById('grpTitulo').style.display = esGlobal ? 'none' : 'flex';
       document.getElementById('grpIntro').style.display = esGlobal ? 'none' : 'flex';
       document.getElementById('grpLogos').style.display = esGlobal ? 'none' : 'flex';
@@ -2949,8 +3003,12 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         : '';
 
       const footerHtml = (rutaHtml || logosHtml)
-        ? `<hr class="footer-divider"><div class="footer-content">${rutaHtml}${logosHtml ? `<div class="footer-logos-box">${logosHtml}</div>` : ''}</div>`
+        ? `<hr class="footer-divider"><div class="footer-content">${rutaHtml}${logosHtml ? `<div class="footer-logos-box${mostrarFondoLogos ? '' : ' footer-logos-plain'}">${logosHtml}</div>` : ''}</div>`
         : '';
+
+      const iconoEncabezadoHtml = usarIconoEncabezado
+        ? `<div class="icon-megafono icono-area-encabezado"><i class="fi ${areaCfg.icon}"></i></div>`
+        : SVG_MEGAFONO;
 
       if (tipoActual === 'jefatura') {
         const tag1 = dom.inputJefaturaTag1.value.trim();
@@ -3002,7 +3060,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
                 <span style="font-size:16px; line-height:1.2;">●</span>
                 <span>${parsearNegrita(dom.inputTituloDetalles.value)}</span>
               </div>
-              <div class="box-icono-equipo"><i class="fi ${areaCfg.icon}"></i></div>
+              ${usarIconoEncabezado ? '' : `<div class="box-icono-equipo"><i class="fi ${areaCfg.icon}"></i></div>`}
             </div>
             <div style="flex:1; padding-top:4px;"><ul class="lista-items" style="gap:14px;">${bulletsHtml}</ul></div>
           </div>
@@ -3014,7 +3072,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
           : `<span style="font-size:12px; font-weight:700; color:#94a3b8; text-align:center; padding:25px; width:100%;">Carga o pega una captura aquí</span>`;
 
         dom.contentArea.innerHTML = `
-          ${SVG_MEGAFONO}
+          ${iconoEncabezadoHtml}
           <div class="header-titles">
             <div class="categoria">${areaCfg.nombre}</div>
             <div class="titulo-noticia">${parsearNegrita(dom.inputTitulo.value)}</div>
@@ -3034,14 +3092,14 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
           : `<p class="intro-text intro-lateral">${parsearNegrita(dom.inputIntro.value)}</p>`;
 
         dom.contentArea.innerHTML = `
-          ${SVG_MEGAFONO}
+          ${iconoEncabezadoHtml}
           <div class="header-titles">
             <div class="categoria">${areaCfg.nombre}</div>
             <div class="titulo-noticia">${parsearNegrita(dom.inputTitulo.value)}</div>
           </div>
           ${dom.checkPuntos.checked ? `<p class="intro-text">${parsearNegrita(dom.inputIntro.value)}</p>` : ''}
           <div class="cuerpo-noticia">
-            <div class="box-icono"><i class="fi ${areaCfg.icon}"></i></div>
+            ${usarIconoEncabezado ? '' : `<div class="box-icono"><i class="fi ${areaCfg.icon}"></i></div>`}
             <div class="detalles-container">${cuerpoCentral}</div>
           </div>
           ${importanteHtml}${footerHtml}
@@ -3447,6 +3505,12 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         guardarHistorial(true);
       });
 
+      dom.checkIconoEncabezado.addEventListener('change', () => {
+        usarIconoEncabezado = dom.checkIconoEncabezado.checked;
+        actualizarVista();
+        guardarHistorial(true);
+      });
+
       dom.checkImportante.addEventListener('change', () => {
         dom.wrapperInputImportante.style.display = dom.checkImportante.checked ? 'flex' : 'none';
         if (dom.checkImportante.checked && !dom.inputImportante.value.trim()) {
@@ -3468,6 +3532,12 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       dom.sliderTamanoLogo.addEventListener('input', (e) => {
         ajustarTamanoLogos(e.target.value);
         guardarHistorial(false);
+      });
+
+      dom.checkFondoLogos.addEventListener('change', () => {
+        mostrarFondoLogos = dom.checkFondoLogos.checked;
+        actualizarVista();
+        guardarHistorial(true);
       });
 
       document.getElementById('inputArchivoNoticia').addEventListener('change', function() {
