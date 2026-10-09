@@ -18,6 +18,7 @@
       --primary-dark: #133D59;
       --dark: #133D59;
       --bg-card: #eef9fa;
+      --important-text-color: #b45309;
       --logo-badge-height: 54px;
       --logo-img-height: 44px;
 
@@ -441,9 +442,63 @@
       margin: 0 auto 24px;
       white-space: pre-line;
     }
+    .noticia-card .important-notice,
+    .noticia-card .alerta-jefatura {
+      color: var(--important-text-color);
+    }
+    .noticia-card .icono-importante,
+    .noticia-card .triangulo-alerta {
+      color: var(--important-text-color) !important;
+    }
+    .noticia-card .important-notice strong,
+    .noticia-card .alerta-jefatura strong {
+      color: var(--important-text-color);
+    }
     .intro-lateral { margin: 0; max-width: none; text-align: left; }
 
     .cuerpo-noticia { display: flex; gap: 32px; align-items: flex-start; margin-bottom: 24px; }
+
+    .noticia-dos-bloques {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+      margin: 4px 0 24px;
+    }
+    .btn-align-tool.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+    .intro-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 3px;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+    .intro-toolbar .btn-align-tool {
+      padding-left: 7px;
+      padding-right: 7px;
+      font-size: 10px;
+    }
+    .bloque-informacion {
+      min-width: 0;
+      padding: 14px 16px 16px;
+      background: rgba(255, 255, 255, 0.34);
+      border: 1.5px solid rgba(0, 153, 168, 0.12);
+    }
+    .bloque-informacion .detalles-titulo { margin-bottom: 10px; }
+    .bloque-informacion .intro-text { margin-bottom: 14px; }
+    .bloque-informacion .lista-items { gap: 9px; }
+    .bloque-informacion-vacio {
+      color: #64748b;
+      font-size: 12px;
+      font-style: italic;
+    }
+    @media (max-width: 700px) {
+      .noticia-dos-bloques { grid-template-columns: 1fr; }
+    }
 
     .box-icono {
       width: 135px; height: 135px; background: #ffffff; border: 2.5px solid var(--primary);
@@ -525,7 +580,7 @@
       margin: 26px auto 10px;
       color: #b45309;
       font-size: 13.5px;
-      font-weight: 600;
+      font-weight: 400;
       line-height: 1.45;
       text-align: center;
       max-width: 820px;
@@ -535,7 +590,7 @@
       padding: 0;
     }
     .important-notice strong { 
-      color: #92400e; 
+      color: var(--important-text-color); 
       font-weight: 800; 
     }
 
@@ -561,6 +616,13 @@
       min-height: 190px;
       padding: 6px;
     }
+    .col-visual-imagen.sin-fondo {
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+      padding: 0;
+      overflow: visible;
+    }
     .col-visual-imagen img {
       max-width: 100%;
       max-height: 365px;
@@ -569,6 +631,9 @@
       object-fit: contain;
       display: block;
       border-radius: 12px;
+    }
+    .col-visual-imagen.sin-fondo img {
+      border-radius: 0;
     }
 
     /* SELLO FLOTANTE */
@@ -616,6 +681,15 @@
       z-index: 55;
       touch-action: none;
     }
+    .sellos-adicionales-layer { position: absolute; inset: 0; pointer-events: none; z-index: 50; }
+    .sello-adicional { position: absolute; display: none; align-items: center; justify-content: center; cursor: grab; user-select: none; touch-action: none; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.18)); pointer-events: auto; }
+    .sello-adicional.is-dragging { cursor: grabbing; opacity: 0.85; }
+    .sello-adicional img { width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none; }
+    .sello-adicional .sello-resize-handle { display: block; }
+    .sellos-cargados-preview { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .sello-miniatura { position: relative; width: 56px; height: 56px; padding: 3px; border: 1px solid #cbd5e1; border-radius: 7px; background: #ffffff; }
+    .sello-miniatura img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .btn-quitar-sello-miniatura { position: absolute; top: -7px; right: -7px; width: 18px; height: 18px; padding: 0; border: 1px solid #ffffff; border-radius: 50%; background: #ef4444; color: #ffffff; font-size: 13px; line-height: 15px; cursor: pointer; }
 
     .flecha-externa-box {
       position: absolute;
@@ -806,7 +880,7 @@
       justify-content: center;
       gap: 10px;
       font-size: 13.5px;
-      font-weight: 600;
+      font-weight: 400;
       line-height: 1.45;
       color: #b45309;
       text-align: center;
@@ -817,11 +891,11 @@
       white-space: pre-line;
     }
     .noticia-card.is-jefatura .alerta-jefatura strong {
-      color: #92400e;
+      color: var(--important-text-color);
       font-weight: 800;
     }
     .noticia-card.is-jefatura .alerta-jefatura .triangulo-alerta {
-      color: #d97706;
+      color: var(--important-text-color);
       font-size: 18px;
       flex-shrink: 0;
       line-height: 1;
@@ -894,6 +968,7 @@
     .interes-body { background: #ffffff; padding: 24px 26px 22px; display: flex; flex-direction: column; gap: 14px; }
     .interes-intro { color: #334155; font-size: 13.5px; line-height: 1.55; text-align: left; white-space: pre-line; }
     .interes-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 2px; }
+    #previewInteresSubtituloPuntos { margin-bottom: -8px; }
     .interes-list li { color: #1e293b; font-size: 13px; line-height: 1.45; display: flex; align-items: flex-start; gap: 10px; }
     .interes-list li span:last-child { white-space: pre-line; }
     .interes-list-bullet { color: #78bd16; font-size: 13.5px; font-weight: 900; line-height: 1.35; flex-shrink: 0; }
@@ -915,6 +990,10 @@
     .interes-alerta-titulo { font-size: 11px; font-weight: 800; color: #0099a8; letter-spacing: 0.8px; text-transform: uppercase; }
     .interes-alerta-texto { font-size: 11.5px; line-height: 1.45; color: #1e293b; white-space: pre-line; }
     .interes-alerta-subtexto { font-size: 10.5px; line-height: 1.4; color: #64748b; margin-top: 2px; white-space: pre-line; }
+    .interes-sellos-layer { position: absolute; inset: 0; pointer-events: none; z-index: 10; }
+    .interes-sello-flotante { position: absolute; display: flex; align-items: center; justify-content: center; cursor: grab; user-select: none; touch-action: none; filter: drop-shadow(0 3px 7px rgba(0,0,0,0.16)); pointer-events: auto; }
+    .interes-sello-flotante.is-dragging { cursor: grabbing; opacity: 0.85; }
+    .interes-sello-flotante img { width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none; }
 
     /* MODO DOCUMENTOS OPERACIONES */
     .docs-grid-stage { display: flex; justify-content: center; align-items: center; width: 100%; }
@@ -1137,6 +1216,31 @@
       transition: background 0.15s;
     }
     .btn-quitar-logo-inline:hover { background: #fca5a5; }
+
+    /* MODO 6: BANNERS DE ÁREA (981 x 310 px) */
+    .banner-area-card {
+      width: 981px;
+      height: 310px;
+      background-color: #0099a8;
+      padding: 50px 48px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      flex-shrink: 0;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    }
+    .banner-area-inner { display: flex; align-items: center; width: 100%; height: 100%; }
+    .banner-area-left { display: flex; align-items: center; gap: 24px; flex-shrink: 0; }
+    .banner-area-logo {
+      width: 210px; height: 110px; display: flex; align-items: center; justify-content: center;
+      border: 2px dashed rgba(255,255,255,0.35); border-radius: 8px;
+    }
+    .banner-area-logo.cargado { border: none; }
+    .banner-area-logo img { width: 100%; height: auto; display: none; }
+    .banner-area-logo .banner-placeholder { font-size: 11px; font-weight: 500; color: #ffffff; text-align: center; padding: 8px; }
+    .banner-area-divider { width: 2px; height: 85px; background: rgba(255,255,255,0.35); border-radius: 2px; }
+    .banner-area-right { flex: 1; min-width: 0; max-height: 210px; display: flex; align-items: center; justify-content: center; padding: 0 16px; text-align: center; }
+    .banner-area-title { font-size: 40px; font-weight: 800; color: #ffffff; line-height: 1.15; letter-spacing: -0.5px; white-space: normal; overflow-wrap: anywhere; width: 100%; text-align: center; }
   </style>
 </head>
 <body>
@@ -1150,6 +1254,7 @@
         <button class="mode-tab-btn" id="tabModoInteres" onclick="cambiarModoApp('interes')">Datos de Interés</button>
         <button class="mode-tab-btn" id="tabModoDocumentos" onclick="cambiarModoApp('documentos')">Documentos Operaciones</button>
         <button class="mode-tab-btn" id="tabModoBotones" onclick="cambiarModoApp('botones')">Creador de Botones</button>
+        <button class="mode-tab-btn" id="tabModoBanners" onclick="cambiarModoApp('banners')">Banners de Área</button>
       </div>
     </div>
     <div class="header-actions">
@@ -1183,9 +1288,14 @@
           </div>
 
           <div style="display: flex; gap: 8px; align-items: center;">
-            <input type="file" id="inputArchivoSello" accept="image/*" style="font-size: 11px; flex: 1;">
-            <button type="button" class="btn-delete" onclick="removerSello()" title="Quitar sello" style="height: 30px;">×</button>
+            <label class="upload-btn-label" style="flex:1; text-align:center;">
+              + Agregar sellos
+              <input type="file" id="inputArchivoSello" accept="image/*" multiple style="display:none;">
+            </label>
+            <button type="button" class="btn-delete" onclick="removerSello()" title="Quitar todos los sellos" style="height: 30px;">×</button>
           </div>
+          <span id="contadorSellos" style="font-size:10px; color:#64748b; font-weight:600;">0 de 15 sellos cargados</span>
+          <div class="sellos-cargados-preview" id="sellosCargadosPreview"></div>
 
           <div id="wrapperSelloControles" style="display: none; flex-direction: column; gap: 6px; margin-top: 4px;">
             <div style="display: flex; align-items: center; gap: 10px;">
@@ -1206,6 +1316,10 @@
           </label>
           <div id="subirImagenBox" style="display: none; margin-top: 4px;">
             <input type="file" id="inputArchivoNoticia" accept="image/*" style="font-size: 12px; width: 100%;">
+            <label class="option-row" style="margin-top: 8px;">
+              <input type="checkbox" id="checkFondoImagen" checked>
+              <span>Mostrar cuadrado de fondo detrás de la imagen</span>
+            </label>
           </div>
         </div>
 
@@ -1228,10 +1342,35 @@
         <div class="form-group" id="grpIntro">
           <div class="label-con-toolbar">
             <label>Párrafo de Bajada / Introducción</label>
-            <button type="button" class="btn-bold-tool" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inputIntro')"><strong>B</strong> Negrita</button>
+            <div class="intro-toolbar">
+              <button type="button" class="btn-bold-tool btn-align-tool" data-alineacion-intro="izquierda" onclick="establecerAlineacionIntro('izquierda')" title="Alinear a la izquierda">Izq.</button>
+              <button type="button" class="btn-bold-tool btn-align-tool active" data-alineacion-intro="centro" onclick="establecerAlineacionIntro('centro')" title="Centrar texto">Cen.</button>
+              <button type="button" class="btn-bold-tool btn-align-tool" data-alineacion-intro="derecha" onclick="establecerAlineacionIntro('derecha')" title="Alinear a la derecha">Der.</button>
+              <button type="button" class="btn-bold-tool btn-align-tool" data-alineacion-intro="justificado" onclick="establecerAlineacionIntro('justificado')" title="Justificar texto">Jus.</button>
+              <button type="button" class="btn-bold-tool" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inputIntro')"><strong>B</strong> Negrita</button>
+            </div>
           </div>
           <textarea id="inputIntro">Con el objetivo de fortalecer la experiencia de nuestros pacientes en Centros Dentales, se encuentra disponible el Protocolo de atención y venta Plan Soy RedSalud Dental.
 Este documento establece lineamientos para la gestión comercial en los centros, reforzando las buenas prácticas, el rol de los equipos internos y el adecuado manejo de incidentes operacionales.</textarea>
+        </div>
+
+        <div class="control-block" id="grpDivisionInformacion">
+          <label class="option-row">
+            <input type="checkbox" id="checkDividirInformacion">
+            <span>Dividir en dos informaciones</span>
+          </label>
+          <div id="wrapperSegundaInformacion" style="display: none; flex-direction: column; gap: 8px; margin-top: 4px;">
+            <label style="font-size: 10px;">Título de la segunda información</label>
+            <input type="text" id="inputTituloInformacion2" value="Segunda información" placeholder="Ej: Pacientes capitados 80 y colaboradores">
+            <label style="font-size: 10px; margin-top: 2px;">Texto introductorio de la segunda información</label>
+            <textarea id="inputIntroInformacion2" placeholder="Escribe una bajada para la segunda información..."></textarea>
+            <label style="font-size: 10px; margin-top: 2px;">Puntos y subpuntos de la segunda información</label>
+            <div id="detailsContainerInformacion2"></div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <button type="button" class="btn-add-detail" onclick="agregarPuntoInformacion2()" style="flex: 1;">+ Agregar Punto Principal (➔)</button>
+              <button type="button" class="btn-add-detail" onclick="agregarSoloPuntosInformacion2()" style="flex: 1; background: #e0f2fe; border-color: #7dd3fc; color: #0369a1;">+ Agregar Solo Puntos (●)</button>
+            </div>
+          </div>
         </div>
 
         <div class="control-block" id="grpIconoEncabezado">
@@ -1287,6 +1426,14 @@ Este documento establece lineamientos para la gestión comercial en los centros,
             <input type="text" id="inputImportante" value="" placeholder="Mensaje de advertencia..." style="flex:1;">
             <button type="button" class="btn-bold-inline" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inputImportante')"><strong>B</strong></button>
           </div>
+          <label for="inputColorImportante" style="margin-top: 4px;">Color del texto de Importante</label>
+          <select id="inputColorImportante">
+            <option value="#b45309">Amarillo original</option>
+            <option value="#133d59">Azul oscuro</option>
+            <option value="#b91c1c">Rojo</option>
+            <option value="#166534">Verde</option>
+            <option value="#1e293b">Negro</option>
+          </select>
         </div>
 
         <div class="control-block" id="grpRutaCompleta" style="display: none;">
@@ -1404,9 +1551,22 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         </div>
 
         <div class="control-block" id="grpInteresPuntos">
-          <label>Puntos Clave</label>
+          <label>Subtítulo de Puntos Clave</label>
+          <input type="text" id="inputInteresSubtituloPuntos" value="Puntos clave:" placeholder="Ej: Detalles importantes:">
           <div id="interesItemsContainer" style="display:flex; flex-direction:column; gap:6px;"></div>
-          <button type="button" class="btn-add-detail" onclick="agregarItemInteres()">+ Agregar Punto</button>
+          <div style="display:flex; gap:6px;">
+            <button type="button" class="btn-add-detail" onclick="agregarItemInteres(false)" style="flex:1;">+ Agregar Punto</button>
+            <button type="button" class="btn-add-detail" onclick="agregarItemInteres(true)" style="flex:1;">+ Agregar Estrella ★</button>
+          </div>
+        </div>
+
+        <div class="control-block">
+          <label>Sellos / Íconos flotantes</label>
+          <label class="upload-btn-label" style="text-align:center;">
+            + Agregar sellos
+            <input type="file" id="inputSellosInteres" accept="image/*" multiple style="display:none;">
+          </label>
+          <div id="previewSellosInteresEditor" class="sellos-cargados-preview"></div>
         </div>
 
         <div class="control-block" id="grpInteresFotoTabla" style="display: none;">
@@ -1510,6 +1670,25 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         <button type="button" class="btn-generate" onclick="descargarBotonCorporativoPNG()">⬇ Descargar Botón (PNG Transparente)</button>
       </div>
 
+      <!-- MODO 6: BANNERS DE ÁREA -->
+      <div id="panelModoBanners" style="display: none; flex-direction: column; gap: 14px;">
+        <div class="form-group">
+          <label>Texto del Banner</label>
+          <input type="text" id="inBannerTexto" value="Área Dental" placeholder="Ej: Área Dental">
+        </div>
+
+        <div class="control-block">
+          <label>Logo "Valores que laten fuerte"</label>
+          <div class="file-input-inline-wrap">
+            <input type="file" id="inBannerLogo" accept="image/*" style="font-size:11px;">
+            <button type="button" class="btn-quitar-logo-inline" onclick="quitarLogoBanner()" title="Quitar logo">×</button>
+          </div>
+          <span style="font-size:10.5px; color:#64748b;">El logo se convierte automáticamente a blanco.</span>
+        </div>
+
+        <button type="button" class="btn-generate" onclick="descargarBannerArea()">⬇ Descargar Banner (PNG 981×310)</button>
+      </div>
+
       <button class="btn-generate" id="btnDescargarLaminaPrincipal" onclick="descargarPNG()">⬇ Descargar Lámina Principal (PNG)</button>
     </div>
 
@@ -1526,6 +1705,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
             <img id="imgSelloRender" alt="Sello Decorativo">
             <div class="sello-resize-handle" id="selloResizeHandle" title="Arrastra para redimensionar"></div>
           </div>
+          <div class="sellos-adicionales-layer" id="previewSellosAdicionales"></div>
 
           <!-- FLECHA CURVA -->
           <div class="flecha-externa-box" id="previewFlechaExterna">
@@ -1604,6 +1784,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
 
         <!-- CANVAS DATOS DE INTERÉS -->
         <div class="interes-card" id="cardExportInteres" style="display: none;">
+          <div class="interes-sellos-layer" id="previewSellosInteres"></div>
           <div class="interes-inner">
             <div class="interes-title-wrap">
               <div class="interes-title" id="previewInteresTitulo"></div>
@@ -1613,6 +1794,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
 
             <div class="interes-body">
               <p class="interes-intro" id="previewInteresIntro"></p>
+              <div class="detalles-titulo" id="previewInteresSubtituloPuntos"></div>
               
               <ul class="interes-list" id="previewInteresItems"></ul>
               
@@ -1655,6 +1837,22 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
             </div>
             <div class="btn-redsalud-text-slot">
               <span id="textBotonRender">LOGÍSTICA</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CANVAS BANNER DE ÁREA (981 x 310) -->
+        <div class="banner-area-card" id="cardExportBanner" style="display: none;">
+          <div class="banner-area-inner">
+            <div class="banner-area-left">
+              <div class="banner-area-logo" id="bannerLogoBox">
+                <span class="banner-placeholder" id="bannerLogoPlaceholder">Sube el logo Valores</span>
+                <img id="imgBannerLogo" alt="Valores que laten fuerte">
+              </div>
+              <div class="banner-area-divider"></div>
+            </div>
+            <div class="banner-area-right">
+              <div class="banner-area-title" id="textoBannerRender">Área Dental</div>
             </div>
           </div>
         </div>
@@ -1757,7 +1955,11 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
     let tipoActual = 'dental';
     let tieneImagen = false;
     let imagenNoticiaB64 = '';
+    let mostrarFondoImagen = true;
+    let alineacionIntro = 'centro';
     let dataDetalles = JSON.parse(JSON.stringify(CONFIG_AREAS.jefatura.defaults.detalles));
+    let dataDetallesInformacion2 = [];
+    let dividirInformacion = false;
     let dataLogos = [];
     let mostrarFondoLogos = true;
     let usarIconoEncabezado = false;
@@ -1766,6 +1968,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
     let tieneSello = false;
     let selloB64 = '';
     let selloPos = { x: 36, y: 350, width: 120, height: 60, ratio: 1 };
+    let sellosAdicionales = [];
 
     let tieneFlechaExterna = false;
     let dataAccesosExternos = [
@@ -1795,6 +1998,8 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       'Colaboradores **FFAA**.',
       'Vacunas.'
     ];
+    let interesItemsEstrella = [false, false, false, false];
+    let interesSellos = [];
     let fotoTablaInteresB64 = '';
 
     /* DOCUMENTO PORTAL OPERACIONES */
@@ -1806,6 +2011,8 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
     };
 
     /* BOTÓN OFICIAL REDSALUD DATA (7.41cm x 3.34cm) */
+    let dataBanner = { texto: 'Área Dental', logoB64: '' };
+
     let dataBotonRedsalud = {
       texto: 'LOGÍSTICA',
       logoB64: '',
@@ -1827,10 +2034,18 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       cardInteres: document.getElementById('cardExportInteres'),
       cardDocumentos: document.getElementById('cardExportDocumentos'),
       cardBotonWrap: document.getElementById('cardExportBotonWrap'),
+      cardBanner: document.getElementById('cardExportBanner'),
       cardWrap: document.getElementById('previewCardWrap'),
       contentArea: document.getElementById('cardContentArea'),
       inputTitulo: document.getElementById('inputTitulo'),
       inputIntro: document.getElementById('inputIntro'),
+      checkDividirInformacion: document.getElementById('checkDividirInformacion'),
+      wrapperSegundaInformacion: document.getElementById('wrapperSegundaInformacion'),
+      inputTituloInformacion2: document.getElementById('inputTituloInformacion2'),
+      inputIntroInformacion2: document.getElementById('inputIntroInformacion2'),
+      inputColorImportante: document.getElementById('inputColorImportante'),
+      labelColorTextoNoticia: document.getElementById('labelColorTextoNoticia'),
+      detailsContainerInformacion2: document.getElementById('detailsContainerInformacion2'),
       inputTituloDetalles: document.getElementById('inputTituloDetalles'),
       inputRuta: document.getElementById('inputRuta'),
       inputImportante: document.getElementById('inputImportante'),
@@ -1838,6 +2053,8 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       inputJefaturaTag2: document.getElementById('inputJefaturaTag2'),
       grpEncabezadoJefatura: document.getElementById('grpEncabezadoJefatura'),
       checkTieneImagen: document.getElementById('checkTieneImagen'),
+      checkFondoImagen: document.getElementById('checkFondoImagen'),
+      inputArchivoNoticia: document.getElementById('inputArchivoNoticia'),
       checkPuntos: document.getElementById('checkPuntos'),
       checkIconoEncabezado: document.getElementById('checkIconoEncabezado'),
       checkImportante: document.getElementById('checkImportante'),
@@ -1855,10 +2072,13 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       inputArchivoSello: document.getElementById('inputArchivoSello'),
       previewSelloBox: document.getElementById('previewSelloBox'),
       imgSelloRender: document.getElementById('imgSelloRender'),
+      previewSellosAdicionales: document.getElementById('previewSellosAdicionales'),
       selloResizeHandle: document.getElementById('selloResizeHandle'),
       sliderTamanoSello: document.getElementById('sliderTamanoSello'),
       labelTamanoSello: document.getElementById('labelTamanoSello'),
       wrapperSelloControles: document.getElementById('wrapperSelloControles'),
+      contadorSellos: document.getElementById('contadorSellos'),
+      sellosCargadosPreview: document.getElementById('sellosCargadosPreview'),
 
       checkFlechaExterna: document.getElementById('checkFlechaExterna'),
       previewFlechaExterna: document.getElementById('previewFlechaExterna'),
@@ -1878,6 +2098,9 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       boletinNoticiasContainer: document.getElementById('boletinNoticiasContainer'),
       boletinDatosContainer: document.getElementById('boletinDatosContainer'),
       interesItemsContainer: document.getElementById('interesItemsContainer'),
+      inputInteresSubtituloPuntos: document.getElementById('inputInteresSubtituloPuntos'),
+      inputSellosInteres: document.getElementById('inputSellosInteres'),
+      previewSellosInteresEditor: document.getElementById('previewSellosInteresEditor'),
       inputInteresTitulo: document.getElementById('inputInteresTitulo'),
       inputInteresIntro: document.getElementById('inputInteresIntro'),
       inputFotoTablaInteres: document.getElementById('inputFotoTablaInteres'),
@@ -1888,6 +2111,8 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       previewInteresTitulo: document.getElementById('previewInteresTitulo'),
       previewInteresIntro: document.getElementById('previewInteresIntro'),
       previewInteresItems: document.getElementById('previewInteresItems'),
+      previewInteresSubtituloPuntos: document.getElementById('previewInteresSubtituloPuntos'),
+      previewSellosInteres: document.getElementById('previewSellosInteres'),
       previewInteresFotoWrap: document.getElementById('previewInteresFotoWrap'),
       imgFotoTablaRender: document.getElementById('imgFotoTablaRender'),
       previewInteresAlertaWrap: document.getElementById('previewInteresAlertaWrap'),
@@ -1939,12 +2164,16 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         tipoActual,
         tieneImagen,
         imagenNoticiaB64,
+        mostrarFondoImagen,
         tieneSello,
         selloB64,
         selloPos: { ...selloPos },
+        sellosAdicionales: JSON.parse(JSON.stringify(sellosAdicionales)),
         tieneFlechaExterna,
         dataAccesosExternos: JSON.parse(JSON.stringify(dataAccesosExternos)),
         dataDetalles: JSON.parse(JSON.stringify(dataDetalles)),
+        dataDetallesInformacion2: JSON.parse(JSON.stringify(dataDetallesInformacion2)),
+        dividirInformacion,
         dataLogos: JSON.parse(JSON.stringify(dataLogos)),
         mostrarFondoLogos,
         usarIconoEncabezado,
@@ -1953,18 +2182,27 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         boletinDatos: [...boletinDatos],
         layoutInteresActual,
         interesItems: [...interesItems],
+        interesItemsEstrella: [...interesItemsEstrella],
+        interesSellos: JSON.parse(JSON.stringify(interesSellos)),
         fotoTablaInteresB64,
         dataDocPortal: { ...dataDocPortal },
         dataBotonRedsalud: { ...dataBotonRedsalud },
+        dataBanner: { ...dataBanner },
         inputs: {
           inputTitulo: dom.inputTitulo ? dom.inputTitulo.value : '',
           inputIntro: dom.inputIntro ? dom.inputIntro.value : '',
+          checkDividirInformacion: dom.checkDividirInformacion.checked,
+          inputTituloInformacion2: dom.inputTituloInformacion2 ? dom.inputTituloInformacion2.value : '',
+          inputIntroInformacion2: dom.inputIntroInformacion2 ? dom.inputIntroInformacion2.value : '',
+          inputColorImportante: dom.inputColorImportante.value,
+          alineacionIntro,
           inputTituloDetalles: dom.inputTituloDetalles ? dom.inputTituloDetalles.value : '',
           inputRuta: dom.inputRuta ? dom.inputRuta.value : '',
           inputImportante: dom.inputImportante ? dom.inputImportante.value : '',
           inputJefaturaTag1: dom.inputJefaturaTag1 ? dom.inputJefaturaTag1.value : '',
           inputJefaturaTag2: dom.inputJefaturaTag2 ? dom.inputJefaturaTag2.value : '',
           checkTieneImagen: dom.checkTieneImagen.checked,
+          checkFondoImagen: dom.checkFondoImagen.checked,
           checkPuntos: dom.checkPuntos.checked,
           checkIconoEncabezado: dom.checkIconoEncabezado.checked,
           checkImportante: dom.checkImportante.checked,
@@ -1978,6 +2216,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
           inputBoletinFecha: dom.inputBoletinFecha ? dom.inputBoletinFecha.value : '',
           inputInteresTitulo: dom.inputInteresTitulo ? dom.inputInteresTitulo.value : '',
           inputInteresIntro: dom.inputInteresIntro ? dom.inputInteresIntro.value : '',
+          inputInteresSubtituloPuntos: dom.inputInteresSubtituloPuntos ? dom.inputInteresSubtituloPuntos.value : '',
           checkInteresAlerta: dom.checkInteresAlerta.checked,
           inputInteresAlertaTexto: dom.inputInteresAlertaTexto ? dom.inputInteresAlertaTexto.value : '',
           inputInteresAlertaSubtexto: dom.inputInteresAlertaSubtexto ? dom.inputInteresAlertaSubtexto.value : ''
@@ -2020,12 +2259,16 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       tipoActual = estadoObj.tipoActual;
       tieneImagen = estadoObj.tieneImagen;
       imagenNoticiaB64 = estadoObj.imagenNoticiaB64;
+      mostrarFondoImagen = estadoObj.mostrarFondoImagen ?? true;
       tieneSello = estadoObj.tieneSello ?? false;
       selloB64 = estadoObj.selloB64 || '';
       selloPos = estadoObj.selloPos ? { ...estadoObj.selloPos } : { x: 36, y: 350, width: 120, height: 60, ratio: 1 };
+      sellosAdicionales = JSON.parse(JSON.stringify(estadoObj.sellosAdicionales || []));
       tieneFlechaExterna = estadoObj.tieneFlechaExterna ?? false;
       dataAccesosExternos = JSON.parse(JSON.stringify(estadoObj.dataAccesosExternos || []));
       dataDetalles = JSON.parse(JSON.stringify(estadoObj.dataDetalles));
+      dataDetallesInformacion2 = JSON.parse(JSON.stringify(estadoObj.dataDetallesInformacion2 || []));
+      dividirInformacion = estadoObj.dividirInformacion ?? false;
       dataLogos = JSON.parse(JSON.stringify(estadoObj.dataLogos));
       mostrarFondoLogos = estadoObj.mostrarFondoLogos ?? true;
       usarIconoEncabezado = estadoObj.usarIconoEncabezado ?? false;
@@ -2035,19 +2278,30 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       boletinDatos = [...estadoObj.boletinDatos];
       layoutInteresActual = estadoObj.layoutInteresActual;
       interesItems = [...estadoObj.interesItems];
+      interesItemsEstrella = [...(estadoObj.interesItemsEstrella || interesItems.map(() => false))];
+      interesSellos = JSON.parse(JSON.stringify(estadoObj.interesSellos || []));
       fotoTablaInteresB64 = estadoObj.fotoTablaInteresB64;
       if (estadoObj.dataDocPortal) dataDocPortal = { ...estadoObj.dataDocPortal };
       if (estadoObj.dataBotonRedsalud) dataBotonRedsalud = { ...estadoObj.dataBotonRedsalud };
+      if (estadoObj.dataBanner) dataBanner = { ...estadoObj.dataBanner };
 
       const inp = estadoObj.inputs;
       if (dom.inputTitulo) dom.inputTitulo.value = inp.inputTitulo;
       if (dom.inputIntro) dom.inputIntro.value = inp.inputIntro;
+      dom.checkDividirInformacion.checked = inp.checkDividirInformacion ?? dividirInformacion;
+      if (dom.inputTituloInformacion2) dom.inputTituloInformacion2.value = inp.inputTituloInformacion2 ?? '';
+      if (dom.inputIntroInformacion2) dom.inputIntroInformacion2.value = inp.inputIntroInformacion2 ?? '';
+      dom.inputColorImportante.value = inp.inputColorImportante ?? '#b45309';
+      actualizarColorImportante();
+      alineacionIntro = inp.alineacionIntro ?? 'centro';
+      actualizarBotonesAlineacionIntro();
       if (dom.inputTituloDetalles) dom.inputTituloDetalles.value = inp.inputTituloDetalles;
       if (dom.inputRuta) dom.inputRuta.value = inp.inputRuta;
       if (dom.inputImportante) dom.inputImportante.value = inp.inputImportante;
       if (dom.inputJefaturaTag1) dom.inputJefaturaTag1.value = inp.inputJefaturaTag1;
       if (dom.inputJefaturaTag2) dom.inputJefaturaTag2.value = inp.inputJefaturaTag2;
       dom.checkTieneImagen.checked = inp.checkTieneImagen;
+      dom.checkFondoImagen.checked = inp.checkFondoImagen ?? mostrarFondoImagen;
       dom.checkPuntos.checked = inp.checkPuntos;
       dom.checkIconoEncabezado.checked = inp.checkIconoEncabezado ?? usarIconoEncabezado;
       dom.checkImportante.checked = inp.checkImportante;
@@ -2063,8 +2317,10 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       dom.wrapperDetallesCampos.style.display = dom.checkPuntos.checked ? 'flex' : 'none';
       dom.wrapperInputImportante.style.display = dom.checkImportante.checked ? 'flex' : 'none';
       dom.wrapperInputRuta.style.display = dom.checkRuta.checked ? 'flex' : 'none';
+      dom.wrapperSegundaInformacion.style.display = dom.checkDividirInformacion.checked ? 'flex' : 'none';
 
       aplicarEstilosSello();
+      renderSellosAdicionales();
 
       if (dom.inputBoletinSaludo) dom.inputBoletinSaludo.value = inp.inputBoletinSaludo;
       if (dom.inputBoletinIntro) dom.inputBoletinIntro.value = inp.inputBoletinIntro;
@@ -2077,6 +2333,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
 
       if (dom.inputInteresTitulo) dom.inputInteresTitulo.value = inp.inputInteresTitulo;
       if (dom.inputInteresIntro) dom.inputInteresIntro.value = inp.inputInteresIntro;
+      if (dom.inputInteresSubtituloPuntos) dom.inputInteresSubtituloPuntos.value = inp.inputInteresSubtituloPuntos ?? 'Puntos clave:';
       dom.checkInteresAlerta.checked = inp.checkInteresAlerta;
       if (dom.inputInteresAlertaTexto) dom.inputInteresAlertaTexto.value = inp.inputInteresAlertaTexto;
       if (dom.inputInteresAlertaSubtexto) dom.inputInteresAlertaSubtexto.value = inp.inputInteresAlertaSubtexto;
@@ -2087,15 +2344,18 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       cambiarLayoutInteres(layoutInteresActual, false);
 
       renderFormularioDetalles();
+      renderFormularioDetallesInformacion2();
       renderFormularioLogos();
       renderFormularioAccesos();
       renderFormularioBoletin();
       renderFormularioInteres();
       renderFormularioDocPortal();
       renderFormularioBotonRedsalud();
+      renderFormularioBanner();
 
       actualizarVista();
       actualizarVistaBoletin();
+      actualizarVistaBanner();
       actualizarVistaInteres();
       actualizarVistaDocPortal();
       actualizarVistaBotonRedsalud();
@@ -2128,17 +2388,23 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         dom.inputImportante.value = '';
         dom.inputRuta.value = '';
         dataDetalles = [];
+        dataDetallesInformacion2 = [];
         dataLogos = [];
         dataAccesosExternos = [];
         tieneImagen = false;
+        mostrarFondoImagen = true;
         tieneSello = false;
         selloB64 = '';
+        sellosAdicionales = [];
         tieneFlechaExterna = false;
         dom.checkTieneImagen.checked = false;
+        dom.checkFondoImagen.checked = true;
         dom.checkFlechaExterna.checked = false;
         dom.subirImagenBox.style.display = 'none';
         dom.inputArchivoSello.value = '';
+        renderSellosAdicionales();
         renderFormularioDetalles();
+        renderFormularioDetallesInformacion2();
         renderFormularioLogos();
         renderFormularioAccesos();
         actualizarVista();
@@ -2154,6 +2420,9 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         dom.inputInteresTitulo.value = '';
         dom.inputInteresIntro.value = '';
         interesItems = [];
+        interesItemsEstrella = [];
+        interesSellos = [];
+        renderSellosInteres();
         fotoTablaInteresB64 = '';
         renderFormularioInteres();
         actualizarVistaInteres();
@@ -2166,6 +2435,10 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         dataBotonRedsalud.logoB64 = '';
         renderFormularioBotonRedsalud();
         actualizarVistaBotonRedsalud();
+      } else if (modoAppActual === 'banners') {
+        dataBanner = { texto: '', logoB64: '' };
+        renderFormularioBanner();
+        actualizarVistaBanner();
       }
       guardarHistorial(true);
     }
@@ -2204,6 +2477,33 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       aplicarNegritaElemento(el);
     }
 
+    function actualizarBotonesAlineacionIntro() {
+      document.querySelectorAll('[data-alineacion-intro]').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.alineacionIntro === alineacionIntro);
+      });
+    }
+
+    function establecerAlineacionIntro(alineacion) {
+      alineacionIntro = alineacion;
+      actualizarBotonesAlineacionIntro();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function obtenerAlineacionIntroCss() {
+      return {
+        izquierda: 'left',
+        centro: 'center',
+        derecha: 'right',
+        justificado: 'justify'
+      }[alineacionIntro] || 'center';
+    }
+
+    function actualizarColorImportante() {
+      const color = dom.inputColorImportante.value || '#b45309';
+      dom.root.style.setProperty('--important-text-color', color);
+    }
+
     /* SELLO LIBRE */
     function aplicarEstilosSello() {
       if (!dom.previewSelloBox) return;
@@ -2237,10 +2537,163 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
     function removerSello() {
       tieneSello = false;
       selloB64 = '';
+      sellosAdicionales = [];
       dom.inputArchivoSello.value = '';
       dom.wrapperSelloControles.style.display = 'none';
+      renderSellosAdicionales();
       actualizarVista();
       guardarHistorial(true);
+    }
+
+    function actualizarContadorSellos() {
+      const total = (tieneSello && selloB64 ? 1 : 0) + sellosAdicionales.length;
+      if (dom.contadorSellos) dom.contadorSellos.innerText = `${total} de 15 sellos cargados`;
+    }
+
+    function eliminarSelloCargado(tipo, index) {
+      if (tipo === 'principal') {
+        if (sellosAdicionales.length) {
+          const siguiente = sellosAdicionales.shift();
+          selloB64 = siguiente.b64;
+          selloPos = siguiente.pos;
+        } else {
+          tieneSello = false;
+          selloB64 = '';
+          dom.wrapperSelloControles.style.display = 'none';
+        }
+        if (selloB64) {
+          tieneSello = true;
+          dom.imgSelloRender.src = selloB64;
+          aplicarEstilosSello();
+        }
+      } else if (index >= 0) {
+        sellosAdicionales.splice(index, 1);
+      }
+      renderSellosAdicionales();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function renderSellosAdicionales() {
+      if (!dom.previewSellosAdicionales) return;
+      dom.previewSellosAdicionales.innerHTML = '';
+      sellosAdicionales.forEach((sello, index) => {
+        const box = document.createElement('div');
+        box.className = 'sello-adicional';
+        box.innerHTML = `<img src="${sello.b64}" alt="Sello adicional"><div class="sello-resize-handle" title="Arrastra para redimensionar"></div>`;
+        dom.previewSellosAdicionales.appendChild(box);
+        aplicarEstilosSelloAdicional(box, sello);
+        setupSelloAdicionalInteractivo(box, sello);
+      });
+      if (dom.sellosCargadosPreview) {
+        const sellos = [];
+        if (tieneSello && selloB64) sellos.push({ b64: selloB64, tipo: 'principal', index: -1 });
+        sellosAdicionales.forEach((sello, index) => sellos.push({ b64: sello.b64, tipo: 'adicional', index }));
+        dom.sellosCargadosPreview.innerHTML = sellos.map(sello => `
+          <div class="sello-miniatura">
+            <img src="${sello.b64}" alt="Sello cargado">
+            <button type="button" class="btn-quitar-sello-miniatura" onclick="eliminarSelloCargado('${sello.tipo}', ${sello.index})" title="Quitar este sello">×</button>
+          </div>
+        `).join('');
+      }
+      actualizarContadorSellos();
+    }
+
+    function aplicarEstilosSelloAdicional(box, sello) {
+      const width = sello.pos.width || 120;
+      const height = sello.pos.height || Math.round(width / (sello.pos.ratio || 1));
+      box.style.left = `${sello.pos.x}px`;
+      box.style.top = `${sello.pos.y}px`;
+      box.style.width = `${width}px`;
+      box.style.height = `${height}px`;
+      box.style.display = modoAppActual === 'noticia' ? 'flex' : 'none';
+    }
+
+    function setupSelloAdicionalInteractivo(box, sello, aplicarEstilos = aplicarEstilosSelloAdicional) {
+      let dragging = false;
+      let resizing = false;
+      let startX = 0;
+      let startY = 0;
+      let initialX = 0;
+      let initialY = 0;
+      let initialWidth = 0;
+      box.addEventListener('pointerdown', event => {
+        if (event.target.classList.contains('sello-resize-handle')) return;
+        event.preventDefault();
+        dragging = true;
+        box.classList.add('is-dragging');
+        startX = event.clientX;
+        startY = event.clientY;
+        initialX = sello.pos.x;
+        initialY = sello.pos.y;
+      });
+      const handle = box.querySelector('.sello-resize-handle');
+      handle.addEventListener('pointerdown', event => {
+        event.preventDefault();
+        event.stopPropagation();
+        resizing = true;
+        startX = event.clientX;
+        initialWidth = sello.pos.width || 120;
+      });
+      const move = event => {
+        const scale = obtenerEscalaCard();
+        if (dragging) {
+          sello.pos.x = Math.round(initialX + (event.clientX - startX) / scale);
+          sello.pos.y = Math.round(initialY + (event.clientY - startY) / scale);
+          aplicarEstilos(box, sello);
+        } else if (resizing) {
+          const width = Math.min(350, Math.max(40, Math.round(initialWidth + (event.clientX - startX) / scale)));
+          sello.pos.width = width;
+          sello.pos.height = Math.round(width / (sello.pos.ratio || 1));
+          aplicarEstilos(box, sello);
+        }
+      };
+      const stop = () => {
+        if (dragging || resizing) {
+          dragging = false;
+          resizing = false;
+          box.classList.remove('is-dragging');
+          guardarHistorial(true);
+        }
+      };
+      window.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', stop);
+    }
+
+    function agregarSellosDesdeArchivos(fileList) {
+      const files = Array.from(fileList || []).filter(file => file.type.startsWith('image/'));
+      const total = (tieneSello && selloB64 ? 1 : 0) + sellosAdicionales.length;
+      const filesToProcess = files.slice(0, Math.max(0, 15 - total));
+      const next = index => {
+        if (index >= filesToProcess.length) return;
+        const reader = new FileReader();
+        reader.onload = event => {
+          const image = new Image();
+          image.onload = () => {
+            const width = Math.min(220, Math.max(80, image.naturalWidth > 200 ? 150 : image.naturalWidth));
+            const height = Math.round(width / (image.naturalWidth / image.naturalHeight));
+            const loaded = (tieneSello && selloB64 ? 1 : 0) + sellosAdicionales.length;
+            const pos = { x: 36 + (loaded % 5) * 145, y: Math.max(20, (dom.cardNoticia.offsetHeight || 420) - height - 24 - Math.floor(loaded / 5) * 80), width, height, ratio: image.naturalWidth / image.naturalHeight };
+            if (!tieneSello || !selloB64) {
+              selloB64 = event.target.result;
+              tieneSello = true;
+              selloPos = pos;
+              dom.wrapperSelloControles.style.display = 'flex';
+              dom.imgSelloRender.src = selloB64;
+              dom.previewSelloBox.style.display = 'flex';
+              aplicarEstilosSello();
+            } else {
+              sellosAdicionales.push({ b64: event.target.result, pos });
+            }
+            actualizarVista();
+            guardarHistorial(true);
+            next(index + 1);
+          };
+          image.src = event.target.result;
+        };
+        reader.readAsDataURL(filesToProcess[index]);
+      };
+      next(0);
     }
 
     function obtenerEscalaCard() {
@@ -2339,20 +2792,23 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       document.getElementById('tabModoInteres').classList.toggle('active', modo === 'interes');
       document.getElementById('tabModoDocumentos').classList.toggle('active', modo === 'documentos');
       document.getElementById('tabModoBotones').classList.toggle('active', modo === 'botones');
+      document.getElementById('tabModoBanners').classList.toggle('active', modo === 'banners');
 
       document.getElementById('panelModoNoticia').style.display = modo === 'noticia' ? 'flex' : 'none';
       document.getElementById('panelModoBoletin').style.display = modo === 'boletin' ? 'flex' : 'none';
       document.getElementById('panelModoInteres').style.display = modo === 'interes' ? 'flex' : 'none';
       document.getElementById('panelModoDocumentos').style.display = modo === 'documentos' ? 'flex' : 'none';
       document.getElementById('panelModoBotones').style.display = modo === 'botones' ? 'flex' : 'none';
+      document.getElementById('panelModoBanners').style.display = modo === 'banners' ? 'flex' : 'none';
 
       dom.cardNoticia.style.display = modo === 'noticia' ? 'block' : 'none';
       dom.cardBoletin.style.display = modo === 'boletin' ? 'block' : 'none';
       dom.cardInteres.style.display = modo === 'interes' ? 'block' : 'none';
       dom.cardDocumentos.style.display = modo === 'documentos' ? 'flex' : 'none';
       dom.cardBotonWrap.style.display = modo === 'botones' ? 'flex' : 'none';
+      dom.cardBanner.style.display = modo === 'banners' ? 'flex' : 'none';
 
-      dom.btnDescargarLaminaPrincipal.style.display = (modo === 'documentos' || modo === 'botones') ? 'none' : 'block';
+      dom.btnDescargarLaminaPrincipal.style.display = (modo === 'documentos' || modo === 'botones' || modo === 'banners') ? 'none' : 'block';
 
       if (modo !== 'noticia') {
         dom.previewSelloBox.style.display = 'none';
@@ -2364,6 +2820,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       else if (modo === 'interes') actualizarVistaInteres();
       else if (modo === 'documentos') actualizarVistaDocPortal();
       else if (modo === 'botones') actualizarVistaBotonRedsalud();
+      else if (modo === 'banners') actualizarVistaBanner();
       else actualizarVista();
 
       setTimeout(ajustarEscalaVista, 20);
@@ -2483,11 +2940,13 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       interesItems.forEach((texto, idx) => {
         const row = document.createElement('div');
         row.className = 'detail-main-row';
+        const esEstrella = interesItemsEstrella[idx] === true;
         row.innerHTML = `
           <button type="button" class="btn-move" onclick="moverItemInteres(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} title="Subir">▲</button>
           <button type="button" class="btn-move" onclick="moverItemInteres(${idx}, 1)" ${idx === interesItems.length - 1 ? 'disabled' : ''} title="Bajar">▼</button>
           <input type="text" id="inInteresItem_${idx}" value="${texto.replace(/"/g, '&quot;')}" oninput="actualizarItemInteres(${idx}, this.value)" style="flex:1;">
           <button type="button" class="btn-bold-inline" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inInteresItem_${idx}')"><strong>B</strong></button>
+          <button type="button" class="btn-bold-inline" onclick="alternarEstrellaInteres(${idx})" title="${esEstrella ? 'Usar flecha' : 'Usar estrella'}">${esEstrella ? '★' : '➜'}</button>
           <button type="button" class="btn-delete" onclick="eliminarItemInteres(${idx})">×</button>
         `;
         dom.interesItemsContainer.appendChild(row);
@@ -2500,13 +2959,17 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       const temp = interesItems[index];
       interesItems[index] = interesItems[nuevoIndex];
       interesItems[nuevoIndex] = temp;
+      const tempEstrella = interesItemsEstrella[index];
+      interesItemsEstrella[index] = interesItemsEstrella[nuevoIndex];
+      interesItemsEstrella[nuevoIndex] = tempEstrella;
       renderFormularioInteres();
       actualizarVistaInteres();
       guardarHistorial(true);
     }
 
-    function agregarItemInteres() {
+    function agregarItemInteres(esEstrella = false) {
       interesItems.push('');
+      interesItemsEstrella.push(esEstrella);
       renderFormularioInteres();
       actualizarVistaInteres();
       guardarHistorial(true);
@@ -2514,6 +2977,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
 
     function eliminarItemInteres(idx) {
       interesItems.splice(idx, 1);
+      interesItemsEstrella.splice(idx, 1);
       renderFormularioInteres();
       actualizarVistaInteres();
       guardarHistorial(true);
@@ -2525,8 +2989,18 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       guardarHistorial(false);
     }
 
+    function alternarEstrellaInteres(idx) {
+      interesItemsEstrella[idx] = !interesItemsEstrella[idx];
+      renderFormularioInteres();
+      actualizarVistaInteres();
+      guardarHistorial(true);
+    }
+
     function actualizarVistaInteres() {
       dom.previewInteresTitulo.innerHTML = parsearNegrita(dom.inputInteresTitulo.value);
+      const subtitulo = dom.inputInteresSubtituloPuntos.value.trim();
+      dom.previewInteresSubtituloPuntos.style.display = subtitulo && layoutInteresActual === 'puntos' ? 'block' : 'none';
+      dom.previewInteresSubtituloPuntos.innerHTML = subtitulo ? parsearNegrita(subtitulo) : '';
       
       const intro = dom.inputInteresIntro.value.trim();
       if (intro) {
@@ -2540,13 +3014,12 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         dom.previewInteresItems.style.display = 'flex';
         dom.previewInteresFotoWrap.style.display = 'none';
         dom.previewInteresItems.innerHTML = interesItems
-          .filter(texto => texto.trim())
-          .map(texto => `
+          .map((texto, idx) => texto.trim() ? `
             <li>
-              <span class="interes-list-bullet">➜</span>
+              <span class="interes-list-bullet">${interesItemsEstrella[idx] ? '★' : '➜'}</span>
               <span>${parsearNegrita(texto)}</span>
             </li>
-          `).join('');
+          ` : '').join('');
       } else {
         dom.previewInteresItems.style.display = 'none';
         dom.previewInteresFotoWrap.style.display = 'block';
@@ -2558,6 +3031,8 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         }
       }
 
+      renderSellosInteres();
+
       if (dom.checkInteresAlerta.checked) {
         dom.previewInteresAlertaWrap.style.display = 'flex';
         dom.previewInteresAlertaTexto.innerHTML = parsearNegrita(dom.inputInteresAlertaTexto.value);
@@ -2567,6 +3042,67 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       }
 
       setTimeout(ajustarEscalaVista, 20);
+    }
+
+    function renderSellosInteres() {
+      if (!dom.previewSellosInteres) return;
+      dom.previewSellosInteres.innerHTML = '';
+      interesSellos.forEach(sello => {
+        const box = document.createElement('div');
+        box.className = 'interes-sello-flotante';
+        box.innerHTML = `<img src="${sello.b64}" alt="Sello flotante"><div class="sello-resize-handle" title="Arrastra para redimensionar"></div>`;
+        dom.previewSellosInteres.appendChild(box);
+        aplicarEstilosSelloInteres(box, sello);
+        setupSelloAdicionalInteractivo(box, sello, aplicarEstilosSelloInteres);
+      });
+      if (dom.previewSellosInteresEditor) {
+        dom.previewSellosInteresEditor.innerHTML = interesSellos.map((sello, idx) => `
+          <div class="sello-miniatura">
+            <img src="${sello.b64}" alt="Sello cargado">
+            <button type="button" class="btn-quitar-sello-miniatura" onclick="eliminarSelloInteres(${idx})" title="Quitar este sello">×</button>
+          </div>
+        `).join('');
+      }
+    }
+
+    function eliminarSelloInteres(idx) {
+      interesSellos.splice(idx, 1);
+      renderSellosInteres();
+      actualizarVistaInteres();
+      guardarHistorial(true);
+    }
+
+    function agregarSellosInteresDesdeArchivos(fileList) {
+      const archivos = Array.from(fileList || []).filter(file => file.type.startsWith('image/')).slice(0, 15 - interesSellos.length);
+      const procesar = index => {
+        if (index >= archivos.length) return;
+        const reader = new FileReader();
+        reader.onload = event => {
+          const image = new Image();
+          image.onload = () => {
+            const width = 100;
+            const height = Math.round(width / (image.naturalWidth / image.naturalHeight));
+            const position = interesSellos.length;
+            interesSellos.push({ b64: event.target.result, pos: { x: 18 + (position % 5) * 105, y: 24 + Math.floor(position / 5) * 80, width, height, ratio: image.naturalWidth / image.naturalHeight } });
+            actualizarVistaInteres();
+            guardarHistorial(true);
+            procesar(index + 1);
+          };
+          image.src = event.target.result;
+        };
+        reader.readAsDataURL(archivos[index]);
+      };
+      procesar(0);
+    }
+
+    function aplicarEstilosSelloInteres(box, sello) {
+      const width = sello.pos.width || 100;
+      const height = sello.pos.height || Math.round(width / (sello.pos.ratio || 1));
+      box.style.left = `${sello.pos.x}px`;
+      box.style.top = `${sello.pos.y}px`;
+      box.style.width = `${width}px`;
+      box.style.height = `${height}px`;
+      box.style.display = modoAppActual === 'interes' ? 'flex' : 'none';
     }
 
     function renderFormularioBoletin() {
@@ -2692,6 +3228,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       else if (modoAppActual === 'interes') cardVisible = dom.cardInteres;
       else if (modoAppActual === 'documentos') cardVisible = dom.cardDocumentos;
       else if (modoAppActual === 'botones') cardVisible = dom.cardBotonWrap;
+      else if (modoAppActual === 'banners') cardVisible = dom.cardBanner;
 
       if (!cardVisible || cardVisible.style.display === 'none') return;
 
@@ -2699,14 +3236,77 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       const availW = dom.stage.clientWidth - parseFloat(s.paddingLeft) - parseFloat(s.paddingRight);
       const availH = dom.stage.clientHeight - parseFloat(s.paddingTop) - parseFloat(s.paddingBottom);
       const totalH = dom.cardWrap.scrollHeight || 600;
-      const cardW = (modoAppActual === 'documentos' || modoAppActual === 'botones') ? 360 : 960;
+      const cardW = (modoAppActual === 'documentos' || modoAppActual === 'botones') ? 360 : (modoAppActual === 'banners' ? 981 : 960);
       const scale = Math.min(1, availW / cardW, availH / totalH);
 
       dom.cardWrap.style.transform = `scale(${scale})`;
       dom.cardWrap.style.transformOrigin = 'center center';
     }
 
+    const noticiaBorradores = {};
+
+    function restaurarBorradorNoticia(estado) {
+      const inp = estado.inputs;
+      tieneImagen = estado.tieneImagen;
+      imagenNoticiaB64 = estado.imagenNoticiaB64 || '';
+      mostrarFondoImagen = estado.mostrarFondoImagen ?? true;
+      dataDetalles = JSON.parse(JSON.stringify(estado.dataDetalles || []));
+      dataDetallesInformacion2 = JSON.parse(JSON.stringify(estado.dataDetallesInformacion2 || []));
+      dividirInformacion = estado.dividirInformacion ?? false;
+      dataLogos = JSON.parse(JSON.stringify(estado.dataLogos || []));
+      mostrarFondoLogos = estado.mostrarFondoLogos ?? true;
+      usarIconoEncabezado = estado.usarIconoEncabezado ?? false;
+      tieneSello = estado.tieneSello ?? false;
+      selloB64 = estado.selloB64 || '';
+      selloPos = { ...(estado.selloPos || selloPos) };
+      sellosAdicionales = JSON.parse(JSON.stringify(estado.sellosAdicionales || []));
+      tieneFlechaExterna = estado.tieneFlechaExterna ?? false;
+      dataAccesosExternos = JSON.parse(JSON.stringify(estado.dataAccesosExternos || []));
+      alineacionIntro = estado.alineacionIntro || 'centro';
+
+      dom.inputTitulo.value = inp.inputTitulo || '';
+      dom.inputIntro.value = inp.inputIntro || '';
+      dom.inputTituloDetalles.value = inp.inputTituloDetalles || '';
+      dom.inputTituloInformacion2.value = inp.inputTituloInformacion2 || '';
+      dom.inputIntroInformacion2.value = inp.inputIntroInformacion2 || '';
+      dom.inputColorImportante.value = inp.inputColorImportante || '#b45309';
+      actualizarColorImportante();
+      dom.inputRuta.value = inp.inputRuta || '';
+      dom.inputImportante.value = inp.inputImportante || '';
+      dom.inputJefaturaTag1.value = inp.inputJefaturaTag1 || '';
+      dom.inputJefaturaTag2.value = inp.inputJefaturaTag2 || '';
+      dom.checkTieneImagen.checked = tieneImagen;
+      dom.checkFondoImagen.checked = mostrarFondoImagen;
+      dom.checkPuntos.checked = inp.checkPuntos;
+      dom.checkIconoEncabezado.checked = usarIconoEncabezado;
+      dom.checkImportante.checked = inp.checkImportante;
+      dom.checkRuta.checked = inp.checkRuta;
+      dom.checkFlechaExterna.checked = tieneFlechaExterna;
+      dom.checkDividirInformacion.checked = dividirInformacion;
+      dom.checkFondoLogos.checked = mostrarFondoLogos;
+      dom.subirImagenBox.style.display = tieneImagen ? 'block' : 'none';
+      dom.wrapperDetallesCampos.style.display = dom.checkPuntos.checked ? 'flex' : 'none';
+      dom.wrapperInputImportante.style.display = dom.checkImportante.checked ? 'flex' : 'none';
+      dom.wrapperInputRuta.style.display = dom.checkRuta.checked ? 'flex' : 'none';
+      dom.wrapperSegundaInformacion.style.display = dividirInformacion ? 'flex' : 'none';
+      dom.wrapperBloqueAccesos.style.display = tieneFlechaExterna ? 'flex' : 'none';
+      dom.wrapperSelloControles.style.display = tieneSello ? 'flex' : 'none';
+      actualizarBotonesAlineacionIntro();
+      renderFormularioDetalles();
+      renderFormularioDetallesInformacion2();
+      renderFormularioAccesos();
+      renderFormularioLogos();
+      if (tieneSello && selloB64) {
+        dom.imgSelloRender.src = selloB64;
+        aplicarEstilosSello();
+      }
+      renderSellosAdicionales();
+    }
+
     function cambiarTipo(tipo, rellenarDatos, guardar = true) {
+      if (rellenarDatos && tipoActual !== tipo) {
+        noticiaBorradores[tipoActual] = capturarEstado();
+      }
       tipoActual = tipo;
       const area = CONFIG_AREAS[tipo];
 
@@ -2727,6 +3327,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
 
       document.getElementById('grpEncabezadoJefatura').style.display = esJefatura ? 'flex' : 'none';
       document.getElementById('grpIconoEncabezado').style.display = esJefatura ? 'none' : 'flex';
+      document.getElementById('grpDivisionInformacion').style.display = esGlobal ? 'none' : 'flex';
       document.getElementById('lblIconoEncabezado').innerText = esGlobal
         ? 'Eliminar ícono grande'
         : 'Usar ícono grande en lugar del megáfono';
@@ -2737,22 +3338,66 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       document.getElementById('grpOpcionImagen').style.display = esGlobal ? 'none' : 'flex';
 
       if (rellenarDatos) {
+        if (noticiaBorradores[tipo]) {
+          restaurarBorradorNoticia(noticiaBorradores[tipo]);
+        } else {
+        tieneImagen = false;
+        imagenNoticiaB64 = '';
+        mostrarFondoImagen = true;
+        dom.checkTieneImagen.checked = false;
+        dom.checkFondoImagen.checked = true;
+        dom.subirImagenBox.style.display = 'none';
+        dom.inputArchivoNoticia.value = '';
+
+        usarIconoEncabezado = false;
+        dom.checkIconoEncabezado.checked = false;
+        dom.checkPuntos.checked = true;
+        dom.wrapperDetallesCampos.style.display = 'flex';
+        dom.checkRuta.checked = false;
+        dom.wrapperInputRuta.style.display = 'none';
+        dom.checkImportante.checked = false;
+        dom.wrapperInputImportante.style.display = 'none';
+        dom.checkFlechaExterna.checked = false;
+        tieneFlechaExterna = false;
+        dataAccesosExternos = [];
+        dom.wrapperBloqueAccesos.style.display = 'none';
+        dom.inputArchivoSello.value = '';
+        tieneSello = false;
+        selloB64 = '';
+        sellosAdicionales = [];
+        dom.wrapperSelloControles.style.display = 'none';
+        renderSellosAdicionales();
+
         if (esJefatura) {
           dom.inputJefaturaTag1.value = area.defaults.tag1;
           dom.inputJefaturaTag2.value = area.defaults.tag2;
         }
         dom.inputTitulo.value = area.defaults.titulo;
         dom.inputIntro.value = area.defaults.intro;
-        dom.inputTituloDetalles.value = area.defaults.tituloDetalles;
+        dom.inputTituloDetalles.value = area.defaults.tituloDetalles || 'Información principal';
         dom.inputRuta.value = area.defaults.ruta || '';
         dom.inputImportante.value = area.defaults.importante || '';
         dom.checkImportante.checked = !!area.defaults.importante;
         dom.wrapperInputImportante.style.display = dom.checkImportante.checked ? 'flex' : 'none';
 
         dataDetalles = JSON.parse(JSON.stringify(area.defaults.detalles));
+        dataDetallesInformacion2 = [];
+        dividirInformacion = false;
+        dom.checkDividirInformacion.checked = false;
+        dom.wrapperSegundaInformacion.style.display = 'none';
+        dom.inputTituloInformacion2.value = 'Segunda información';
+        dom.inputIntroInformacion2.value = '';
+        dom.inputColorImportante.value = '#b45309';
+        actualizarColorImportante();
+        alineacionIntro = 'centro';
+        actualizarBotonesAlineacionIntro();
+        renderFormularioDetallesInformacion2();
+        dataAccesosExternos = [];
         dataLogos = [];
         renderFormularioDetalles();
+        renderFormularioAccesos();
         renderFormularioLogos();
+        }
       }
 
       actualizarVista();
@@ -2793,6 +3438,105 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         `;
         dom.detailsContainer.appendChild(card);
       });
+    }
+
+    function renderFormularioDetallesInformacion2() {
+      dom.detailsContainerInformacion2.innerHTML = '';
+      dataDetallesInformacion2.forEach((item, pIdx) => {
+        const card = document.createElement('div');
+        card.className = 'detail-card';
+        const subItemsHtml = (item.subitems || []).map((sub, sIdx) => `
+          <div class="subitem-row">
+            <button type="button" class="btn-move" onclick="moverSubpuntoInformacion2(${pIdx}, ${sIdx}, -1)" ${sIdx === 0 ? 'disabled' : ''}>▲</button>
+            <button type="button" class="btn-move" onclick="moverSubpuntoInformacion2(${pIdx}, ${sIdx}, 1)" ${sIdx === item.subitems.length - 1 ? 'disabled' : ''}>▼</button>
+            <input type="text" id="inSub2_${pIdx}_${sIdx}" placeholder="Punto (●)..." value="${sub.replace(/"/g, '&quot;')}" oninput="actualizarSubpuntoInformacion2(${pIdx}, ${sIdx}, this.value)" style="flex:1">
+            <button type="button" class="btn-bold-inline" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inSub2_${pIdx}_${sIdx}')"><strong>B</strong></button>
+            <button type="button" class="btn-delete" onclick="eliminarSubpuntoInformacion2(${pIdx}, ${sIdx})">×</button>
+          </div>
+        `).join('');
+        const tieneTextoPrincipal = item.texto.trim().length > 0;
+        const placeholderPrincipal = tieneTextoPrincipal ? 'Punto principal (➔)...' : 'Dejar en blanco para mostrar SOLO puntos (●)...';
+        card.innerHTML = `
+          <div class="detail-main-row">
+            <button type="button" class="btn-move" onclick="moverPuntoInformacion2(${pIdx}, -1)" ${pIdx === 0 ? 'disabled' : ''}>▲</button>
+            <button type="button" class="btn-move" onclick="moverPuntoInformacion2(${pIdx}, 1)" ${pIdx === dataDetallesInformacion2.length - 1 ? 'disabled' : ''}>▼</button>
+            <input type="text" id="inPunto2_${pIdx}" placeholder="${placeholderPrincipal}" value="${item.texto.replace(/"/g, '&quot;')}" oninput="actualizarPuntoInformacion2(${pIdx}, this.value)" style="flex:1; font-weight:600;">
+            <button type="button" class="btn-bold-inline" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inPunto2_${pIdx}')"><strong>B</strong></button>
+            <button type="button" class="btn-delete" onclick="eliminarPuntoInformacion2(${pIdx})">×</button>
+          </div>
+          <div class="subitems-wrapper" style="${!tieneTextoPrincipal ? 'margin-left: 0; padding-left: 4px; border-left: 2px dashed #94a3b8;' : ''}">
+            ${subItemsHtml}
+            <button type="button" class="btn-add-sub" onclick="agregarSubpuntoInformacion2(${pIdx})">+ Agregar Punto (●)</button>
+          </div>
+        `;
+        dom.detailsContainerInformacion2.appendChild(card);
+      });
+    }
+
+    function moverPuntoInformacion2(index, direccion) {
+      const nuevoIndex = index + direccion;
+      if (nuevoIndex < 0 || nuevoIndex >= dataDetallesInformacion2.length) return;
+      [dataDetallesInformacion2[index], dataDetallesInformacion2[nuevoIndex]] = [dataDetallesInformacion2[nuevoIndex], dataDetallesInformacion2[index]];
+      renderFormularioDetallesInformacion2();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function agregarPuntoInformacion2() {
+      dataDetallesInformacion2.push({ texto: '', subitems: [] });
+      renderFormularioDetallesInformacion2();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function agregarSoloPuntosInformacion2() {
+      dataDetallesInformacion2.push({ texto: '', subitems: [''] });
+      renderFormularioDetallesInformacion2();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function eliminarPuntoInformacion2(index) {
+      dataDetallesInformacion2.splice(index, 1);
+      renderFormularioDetallesInformacion2();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function actualizarPuntoInformacion2(index, valor) {
+      dataDetallesInformacion2[index].texto = valor;
+      actualizarVista();
+      guardarHistorial(false);
+    }
+
+    function agregarSubpuntoInformacion2(index) {
+      dataDetallesInformacion2[index].subitems.push('');
+      renderFormularioDetallesInformacion2();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function eliminarSubpuntoInformacion2(pIdx, sIdx) {
+      dataDetallesInformacion2[pIdx].subitems.splice(sIdx, 1);
+      renderFormularioDetallesInformacion2();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function moverSubpuntoInformacion2(pIdx, sIdx, direccion) {
+      const subitems = dataDetallesInformacion2[pIdx].subitems;
+      const nuevoIndex = sIdx + direccion;
+      if (nuevoIndex < 0 || nuevoIndex >= subitems.length) return;
+      [subitems[sIdx], subitems[nuevoIndex]] = [subitems[nuevoIndex], subitems[sIdx]];
+      renderFormularioDetallesInformacion2();
+      actualizarVista();
+      guardarHistorial(true);
+    }
+
+    function actualizarSubpuntoInformacion2(pIdx, sIdx, valor) {
+      dataDetallesInformacion2[pIdx].subitems[sIdx] = valor;
+      actualizarVista();
+      guardarHistorial(false);
     }
 
     function moverPuntoPrincipal(index, direccion) {
@@ -2953,6 +3697,21 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       reader.readAsDataURL(inputElement.files[0]);
     }
 
+    function crearListaPuntosInformacion(texto, bulletChar = '➔') {
+      return String(texto || '')
+        .split(/\r?\n/)
+        .map(linea => linea.trim())
+        .filter(Boolean)
+        .map(linea => `
+          <li>
+            <div class="item-principal-row">
+              <span class="bullet-marker">${bulletChar}</span>
+              <span>${parsearNegrita(linea)}</span>
+            </div>
+          </li>
+        `).join('');
+    }
+
     function actualizarVista() {
       const areaCfg = CONFIG_AREAS[tipoActual];
       const bulletChar = tipoActual === 'global' ? '●' : '➔';
@@ -2987,7 +3746,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       const importanteHtml = dom.checkImportante.checked && dom.inputImportante.value.trim()
         ? (tipoActual === 'jefatura' 
             ? `<div class="alerta-jefatura"><span class="triangulo-alerta">⚠</span><span>${parsearNegrita(dom.inputImportante.value.trim())}</span></div>`
-            : `<div class="important-notice"><span style="color:#d97706; margin-right:6px; font-weight:800;">⚠</span><span>${parsearNegrita(dom.inputImportante.value.trim())}</span></div>`
+            : `<div class="important-notice"><span class="icono-importante" style="margin-right:6px; font-weight:800;">⚠</span><span>${parsearNegrita(dom.inputImportante.value.trim())}</span></div>`
           )
         : '';
 
@@ -3014,7 +3773,44 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         const tag1 = dom.inputJefaturaTag1.value.trim();
         const tag2 = dom.inputJefaturaTag2.value.trim();
 
-        if (tieneImagen) {
+        if (dividirInformacion && !tieneImagen) {
+          const puntosSegunda = dataDetallesInformacion2
+            .filter(item => item.texto.trim() || (item.subitems && item.subitems.some(s => s.trim())))
+            .map(item => {
+              const tienePrincipal = item.texto.trim().length > 0;
+              const subs = (item.subitems || []).filter(s => s.trim()).map(s =>
+                `<li><span class="sublista-bullet">●</span><span>${parsearNegrita(s)}</span></li>`
+              ).join('');
+              return tienePrincipal
+                ? `<li><div class="item-principal-row"><span class="bullet-marker">➔</span><span>${parsearNegrita(item.texto)}</span></div>${subs ? `<ul class="sublista">${subs}</ul>` : ''}</li>`
+                : `<li><ul class="sublista sin-padre">${subs}</ul></li>`;
+            }).join('');
+          const contenidoSegunda = dom.inputIntroInformacion2.value.trim()
+            ? `<p class="intro-text intro-lateral">${parsearNegrita(dom.inputIntroInformacion2.value)}</p>`
+            : '';
+
+          dom.contentArea.innerHTML = `
+            <div class="header-jefatura">
+              <div class="titular-lideres">
+                <span class="palabra-atencion">${tag1}</span>
+                <span class="palabra-lideres">${tag2}</span>
+              </div>
+              <div class="subtitulo-jefatura">${parsearNegrita(dom.inputTitulo.value)}</div>
+            </div>
+            <p class="intro-jefatura" style="text-align:${obtenerAlineacionIntroCss()};">${parsearNegrita(dom.inputIntro.value)}</p>
+            <div class="noticia-dos-bloques">
+              <section class="bloque-informacion">
+                ${dom.inputTituloDetalles.value.trim() ? `<div class="detalles-titulo-jefatura">${parsearNegrita(dom.inputTituloDetalles.value)}</div>` : ''}
+                ${dom.checkPuntos.checked && bulletsHtml ? `<ul class="lista-items">${bulletsHtml}</ul>` : ''}
+              </section>
+              <section class="bloque-informacion">
+                ${dom.inputTituloInformacion2.value.trim() ? `<div class="detalles-titulo-jefatura">${parsearNegrita(dom.inputTituloInformacion2.value)}</div>` : ''}
+                ${contenidoSegunda}${puntosSegunda ? `<ul class="lista-items">${puntosSegunda}</ul>` : ''}
+              </section>
+            </div>
+            ${importanteHtml}${footerHtml}
+          `;
+        } else if (tieneImagen) {
           const visual = imagenNoticiaB64 
             ? `<img src="${imagenNoticiaB64}" alt="Captura">`
             : `<span style="font-size:12px; font-weight:700; color:#94a3b8; text-align:center; padding:25px; width:100%;">Carga o pega una captura aquí</span>`;
@@ -3029,10 +3825,10 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
             </div>
             <div class="layout-con-imagen">
               <div class="col-texto-imagen">
-                <p class="intro-jefatura" style="margin-bottom:0;">${parsearNegrita(dom.inputIntro.value)}</p>
+                <p class="intro-jefatura" style="margin-bottom:0; text-align:${obtenerAlineacionIntroCss()};">${parsearNegrita(dom.inputIntro.value)}</p>
                 ${dom.checkPuntos.checked && bulletsHtml ? `<div class="detalles-titulo-jefatura">${parsearNegrita(dom.inputTituloDetalles.value)}</div><ul class="lista-items">${bulletsHtml}</ul>` : ''}
               </div>
-              <div class="col-visual-imagen">${visual}</div>
+              <div class="col-visual-imagen${mostrarFondoImagen ? '' : ' sin-fondo'}">${visual}</div>
             </div>
             ${importanteHtml}${footerHtml}
           `;
@@ -3045,7 +3841,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
               </div>
               <div class="subtitulo-jefatura">${parsearNegrita(dom.inputTitulo.value)}</div>
             </div>
-            <p class="intro-jefatura">${parsearNegrita(dom.inputIntro.value)}</p>
+            <p class="intro-jefatura" style="text-align:${obtenerAlineacionIntroCss()};">${parsearNegrita(dom.inputIntro.value)}</p>
             ${dom.checkPuntos.checked && bulletsHtml ? `<div class="detalles-titulo-jefatura">${parsearNegrita(dom.inputTituloDetalles.value)}</div><ul class="lista-items">${bulletsHtml}</ul>` : ''}
             ${importanteHtml}${footerHtml}
           `;
@@ -3079,14 +3875,53 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
           </div>
           <div class="layout-con-imagen">
             <div class="col-texto-imagen">
-              <p style="font-size:14px; line-height:1.55; color:#1e293b;">${parsearNegrita(dom.inputIntro.value)}</p>
+              <p style="font-size:14px; line-height:1.55; color:#1e293b; text-align:${obtenerAlineacionIntroCss()};">${parsearNegrita(dom.inputIntro.value)}</p>
               ${dom.checkPuntos.checked && bulletsHtml ? `<div class="detalles-titulo">${parsearNegrita(dom.inputTituloDetalles.value)}</div><ul class="lista-items">${bulletsHtml}</ul>` : ''}
             </div>
-            <div class="col-visual-imagen">${visual}</div>
+            <div class="col-visual-imagen${mostrarFondoImagen ? '' : ' sin-fondo'}">${visual}</div>
           </div>
           ${importanteHtml}${footerHtml}
         `;
       } else {
+        if (dividirInformacion) {
+          const puntosSegunda = dataDetallesInformacion2
+            .filter(item => item.texto.trim() || (item.subitems && item.subitems.some(s => s.trim())))
+            .map(item => {
+              const tienePrincipal = item.texto.trim().length > 0;
+              const subs = (item.subitems || []).filter(s => s.trim()).map(s =>
+                `<li><span class="sublista-bullet">●</span><span>${parsearNegrita(s)}</span></li>`
+              ).join('');
+              return tienePrincipal
+                ? `<li><div class="item-principal-row"><span class="bullet-marker">${bulletChar}</span><span>${parsearNegrita(item.texto)}</span></div>${subs ? `<ul class="sublista">${subs}</ul>` : ''}</li>`
+                : `<li><ul class="sublista sin-padre">${subs}</ul></li>`;
+            }).join('');
+          const contenidoSegunda = dom.inputIntroInformacion2.value.trim()
+            ? `<p class="intro-text intro-lateral">${parsearNegrita(dom.inputIntroInformacion2.value)}</p>`
+            : '';
+          const listaSegunda = puntosSegunda
+            ? `<ul class="lista-items">${puntosSegunda}</ul>`
+            : '';
+
+          dom.contentArea.innerHTML = `
+            ${iconoEncabezadoHtml}
+            <div class="header-titles">
+              <div class="categoria">${areaCfg.nombre}</div>
+              <div class="titulo-noticia">${parsearNegrita(dom.inputTitulo.value)}</div>
+            </div>
+            ${dom.inputIntro.value.trim() ? `<p class="intro-text" style="text-align:${obtenerAlineacionIntroCss()};">${parsearNegrita(dom.inputIntro.value)}</p>` : ''}
+            <div class="noticia-dos-bloques">
+              <section class="bloque-informacion">
+                ${dom.inputTituloDetalles.value.trim() ? `<div class="detalles-titulo">${parsearNegrita(dom.inputTituloDetalles.value)}</div>` : ''}
+                ${dom.checkPuntos.checked && bulletsHtml ? `<ul class="lista-items">${bulletsHtml}</ul>` : ''}
+              </section>
+              <section class="bloque-informacion">
+                ${dom.inputTituloInformacion2.value.trim() ? `<div class="detalles-titulo">${parsearNegrita(dom.inputTituloInformacion2.value)}</div>` : ''}
+                ${contenidoSegunda}${listaSegunda}
+              </section>
+            </div>
+            ${importanteHtml}${footerHtml}
+          `;
+        } else {
         const cuerpoCentral = dom.checkPuntos.checked
           ? `<div class="detalles-titulo">${parsearNegrita(dom.inputTituloDetalles.value)}</div><ul class="lista-items">${bulletsHtml}</ul>`
           : `<p class="intro-text intro-lateral">${parsearNegrita(dom.inputIntro.value)}</p>`;
@@ -3097,13 +3932,14 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
             <div class="categoria">${areaCfg.nombre}</div>
             <div class="titulo-noticia">${parsearNegrita(dom.inputTitulo.value)}</div>
           </div>
-          ${dom.checkPuntos.checked ? `<p class="intro-text">${parsearNegrita(dom.inputIntro.value)}</p>` : ''}
+          ${dom.checkPuntos.checked ? `<p class="intro-text" style="text-align:${obtenerAlineacionIntroCss()};">${parsearNegrita(dom.inputIntro.value)}</p>` : ''}
           <div class="cuerpo-noticia">
             ${usarIconoEncabezado ? '' : `<div class="box-icono"><i class="fi ${areaCfg.icon}"></i></div>`}
             <div class="detalles-container">${cuerpoCentral}</div>
           </div>
           ${importanteHtml}${footerHtml}
         `;
+        }
       }
 
       // RENDER SELLO FLOTANTE
@@ -3116,6 +3952,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         dom.previewSelloBox.style.display = 'none';
         dom.imgSelloRender.style.display = 'none';
       }
+      renderSellosAdicionales();
 
       const mostrarAccesosYFlecha = (modoAppActual === 'noticia' && tieneFlechaExterna);
 
@@ -3274,6 +4111,96 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       });
     }
 
+    /* MODO 6: BANNERS DE ÁREA (981 x 310 px) */
+    function convertirLogoBlanco(src, cb) {
+      const img = new Image();
+      img.onload = () => {
+        const c = document.createElement('canvas');
+        c.width = img.naturalWidth;
+        c.height = img.naturalHeight;
+        const ctx = c.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        try {
+          const d = ctx.getImageData(0, 0, c.width, c.height);
+          for (let i = 0; i < d.data.length; i += 4) {
+            d.data[i] = 255; d.data[i + 1] = 255; d.data[i + 2] = 255;
+          }
+          ctx.putImageData(d, 0, 0);
+          cb(c.toDataURL('image/png'));
+        } catch (err) {
+          cb(src);
+        }
+      };
+      img.onerror = () => cb(src);
+      img.src = src;
+    }
+
+    function renderFormularioBanner() {
+      const inTxt = document.getElementById('inBannerTexto');
+      if (inTxt) inTxt.value = dataBanner.texto;
+    }
+
+    function actualizarVistaBanner() {
+      const titulo = document.getElementById('textoBannerRender');
+      const img = document.getElementById('imgBannerLogo');
+      const placeholder = document.getElementById('bannerLogoPlaceholder');
+      const box = document.getElementById('bannerLogoBox');
+      if (!titulo) return;
+
+      const valor = dataBanner.texto || '';
+      titulo.innerText = valor;
+      let fs = 40;
+      titulo.style.fontSize = fs + 'px';
+      while (fs > 18 && titulo.scrollHeight > 205) {
+        fs -= 2;
+        titulo.style.fontSize = fs + 'px';
+      }
+
+      if (dataBanner.logoB64) {
+        img.src = dataBanner.logoB64;
+        img.style.display = 'block';
+        placeholder.style.display = 'none';
+        box.classList.add('cargado');
+      } else {
+        img.removeAttribute('src');
+        img.style.display = 'none';
+        placeholder.style.display = 'block';
+        box.classList.remove('cargado');
+      }
+      setTimeout(ajustarEscalaVista, 20);
+    }
+
+    function quitarLogoBanner() {
+      dataBanner.logoB64 = '';
+      const inp = document.getElementById('inBannerLogo');
+      if (inp) inp.value = '';
+      actualizarVistaBanner();
+      guardarHistorial(true);
+    }
+
+    function descargarBannerArea() {
+      const el = document.getElementById('cardExportBanner');
+      if (!el) return;
+      const nombreLimpio = (dataBanner.texto || 'Banner').trim().replace(/[^a-zA-Z0-9]/g, '_');
+      const transformOriginal = dom.cardWrap.style.transform;
+      dom.cardWrap.style.transform = 'none';
+      const sombraOriginal = el.style.boxShadow;
+      el.style.boxShadow = 'none';
+
+      html2canvas(el, { scale: 3, backgroundColor: null, useCORS: true, imageTimeout: 0 }).then(canvas => {
+        dom.cardWrap.style.transform = transformOriginal;
+        el.style.boxShadow = sombraOriginal;
+        const a = document.createElement('a');
+        a.download = `Header-${nombreLimpio}-CMD.png`;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      }).catch(err => {
+        dom.cardWrap.style.transform = transformOriginal;
+        el.style.boxShadow = sombraOriginal;
+        console.error(err);
+      });
+    }
+
     function descargarPNG() {
       const cardVisible = modoAppActual === 'boletin'
         ? dom.cardBoletin
@@ -3292,8 +4219,16 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       const transformOriginal = dom.cardWrap.style.transform;
       const w = selloPos.width || 120;
       const h = selloPos.height || Math.round(w / (selloPos.ratio || 1));
+      const sellosAdicionalesHandles = dom.previewSellosAdicionales
+        ? [...dom.previewSellosAdicionales.querySelectorAll('.sello-resize-handle')]
+        : [];
+      const sellosInteresHandles = dom.previewSellosInteres
+        ? [...dom.previewSellosInteres.querySelectorAll('.sello-resize-handle')]
+        : [];
       
       if (dom.selloResizeHandle) dom.selloResizeHandle.style.display = 'none';
+      sellosAdicionalesHandles.forEach(handle => { handle.style.display = 'none'; });
+      sellosInteresHandles.forEach(handle => { handle.style.display = 'none'; });
       if (dom.previewSelloBox) {
         dom.previewSelloBox.style.outline = 'none';
         dom.previewSelloBox.style.width = `${w}px`;
@@ -3306,19 +4241,28 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       let extraW = 0;
       let extraH = 0;
 
-      if (modoAppActual === 'noticia' && tieneSello) {
-        if (selloPos.x < 0) extraX = Math.abs(selloPos.x);
-        if (selloPos.y < 0) extraY = Math.abs(selloPos.y);
-        
+      if (modoAppActual === 'noticia') {
         const cardW = cardVisible.offsetWidth;
         const cardH = cardVisible.offsetHeight;
-        
-        if (selloPos.x + w > cardW) extraW = (selloPos.x + w) - cardW;
-        if (selloPos.y + h > cardH) extraH = (selloPos.y + h) - cardH;
+        const posiciones = [];
+        if (tieneSello && selloB64) posiciones.push({ pos: selloPos, width: w, height: h });
+        sellosAdicionales.forEach(sello => posiciones.push({
+          pos: sello.pos,
+          width: sello.pos.width || 120,
+          height: sello.pos.height || Math.round((sello.pos.width || 120) / (sello.pos.ratio || 1))
+        }));
+        posiciones.forEach(sello => {
+          if (sello.pos.x < 0) extraX = Math.max(extraX, Math.abs(sello.pos.x));
+          if (sello.pos.y < 0) extraY = Math.max(extraY, Math.abs(sello.pos.y));
+          if (sello.pos.x + sello.width > cardW) extraW = Math.max(extraW, sello.pos.x + sello.width - cardW);
+          if (sello.pos.y + sello.height > cardH) extraH = Math.max(extraH, sello.pos.y + sello.height - cardH);
+        });
       }
 
       const extraAltoFlecha = (modoAppActual === 'noticia' && tieneFlechaExterna) ? 105 : 0;
-      const finalExtraH = Math.max(extraH, extraAltoFlecha);
+      const haySellos = modoAppActual === 'noticia' && ((tieneSello && selloB64) || sellosAdicionales.length > 0);
+      const margenInferiorSellos = haySellos ? 28 : 0;
+      const finalExtraH = Math.max(extraH, extraAltoFlecha) + margenInferiorSellos;
 
       html2canvas(cardVisible, { 
         scale: 2, 
@@ -3330,6 +4274,8 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       }).then(canvas => {
         dom.cardWrap.style.transform = transformOriginal;
         if (dom.selloResizeHandle) dom.selloResizeHandle.style.display = 'block';
+        sellosAdicionalesHandles.forEach(handle => { handle.style.display = 'block'; });
+        sellosInteresHandles.forEach(handle => { handle.style.display = 'block'; });
         if (dom.previewSelloBox) dom.previewSelloBox.style.outline = '';
 
         const a = document.createElement('a');
@@ -3339,6 +4285,8 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       }).catch(err => {
         dom.cardWrap.style.transform = transformOriginal;
         if (dom.selloResizeHandle) dom.selloResizeHandle.style.display = 'block';
+        sellosAdicionalesHandles.forEach(handle => { handle.style.display = 'block'; });
+        sellosInteresHandles.forEach(handle => { handle.style.display = 'block'; });
         if (dom.previewSelloBox) dom.previewSelloBox.style.outline = '';
         console.error(err);
       });
@@ -3350,6 +4298,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       
       tieneSello = false;
       selloB64 = '';
+      sellosAdicionales = [];
       tieneFlechaExterna = false;
       dom.checkFlechaExterna.checked = false;
 
@@ -3362,9 +4311,11 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       renderFormularioInteres();
       renderFormularioDocPortal();
       renderFormularioBotonRedsalud();
+      renderFormularioBanner();
 
       actualizarVista();
       actualizarVistaBoletin();
+      actualizarVistaBanner();
       actualizarVistaInteres();
       actualizarVistaDocPortal();
       actualizarVistaBotonRedsalud();
@@ -3379,9 +4330,9 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       });
 
       [
-        dom.inputTitulo, dom.inputIntro, dom.inputTituloDetalles, dom.inputRuta, dom.inputImportante, dom.inputJefaturaTag1, dom.inputJefaturaTag2,
+        dom.inputTitulo, dom.inputIntro, dom.inputTituloDetalles, dom.inputTituloInformacion2, dom.inputIntroInformacion2, dom.inputRuta, dom.inputImportante, dom.inputJefaturaTag1, dom.inputJefaturaTag2,
         dom.inputBoletinSaludo, dom.inputBoletinIntro, dom.inputBoletinTituloDatos, dom.inputBoletinFecha,
-        dom.inputInteresTitulo, dom.inputInteresIntro, dom.inputInteresAlertaTexto, dom.inputInteresAlertaSubtexto
+        dom.inputInteresTitulo, dom.inputInteresIntro, dom.inputInteresSubtituloPuntos, dom.inputInteresAlertaTexto, dom.inputInteresAlertaSubtexto
       ].forEach(el => {
         if (el) {
           el.addEventListener('input', () => {
@@ -3391,6 +4342,23 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
             guardarHistorial(false);
           });
         }
+      });
+
+      dom.checkDividirInformacion.addEventListener('change', (e) => {
+        dividirInformacion = e.target.checked;
+        dom.wrapperSegundaInformacion.style.display = dividirInformacion ? 'flex' : 'none';
+        if (dividirInformacion) {
+          dom.checkIconoEncabezado.checked = true;
+          usarIconoEncabezado = true;
+        }
+        actualizarVista();
+        guardarHistorial(true);
+      });
+
+      dom.inputColorImportante.addEventListener('input', () => {
+        actualizarColorImportante();
+        actualizarVista();
+        guardarHistorial(false);
       });
 
       /* EVENTOS MODO BOTONES REDSALUD */
@@ -3430,6 +4398,25 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         reader.readAsDataURL(this.files[0]);
       });
 
+      document.getElementById('inBannerTexto').addEventListener('input', (e) => {
+        dataBanner.texto = e.target.value;
+        actualizarVistaBanner();
+        guardarHistorial(false);
+      });
+
+      document.getElementById('inBannerLogo').addEventListener('change', function() {
+        if (!this.files || !this.files[0]) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          convertirLogoBlanco(e.target.result, (blanco) => {
+            dataBanner.logoB64 = blanco;
+            actualizarVistaBanner();
+            guardarHistorial(true);
+          });
+        };
+        reader.readAsDataURL(this.files[0]);
+      });
+
       if (dom.inputLogoValoresBoletin) {
         dom.inputLogoValoresBoletin.addEventListener('change', function() {
           if (!this.files || !this.files[0]) return;
@@ -3463,33 +4450,14 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         guardarHistorial(true);
       });
 
+      dom.checkFondoImagen.addEventListener('change', () => {
+        mostrarFondoImagen = dom.checkFondoImagen.checked;
+        actualizarVista();
+        guardarHistorial(true);
+      });
+
       dom.inputArchivoSello.addEventListener('change', function() {
-        if (!this.files[0]) return;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const img = new Image();
-          img.onload = () => {
-            selloB64 = e.target.result;
-            tieneSello = true;
-            if (dom.wrapperSelloControles) dom.wrapperSelloControles.style.display = 'flex';
-
-            selloPos.ratio = img.naturalWidth / img.naturalHeight;
-            selloPos.width = Math.min(220, Math.max(80, img.naturalWidth > 200 ? 150 : img.naturalWidth));
-            selloPos.height = Math.round(selloPos.width / selloPos.ratio);
-
-            const cardH = dom.cardNoticia.offsetHeight || 420;
-            selloPos.x = 36;
-            selloPos.y = cardH - selloPos.height - 24;
-
-            dom.imgSelloRender.src = selloB64;
-            dom.previewSelloBox.style.display = 'flex';
-            aplicarEstilosSello();
-            actualizarVista();
-            guardarHistorial(true);
-          };
-          img.src = e.target.result;
-        };
-        reader.readAsDataURL(this.files[0]);
+        agregarSellosDesdeArchivos(this.files);
       });
 
       dom.checkFlechaExterna.addEventListener('change', () => {
@@ -3563,6 +4531,10 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
           guardarHistorial(true);
         };
         reader.readAsDataURL(this.files[0]);
+      });
+
+      dom.inputSellosInteres.addEventListener('change', function() {
+        agregarSellosInteresDesdeArchivos(this.files);
       });
 
       dom.checkInteresAlerta.addEventListener('change', () => {
