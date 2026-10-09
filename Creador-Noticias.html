@@ -7,7 +7,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&family=Montserrat:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-straight/css/uicons-regular-straight.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -719,7 +719,8 @@
 
     .btn-acceso-card {
       width: 215px;
-      height: 95px;
+      min-height: 95px;
+      height: auto;
       background-color: var(--bg-card);
       border: 2.5px solid var(--primary);
       border-radius: 14px;
@@ -734,6 +735,12 @@
       cursor: pointer;
       position: relative;
       flex-shrink: 0;
+    }
+    .btn-acceso-card .btn-acceso-titulo,
+    .btn-acceso-card .btn-acceso-subtitulo {
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
     .btn-acceso-card .btn-acceso-titulo {
       font-size: 20px;
@@ -904,7 +911,7 @@
     /* MODO BOLETÍN */
     .boletin-card {
       width: 690px;
-      background-color: #087f89;
+      background: linear-gradient(165deg, #0a8791 0%, #087c86 45%, #06707a 100%);
       border: 3px solid #66b3b8;
       border-radius: 4px;
       padding: 0;
@@ -917,7 +924,7 @@
     .boletin-card strong { color: #ffffff !important; font-weight: 900 !important; }
       .boletin-ondas-top, .boletin-ondas-bottom {
       position: absolute; left: 0; width: 100%;
-        pointer-events: none; z-index: 1; opacity: 0.58;
+        pointer-events: none; z-index: 1;
       }
     .boletin-ondas-top { top: 0; height: 300px; }
     .boletin-ondas-bottom { bottom: 0; height: 230px; }
@@ -940,15 +947,27 @@
     .boletin-saludo-title {
       font-size: 25px; font-weight: 800; color: #ffffff; line-height: 1.25; flex: 1;
     }
-    .boletin-intro-p { font-size: 16px; line-height: 1.45; color: #ffffff; font-weight: 600; white-space: pre-line; }
+    .boletin-intro-p { font-size: 16px; line-height: 1.45; color: #ffffff; font-weight: 400; white-space: pre-line; text-align: justify; }
     .boletin-divider-wrap { display: flex; align-items: center; position: relative; margin: 0; }
-    .boletin-divider-line { flex: 1; border: none; border-top: 2px dotted rgba(255, 255, 255, 0.75); }
+    .boletin-divider-line { flex: 1; border: none; border-top: 3px dotted rgba(255, 255, 255, 0.8); }
     .boletin-seccion-title { font-size: 17px; font-weight: 800; color: #ffffff; margin-bottom: 0; }
     .boletin-items-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .boletin-item-row { display: flex; align-items: flex-start; gap: 14px; font-size: 15px; line-height: 1.45; color: #ffffff; font-weight: 500; }
     .boletin-item-row span:last-child { white-space: pre-line; }
     .boletin-item-arrow { color: #ffffff; font-size: 17px; font-weight: 900; flex-shrink: 0; line-height: 1.25; }
     .boletin-item-star { color: #ffffff; font-size: 17px; flex-shrink: 0; line-height: 1.25; }
+    .boletin-card, .boletin-card * { font-family: var(--boletin-font, 'Roboto'), sans-serif; }
+    .boletin-card .ola-claro { fill: #14a6b0; }
+    .boletin-card .ola-oscuro { fill: #06626c; }
+    .boletin-decor { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+    .boletin-decor .deco { position: absolute; line-height: 1; display: block; }
+    .boletin-tema-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+
+    .boletin-card.con-tema .boletin-inner { padding-top: 62px; padding-bottom: 76px; }
+    .boletin-card.con-tema .boletin-saludo-title { padding-right: 70px; }
+    .boletin-franja { height: 7px; display: none; position: relative; z-index: 2; }
+    .boletin-card.con-tema .boletin-franja { display: block; }
+
     .boletin-footer-bar {
       background-color: #007784; color: #ffffff; text-align: center; padding: 15px 20px;
       font-size: 24px; font-weight: 800; letter-spacing: 0.2px; position: relative; z-index: 2;
@@ -1471,6 +1490,25 @@ Este documento establece lineamientos para la gestión comercial en los centros,
 
       <!-- MODO 2: BOLETÍN SEMANAL -->
       <div id="panelModoBoletin" style="display: none; flex-direction: column; gap: 16px;">
+        <div class="form-group">
+          <label for="selectFuenteBoletin">Fuente del Boletín</label>
+          <select id="selectFuenteBoletin" onchange="cambiarFuenteBoletin(this.value)">
+            <option value="Roboto" style="font-family:Roboto;">Roboto (predeterminada)</option>
+            <option value="Poppins" style="font-family:Poppins;">Poppins (la del resto del portal)</option>
+            <option value="Montserrat" style="font-family:Montserrat;">Montserrat (moderna, geométrica)</option>
+            <option value="Nunito" style="font-family:Nunito;">Nunito (redondeada, cercana)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tema del Boletín</label>
+          <div class="boletin-tema-selector" id="boletinTemaSelector">
+            <div class="tipo-btn active" data-tema="clasico" onclick="cambiarTemaBoletin('clasico')">Clásico</div>
+            <div class="tipo-btn" data-tema="halloween" onclick="cambiarTemaBoletin('halloween')">🎃 Halloween</div>
+            <div class="tipo-btn" data-tema="navidad_nieve" onclick="cambiarTemaBoletin('navidad_nieve')">⛄ Navidad</div>
+            <div class="tipo-btn" data-tema="patrias" onclick="cambiarTemaBoletin('patrias')">🇨🇱 18 Sept.</div>
+            <div class="tipo-btn" data-tema="pascua" onclick="cambiarTemaBoletin('pascua')">🐰 Pascua</div>
+          </div>
+        </div>
         <div class="control-block">
           <label>Logo "Valores que laten fuerte"</label>
           <div style="display:flex; gap:8px; align-items:center;">
@@ -1495,8 +1533,11 @@ Este documento establece lineamientos para la gestión comercial en los centros,
             <label>Texto de Bienvenida / Portal</label>
             <button type="button" class="btn-bold-tool" onmousedown="event.preventDefault()" onclick="aplicarNegritaCampo('inputBoletinIntro')"><strong>B</strong> Negrita</button>
           </div>
-          <textarea id="inputBoletinIntro">Esperando que se encuentren muy bien y tengan un excelente fin de semana.
-No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro Portal de Operaciones CMD y Portal de Jefaturas.</textarea>
+          <textarea id="inputBoletinIntro" rows="7">¡Nos preparamos para una nueva semana!
+
+Les invitamos a revisar las principales noticias, novedades y actualizaciones de nuestro *Portal de Operaciones CMD y Líderes*, donde encontrarán información relevante para mantenerse al día con los temas clave para la gestión operacional.
+
+¡Gracias por mantenerse conectados!</textarea>
         </div>
 
         <div class="control-block">
@@ -1728,28 +1769,20 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
 
         <!-- CANVAS BOLETÍN -->
         <div class="boletin-card" id="cardExportBoletin" style="display: none;">
-          <svg class="boletin-ondas-top" viewBox="0 0 580 260" preserveAspectRatio="none" fill="none">
-            <path d="M0 0 H178 C144 28 138 64 160 92 C182 120 218 136 250 146 C205 148 162 136 126 112 C88 86 48 82 0 104 Z" fill="#0a6e79" opacity="0.72"/>
-            <path d="M0 36 C54 22 106 42 136 82 C166 122 202 139 244 148" stroke="#1aa0a7" stroke-width="16" stroke-linecap="round" opacity="0.7"/>
-            <path d="M360 0 C430 34 462 80 540 92 C568 96 580 92 580 92 L580 0 Z" fill="#0a6e79"/>
-            <path d="M414 0 C474 34 494 62 580 70 L580 0 Z" fill="#1497a0" opacity="0.72"/>
-            <path d="M386 0 C424 38 462 54 504 58 C538 62 560 74 580 94" stroke="#1aa0a7" stroke-width="13" stroke-linecap="round" opacity="0.8"/>
-            <path d="M580 112 C548 126 536 154 548 182 C556 202 570 214 580 218 L580 112 Z" fill="#0a6e79" opacity="0.82"/>
-            <path d="M0 202 C56 174 86 188 118 226 C136 247 148 258 172 260 L0 260 Z" fill="#0a6e79"/>
-            <path d="M0 226 C46 204 78 216 104 246 C112 255 120 259 130 260 L0 260 Z" fill="#1497a0" opacity="0.68"/>
-            <path d="M0 186 C44 166 82 177 116 211 C142 237 168 249 202 254" stroke="#1aa0a7" stroke-width="11" stroke-linecap="round" opacity="0.78"/>
+          <svg class="boletin-ondas-top" viewBox="0 0 690 300" preserveAspectRatio="none" fill="none">
+            <path d="M690 0 L690 165 C648 190 598 166 566 124 C536 84 478 72 436 40 C418 26 406 12 400 0 Z" class="ola-claro" opacity="0.62"/>
+            <path d="M690 0 L690 82 C654 102 612 84 582 56 C564 40 550 20 544 0 Z" class="ola-oscuro" opacity="0.55"/>
+            <path d="M0 196 C34 176 74 190 84 228 C92 258 56 280 0 282 Z" class="ola-oscuro" opacity="0.22"/>
           </svg>
-          <svg class="boletin-ondas-bottom" viewBox="0 0 580 220" preserveAspectRatio="none" fill="none">
-            <path d="M580 0 C532 20 518 58 532 92 C544 124 566 138 580 142 Z" fill="#0a6e79"/>
-            <path d="M580 18 C548 36 540 64 550 88 C558 108 572 116 580 120 Z" fill="#1497a0" opacity="0.7"/>
-            <path d="M580 8 C536 38 526 74 542 112 C552 136 568 150 580 156" stroke="#1aa0a7" stroke-width="14" stroke-linecap="round" opacity="0.78"/>
-            <path d="M0 182 C72 168 110 174 146 204 C162 218 180 220 205 220 L0 220 Z" fill="#0a6e79"/>
-            <path d="M0 204 C52 192 88 196 122 218 L0 220 Z" fill="#1497a0" opacity="0.72"/>
-            <path d="M0 164 C64 148 108 162 146 192 C174 214 206 220 250 220" stroke="#1aa0a7" stroke-width="13" stroke-linecap="round" opacity="0.78"/>
-            <path d="M290 220 C342 184 426 186 472 212 C480 216 488 218 500 220 Z" fill="#1aa0a7" opacity="0.8"/>
-            <path d="M292 220 C342 190 418 190 480 214" stroke="#62c5c7" stroke-width="9" stroke-linecap="round" opacity="0.72"/>
+          <svg class="boletin-ondas-bottom" viewBox="0 0 690 230" preserveAspectRatio="none" fill="none">
+            <path d="M0 230 L0 118 C42 98 94 118 134 158 C170 194 216 216 280 230 Z" class="ola-claro" opacity="0.6"/>
+            <path d="M0 230 L0 172 C36 160 78 176 114 206 C130 219 146 227 168 230 Z" class="ola-oscuro" opacity="0.5"/>
+            <path d="M690 230 L690 92 C650 102 618 134 628 172 C638 206 668 224 690 228 Z" class="ola-oscuro" opacity="0.5"/>
+            <path d="M690 230 L690 152 C662 158 642 178 646 202 C649 217 666 227 690 230 Z" class="ola-claro" opacity="0.62"/>
+            <path d="M310 230 C362 200 440 198 498 222 C508 226 516 229 528 230 Z" class="ola-claro" opacity="0.4"/>
           </svg>
 
+          <div class="boletin-decor" id="boletinDecor"></div>
           <div class="boletin-inner">
             <div class="boletin-header">
               <div class="boletin-logo-valores">
@@ -1759,10 +1792,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
               <div class="boletin-saludo-title" id="previewBoletinSaludo">Estimado equipo CMD RedSalud:</div>
             </div>
 
-            <div class="boletin-intro-p" id="previewBoletinIntro">
-              Esperando que se encuentren muy bien y tengan un excelente fin de semana.
-No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro Portal de Operaciones CMD y Portal de Jefaturas.
-            </div>
+            <div class="boletin-intro-p" id="previewBoletinIntro"></div>
 
             <div class="boletin-divider-wrap">
               <hr class="boletin-divider-line">
@@ -1779,6 +1809,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
             <ul class="boletin-items-list" id="previewBoletinListaDatos"></ul>
           </div>
 
+          <div class="boletin-franja" id="boletinFranja"></div>
           <div class="boletin-footer-bar" id="previewBoletinFecha">Boletín Semanal CMD 31-08-2026</div>
         </div>
 
@@ -1978,6 +2009,186 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
 
     /* BOLETÍN SEMANAL */
     let logoValoresBoletinB64 = '';
+    let temaBoletin = 'clasico';
+    let fuenteBoletin = 'Roboto';
+
+    function cambiarFuenteBoletin(fuente, guardar = true) {
+      fuenteBoletin = fuente || 'Roboto';
+      dom.root.style.setProperty('--boletin-font', `'${fuenteBoletin}'`);
+      const sel = document.getElementById('selectFuenteBoletin');
+      if (sel) sel.value = fuenteBoletin;
+      setTimeout(ajustarEscalaVista, 50);
+      if (guardar) guardarHistorial(true);
+    }
+
+    // ---------- Elementos decorativos SVG por tema ----------
+    function svgBanderines(colores) {
+      let t = '', cuerda = '';
+      const n = 18, w = 690 / n;
+      for (let i = 0; i < n; i++) {
+        const x = i * w, c = colores[i % colores.length];
+        t += `<polygon points="${x + 6},4 ${x + w - 6},4 ${x + w / 2},30" fill="${c}"/>`;
+      }
+      cuerda = `<path d="M0 3 Q345 7 690 3" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.7"/>`;
+      return `<svg viewBox="0 0 690 34" width="690" height="34" xmlns="http://www.w3.org/2000/svg" style="display:block;">${cuerda}${t}</svg>`;
+    }
+    function svgEstrella(cx, cy, r, fill) {
+      let p = '';
+      for (let i = 0; i < 10; i++) {
+        const ang = Math.PI / 5 * i - Math.PI / 2, rr = i % 2 ? r * 0.42 : r;
+        p += `${(cx + rr * Math.cos(ang)).toFixed(1)},${(cy + rr * Math.sin(ang)).toFixed(1)} `;
+      }
+      return `<polygon points="${p}" fill="${fill}"/>`;
+    }
+    const SVG_ESCARAPELA = `<svg viewBox="0 0 64 84" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;filter:drop-shadow(0 3px 5px rgba(0,0,0,0.3));">
+      <polygon points="20,44 10,82 20,74 28,82 32,46" fill="#0039a6"/><polygon points="44,44 54,82 44,74 36,82 32,46" fill="#d52b1e"/>
+      <circle cx="32" cy="30" r="29" fill="#d52b1e"/><circle cx="32" cy="30" r="22" fill="#ffffff"/><circle cx="32" cy="30" r="16" fill="#0039a6"/>
+      ${svgEstrella(32, 30, 11, '#ffffff')}</svg>`;
+    const SVG_BANDERA_ASTA = (izq) => `<svg viewBox="0 0 54 64" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;transform:${izq ? 'rotate(-8deg)' : 'rotate(8deg)'};">
+      <rect x="${izq ? 6 : 45}" y="4" width="3" height="60" fill="#cbd5e1"/><circle cx="${izq ? 7.5 : 46.5}" cy="4" r="3" fill="#facc15"/>
+      <g transform="translate(${izq ? 9 : 3},6)"><rect width="36" height="24" fill="#ffffff"/><rect y="12" width="36" height="12" fill="#d52b1e"/><rect width="12" height="12" fill="#0039a6"/>${svgEstrella(6, 6, 4, '#ffffff')}</g></svg>`;
+
+    const SVG_CALABAZA = `<svg viewBox="0 0 70 64" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;filter:drop-shadow(0 3px 5px rgba(0,0,0,0.3));">
+      <path d="M34 12 C33 6 36 2 40 1" stroke="#166534" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <ellipse cx="22" cy="38" rx="18" ry="22" fill="#ea580c"/><ellipse cx="48" cy="38" rx="18" ry="22" fill="#ea580c"/><ellipse cx="35" cy="38" rx="16" ry="24" fill="#f97316"/>
+      <polygon points="22,30 30,30 26,23" fill="#1c1917"/><polygon points="40,30 48,30 44,23" fill="#1c1917"/>
+      <path d="M18 42 L24 48 L30 43 L35 49 L40 43 L46 48 L52 42 C48 54 22 54 18 42Z" fill="#1c1917"/></svg>`;
+    const SVG_MURCIELAGO = `<svg viewBox="0 0 60 26" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+      <path d="M30 8 C27 2 25 4 26 9 C18 4 8 3 0 10 C6 10 9 14 9 18 C13 14 18 15 21 19 C23 15 27 15 30 20 C33 15 37 15 39 19 C42 15 47 14 51 18 C51 14 54 10 60 10 C52 3 42 4 34 9 C35 4 33 2 30 8Z" fill="#1c1917"/></svg>`;
+    const SVG_FANTASMA = `<svg viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;filter:drop-shadow(0 3px 5px rgba(0,0,0,0.25));">
+      <path d="M4 26 C4 10 12 2 22 2 C32 2 40 10 40 26 L40 54 L34 48 L28 54 L22 48 L16 54 L10 48 L4 54Z" fill="#ffffff"/>
+      <ellipse cx="16" cy="22" rx="3" ry="4.5" fill="#1c1917"/><ellipse cx="28" cy="22" rx="3" ry="4.5" fill="#1c1917"/><ellipse cx="22" cy="33" rx="3" ry="4" fill="#1c1917"/></svg>`;
+
+    const SVG_CORONA = `<svg viewBox="0 0 70 80" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;filter:drop-shadow(0 3px 5px rgba(0,0,0,0.3));">
+      <circle cx="35" cy="35" r="26" fill="none" stroke="#15803d" stroke-width="14"/><circle cx="35" cy="35" r="26" fill="none" stroke="#22c55e" stroke-width="5" stroke-dasharray="4 6"/>
+      <circle cx="18" cy="20" r="3.5" fill="#dc2626"/><circle cx="53" cy="22" r="3.5" fill="#dc2626"/><circle cx="12" cy="44" r="3.5" fill="#dc2626"/><circle cx="58" cy="46" r="3.5" fill="#dc2626"/><circle cx="35" cy="9" r="3.5" fill="#facc15"/>
+      <path d="M35 60 L24 78 L33 72 Z" fill="#dc2626"/><path d="M35 60 L46 78 L37 72 Z" fill="#dc2626"/><circle cx="35" cy="60" r="7" fill="#dc2626"/></svg>`;
+    const SVG_ARBOL = `<svg viewBox="0 0 46 62" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+      <rect x="19" y="50" width="8" height="10" fill="#78350f"/><polygon points="23,6 4,52 42,52" fill="#16a34a"/><polygon points="23,6 9,36 37,36" fill="#22c55e"/>
+      ${svgEstrella(23, 7, 7, '#facc15')}<circle cx="16" cy="40" r="2.5" fill="#dc2626"/><circle cx="30" cy="46" r="2.5" fill="#facc15"/><circle cx="26" cy="28" r="2.5" fill="#dc2626"/></svg>`;
+    const SVG_COPO = `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;"><g stroke="#ffffff" stroke-width="1.6" stroke-linecap="round"><line x1="10" y1="1" x2="10" y2="19"/><line x1="2.2" y1="5.5" x2="17.8" y2="14.5"/><line x1="2.2" y1="14.5" x2="17.8" y2="5.5"/></g></svg>`;
+    const svgEstrellaSuelta = (c = '#ffffff') => `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">${svgEstrella(10, 10, 9, c)}</svg>`;
+
+    function svgLuces() {
+      const cols = ['#ef4444', '#facc15', '#22c55e', '#3b82f6', '#f97316'];
+      let path = 'M0 6', bulbs = '';
+      const n = 16, w = 690 / n;
+      for (let i = 0; i < n; i++) path += ` Q${i * w + w / 2} 22 ${(i + 1) * w} 6`;
+      for (let i = 0; i < n; i++) {
+        const x = i * w + w / 2, c = cols[i % cols.length];
+        bulbs += `<rect x="${x - 3}" y="12" width="6" height="5" rx="1" fill="#334155"/><ellipse cx="${x}" cy="24" rx="5.5" ry="8" fill="${c}"/><ellipse cx="${x - 1.5}" cy="21" rx="1.5" ry="3" fill="#ffffff" opacity="0.6"/>`;
+      }
+      return `<svg viewBox="0 0 690 36" width="690" height="36" xmlns="http://www.w3.org/2000/svg" style="display:block;"><path d="${path}" stroke="#14532d" stroke-width="2.5" fill="none"/>${bulbs}</svg>`;
+    }
+    function svgNieveBorde() {
+      let d = 'M0 0 L690 0 L690 14';
+      for (let x = 690; x > 0; x -= 46) d += ` Q${x - 23} ${x % 92 ? 34 : 26} ${x - 46} 14`;
+      let copos = '';
+      [[60,40],[180,46],[300,38],[420,48],[520,42],[640,50]].forEach(([x,y]) => copos += `<circle cx="${x}" cy="${y}" r="2.2" fill="#ffffff" opacity="0.8"/>`);
+      return `<svg viewBox="0 0 690 54" width="690" height="54" xmlns="http://www.w3.org/2000/svg" style="display:block;"><path d="${d} Z" fill="#ffffff"/>${copos}</svg>`;
+    }
+    const SVG_ESTRELLA_GRANDE = `<svg viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;filter:drop-shadow(0 0 8px rgba(250,204,21,0.7));">${svgEstrella(35, 36, 32, '#facc15')}${svgEstrella(35, 36, 18, '#fde68a')}</svg>`;
+    const SVG_REGALO = (c, cinta) => `<svg viewBox="0 0 44 46" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;filter:drop-shadow(0 3px 4px rgba(0,0,0,0.25));">
+      <rect x="4" y="18" width="36" height="26" fill="${c}"/><rect x="2" y="12" width="40" height="9" fill="${c}"/><rect x="19" y="12" width="6" height="32" fill="${cinta}"/>
+      <path d="M22 12 C14 2 6 6 12 12 Z M22 12 C30 2 38 6 32 12 Z" fill="${cinta}"/></svg>`;
+    const SVG_MONO_NIEVE = `<svg viewBox="0 0 56 74" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;filter:drop-shadow(0 3px 5px rgba(0,0,0,0.25));">
+      <circle cx="28" cy="54" r="18" fill="#ffffff"/><circle cx="28" cy="27" r="13" fill="#ffffff"/>
+      <rect x="16" y="10" width="24" height="4" fill="#1c1917"/><rect x="20" y="0" width="16" height="12" fill="#1c1917"/><rect x="20" y="8" width="16" height="3" fill="#dc2626"/>
+      <circle cx="23" cy="24" r="1.8" fill="#1c1917"/><circle cx="33" cy="24" r="1.8" fill="#1c1917"/><polygon points="28,28 40,30 28,31" fill="#f97316"/>
+      <path d="M16 37 Q28 42 40 37 L40 41 Q28 46 16 41 Z" fill="#dc2626"/><rect x="34" y="39" width="5" height="12" fill="#dc2626"/>
+      <circle cx="28" cy="50" r="1.8" fill="#1c1917"/><circle cx="28" cy="58" r="1.8" fill="#1c1917"/></svg>`;
+    const SVG_BASTON = (flip) => `<svg viewBox="0 0 30 64" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;transform:${flip ? 'scaleX(-1) rotate(-10deg)' : 'rotate(-10deg)'};">
+      <path d="M8 62 L8 16 A9 9 0 0 1 26 16 L26 22" stroke="#ffffff" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M8 62 L8 16 A9 9 0 0 1 26 16 L26 22" stroke="#dc2626" stroke-width="7" fill="none" stroke-linecap="round" stroke-dasharray="5 6"/></svg>`;
+
+    const SVG_CONEJO = `<svg viewBox="0 0 64 84" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;filter:drop-shadow(0 3px 5px rgba(0,0,0,0.25));">
+      <ellipse cx="22" cy="18" rx="7" ry="18" fill="#ffffff" transform="rotate(-10 22 18)"/><ellipse cx="22" cy="19" rx="3.5" ry="13" fill="#f9a8d4" transform="rotate(-10 22 19)"/>
+      <ellipse cx="42" cy="18" rx="7" ry="18" fill="#ffffff" transform="rotate(10 42 18)"/><ellipse cx="42" cy="19" rx="3.5" ry="13" fill="#f9a8d4" transform="rotate(10 42 19)"/>
+      <ellipse cx="32" cy="66" rx="22" ry="17" fill="#ffffff"/><circle cx="32" cy="42" r="17" fill="#ffffff"/>
+      <circle cx="25" cy="40" r="2.4" fill="#1c1917"/><circle cx="39" cy="40" r="2.4" fill="#1c1917"/><circle cx="25.8" cy="39.2" r="0.8" fill="#ffffff"/><circle cx="39.8" cy="39.2" r="0.8" fill="#ffffff"/>
+      <ellipse cx="32" cy="46" rx="2.6" ry="2" fill="#f472b6"/><path d="M32 48 Q29 52 26 50 M32 48 Q35 52 38 50" stroke="#1c1917" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <circle cx="20" cy="47" r="3.5" fill="#fbcfe8"/><circle cx="44" cy="47" r="3.5" fill="#fbcfe8"/>
+      <ellipse cx="22" cy="80" rx="8" ry="4" fill="#f1f5f9"/><ellipse cx="42" cy="80" rx="8" ry="4" fill="#f1f5f9"/></svg>`;
+    const SVG_HUEVO = (base, franja, puntos) => `<svg viewBox="0 0 34 44" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;filter:drop-shadow(0 3px 4px rgba(0,0,0,0.22));">
+      <defs><clipPath id="hc${base.slice(1)}"><path d="M17 2 C6 2 1 18 1 27 C1 37 8 43 17 43 C26 43 33 37 33 27 C33 18 28 2 17 2Z"/></clipPath></defs>
+      <path d="M17 2 C6 2 1 18 1 27 C1 37 8 43 17 43 C26 43 33 37 33 27 C33 18 28 2 17 2Z" fill="${base}"/>
+      <g clip-path="url(#hc${base.slice(1)})"><path d="M0 22 L6 18 L12 22 L18 18 L24 22 L30 18 L36 22 L36 27 L30 23 L24 27 L18 23 L12 27 L6 23 L0 27Z" fill="${franja}"/>
+      <circle cx="10" cy="34" r="2" fill="${puntos}"/><circle cx="18" cy="37" r="2" fill="${puntos}"/><circle cx="26" cy="34" r="2" fill="${puntos}"/><circle cx="13" cy="11" r="1.6" fill="${puntos}"/><circle cx="21" cy="11" r="1.6" fill="${puntos}"/></g></svg>`;
+    const SVG_FLOR = (c) => `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+      <g fill="${c}"><circle cx="12" cy="5" r="5"/><circle cx="19" cy="10" r="5"/><circle cx="16" cy="18" r="5"/><circle cx="8" cy="18" r="5"/><circle cx="5" cy="10" r="5"/></g><circle cx="12" cy="12" r="3.5" fill="#facc15"/></svg>`;
+
+
+
+
+    const TEMAS_BOLETIN = {
+      clasico: { decor: [] },
+      patrias: {
+        franja: 'linear-gradient(90deg, #d52b1e 0 33.33%, #ffffff 33.33% 66.66%, #0039a6 66.66% 100%)',
+        decor: [
+          { html: svgBanderines(['#ffffff', '#d52b1e', '#0039a6']), x: 0, y: 0, w: 690, h: 34 },
+          { html: SVG_ESCARAPELA, x: 606, y: 44, w: 56, h: 74 },
+          { html: SVG_BANDERA_ASTA(true), x: 8, b: 72, w: 54, h: 64 },
+          { html: SVG_BANDERA_ASTA(false), x: 628, b: 72, w: 54, h: 64 },
+          { html: svgEstrellaSuelta(), x: 560, b: 80, w: 9, h: 9, o: 0.4 }
+        ]
+      },
+      navidad_nieve: {
+        franja: 'repeating-linear-gradient(90deg, #dc2626 0 18px, #ffffff 18px 36px)',
+        decor: [
+          { html: svgNieveBorde(), x: 0, y: 0, w: 690, h: 54 },
+          { html: SVG_MONO_NIEVE, x: 606, y: 52, w: 54, h: 72 },
+          { html: SVG_BASTON(false), x: 16, b: 72, w: 28, h: 60 },
+          { html: SVG_REGALO('#dc2626', '#ffffff'), x: 42, b: 72, w: 40, h: 42 },
+          { html: SVG_REGALO('#b91c1c', '#facc15'), x: 78, b: 72, w: 28, h: 30 },
+          { html: SVG_REGALO('#b91c1c', '#facc15'), x: 584, b: 72, w: 28, h: 30 },
+          { html: SVG_REGALO('#dc2626', '#ffffff'), x: 606, b: 72, w: 40, h: 42 },
+          { html: SVG_BASTON(true), x: 644, b: 72, w: 28, h: 60 }
+        ]
+      },
+      pascua: {
+        franja: 'linear-gradient(90deg, #f9a8d4 0 25%, #fde68a 25% 50%, #c4b5fd 50% 75%, #86efac 75% 100%)',
+        decor: [
+          { html: svgBanderines(['#f9a8d4', '#fde68a', '#c4b5fd', '#86efac']), x: 0, y: 0, w: 690, h: 34 },
+          { html: SVG_CONEJO, x: 604, y: 40, w: 58, h: 76 },
+          { html: SVG_HUEVO('#f9a8d4', '#ffffff', '#c084fc'), x: 14, b: 72, w: 32, h: 42, r: -10 },
+          { html: SVG_HUEVO('#fde68a', '#86efac', '#ffffff'), x: 44, b: 72, w: 26, h: 34, r: 8 },
+          { html: SVG_FLOR('#f9a8d4'), x: 74, b: 74, w: 16, h: 16 },
+          { html: SVG_FLOR('#c4b5fd'), x: 598, b: 74, w: 16, h: 16 },
+          { html: SVG_HUEVO('#c4b5fd', '#fde68a', '#ffffff'), x: 618, b: 72, w: 26, h: 34, r: -8 },
+          { html: SVG_HUEVO('#86efac', '#f9a8d4', '#ffffff'), x: 644, b: 72, w: 32, h: 42, r: 10 }
+        ]
+      },
+      halloween: {
+        franja: 'linear-gradient(90deg, #f97316 0 33.33%, #1c1917 33.33% 66.66%, #7c3aed 66.66% 100%)',
+        decor: [
+          { html: svgBanderines(['#f97316', '#1c1917', '#7c3aed']), x: 0, y: 0, w: 690, h: 34 },
+          { html: SVG_CALABAZA, x: 600, y: 46, w: 66, h: 60 },
+          { html: SVG_MURCIELAGO, x: 530, y: 52, w: 40, h: 17, r: -12 },
+          { html: SVG_FANTASMA, x: 14, b: 74, w: 38, h: 48, r: -8 },
+          { html: SVG_CALABAZA, x: 630, b: 74, w: 44, h: 40 },
+        ]
+      }
+    };
+
+    function cambiarTemaBoletin(tema, guardar = true) {
+      temaBoletin = TEMAS_BOLETIN[tema] ? tema : 'clasico';
+      const cfg = TEMAS_BOLETIN[temaBoletin];
+      actualizarVistaBoletin();
+      if (guardar) guardarHistorial(true);
+    }
+
+    function renderTemaBoletin() {
+      const card = dom.cardBoletin;
+      card.classList.toggle('con-tema', temaBoletin !== 'clasico');
+      document.getElementById('boletinFranja').style.background = TEMAS_BOLETIN[temaBoletin].franja || 'none';
+      document.querySelectorAll('#boletinTemaSelector .tipo-btn').forEach(b => b.classList.toggle('active', b.dataset.tema === temaBoletin));
+      const decor = document.getElementById('boletinDecor');
+      decor.innerHTML = (TEMAS_BOLETIN[temaBoletin].decor || []).map(d => {
+        const pos = d.b !== undefined ? `bottom:${d.b}px;` : `top:${d.y}px;`;
+        const size = d.w ? `width:${d.w}px;height:${d.h}px;` : `font-size:${d.s}px;`;
+        return `<span class="deco" style="left:${d.x}px;${pos}${size}opacity:${d.o ?? 1};transform:rotate(${d.r || 0}deg);">${d.html}</span>`;
+      }).join('');
+    }
     let boletinNoticias = [
       'Cambio de precio Set de RX Convenio Consalud Tradicional (40%)',
       'Actualización Iniciativas Comerciales Septiembre',
@@ -2178,6 +2389,8 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
         mostrarFondoLogos,
         usarIconoEncabezado,
         logoValoresBoletinB64,
+        temaBoletin,
+        fuenteBoletin,
         boletinNoticias: [...boletinNoticias],
         boletinDatos: [...boletinDatos],
         layoutInteresActual,
@@ -2274,6 +2487,8 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       usarIconoEncabezado = estadoObj.usarIconoEncabezado ?? false;
       
       logoValoresBoletinB64 = estadoObj.logoValoresBoletinB64 || '';
+      temaBoletin = estadoObj.temaBoletin || 'clasico';
+      cambiarFuenteBoletin(estadoObj.fuenteBoletin || 'Roboto', false);
       boletinNoticias = [...estadoObj.boletinNoticias];
       boletinDatos = [...estadoObj.boletinDatos];
       layoutInteresActual = estadoObj.layoutInteresActual;
@@ -2874,6 +3089,24 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
             <input type="text" placeholder="Título (ej: Formulario, Panel)..." value="${acc.titulo.replace(/"/g, '&quot;')}" oninput="actualizarAccesoExterno(${idx}, 'titulo', this.value)" style="flex:1; font-weight:600;">
             <input type="text" placeholder="Acción (ej: ACCESO)..." value="${acc.subtitulo.replace(/"/g, '&quot;')}" oninput="actualizarAccesoExterno(${idx}, 'subtitulo', this.value)" style="width:120px; font-weight:700; color:var(--primary);">
           </div>
+          <label class="option-row" style="font-size:11px;">
+            <input type="checkbox" ${acc.mostrarSub !== false ? 'checked' : ''} onchange="actualizarAccesoExterno(${idx}, 'mostrarSub', this.checked)">
+            <span>Mostrar palabra de acción (${(acc.subtitulo || 'ACCESO').replace(/</g, '&lt;')})</span>
+          </label>
+          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:6px;">
+            <div class="form-group" style="gap:2px;">
+              <label style="font-size:9.5px;">Letra título</label>
+              <input type="number" min="10" max="28" step="1" value="${acc.tamTitulo ?? 20}" oninput="actualizarAccesoExterno(${idx}, 'tamTitulo', parseFloat(this.value) || 20)">
+            </div>
+            <div class="form-group" style="gap:2px;">
+              <label style="font-size:9.5px;">Letra acción</label>
+              <input type="number" min="9" max="26" step="1" value="${acc.tamSub ?? 18}" oninput="actualizarAccesoExterno(${idx}, 'tamSub', parseFloat(this.value) || 18)" ${acc.mostrarSub === false ? 'disabled' : ''}>
+            </div>
+            <div class="form-group" style="gap:2px;">
+              <label style="font-size:9.5px;">Ancho (px)</label>
+              <input type="number" min="140" max="360" step="5" value="${acc.ancho ?? 215}" oninput="actualizarAccesoExterno(${idx}, 'ancho', parseFloat(this.value) || 215)">
+            </div>
+          </div>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2px;">
             <span style="font-size:10px; color:#64748b;">(Se descarga con fondo transparente)</span>
             <button type="button" style="background:#0099a8; color:#fff; border:none; padding:5px 10px; font-size:11px; font-weight:700; border-radius:4px; cursor:pointer;" onclick="descargarBotonAcceso(${idx})">⬇ Descargar este Botón (PNG)</button>
@@ -2884,7 +3117,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
     }
 
     function agregarAccesoExterno() {
-      dataAccesosExternos.push({ titulo: 'Nuevo Acceso', subtitulo: 'ACCESO', url: '' });
+      dataAccesosExternos.push({ titulo: 'Nuevo Acceso', subtitulo: 'ACCESO', url: '', mostrarSub: true, tamTitulo: 20, tamSub: 18, ancho: 215 });
       renderFormularioAccesos();
       actualizarVista();
       guardarHistorial(true);
@@ -2910,6 +3143,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
 
     function actualizarAccesoExterno(idx, campo, valor) {
       dataAccesosExternos[idx][campo] = valor;
+      if (campo === 'mostrarSub') renderFormularioAccesos();
       actualizarVista();
       guardarHistorial(false);
     }
@@ -3171,6 +3405,7 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
     }
 
     function actualizarVistaBoletin() {
+      renderTemaBoletin();
       dom.previewBoletinSaludo.innerHTML = parsearNegrita(dom.inputBoletinSaludo.value);
       dom.previewBoletinIntro.innerHTML = parsearNegrita(dom.inputBoletinIntro.value);
       dom.previewBoletinTituloDatos.innerHTML = parsearNegrita(dom.inputBoletinTituloDatos.value);
@@ -3962,9 +4197,9 @@ No olviden enterarse de todas las noticias de esta semana e ingresar a nuestro P
       if (mostrarAccesosYFlecha && dataAccesosExternos.length > 0) {
         dom.previewAccesosExternos.style.display = 'flex';
         dom.previewAccesosExternos.innerHTML = dataAccesosExternos.map((acc, idx) => `
-          <div id="btnAccesoExport_${idx}" class="btn-acceso-card">
-            <div class="btn-acceso-titulo">${acc.titulo || 'Formulario'}</div>
-            <div class="btn-acceso-subtitulo">${acc.subtitulo || 'ACCESO'}</div>
+          <div id="btnAccesoExport_${idx}" class="btn-acceso-card" style="width:${acc.ancho ?? 215}px;">
+            <div class="btn-acceso-titulo" style="font-size:${acc.tamTitulo ?? 20}px;">${acc.titulo || 'Formulario'}</div>
+            ${acc.mostrarSub !== false ? `<div class="btn-acceso-subtitulo" style="font-size:${acc.tamSub ?? 18}px;">${acc.subtitulo || 'ACCESO'}</div>` : ''}
           </div>
         `).join('');
       } else {
