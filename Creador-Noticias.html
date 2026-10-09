@@ -577,6 +577,7 @@
     }
 
     .important-notice {
+      display: block;
       margin: 26px auto 10px;
       color: #b45309;
       font-size: 13.5px;
@@ -694,23 +695,22 @@
     .flecha-externa-box {
       position: absolute;
       right: 50px;
-      bottom: -102px;
-      width: 78px;
-      height: 102px;
+      bottom: -64px; /* el borde de la tarjeta (3.5px) queda fuera de este cálculo: así la flecha nace justo en el borde */
+      width: 62px;
+      height: 62px;
       display: none;
       pointer-events: none;
       z-index: 10;
     }
     .flecha-externa-svg {
-      width: 78px;
-      height: 102px;
+      width: 62px;
+      height: 62px;
       display: block;
-      filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.12));
-    }
+      }
 
     .preview-accesos-externos-wrap {
       width: 960px;
-      margin-top: 50px;
+      margin-top: 22px;
       display: none;
       gap: 24px;
       justify-content: center;
@@ -882,8 +882,7 @@
     
     .noticia-card.is-jefatura .alerta-jefatura {
       margin: 24px auto 18px;
-      display: flex;
-      align-items: center;
+      display: block;
       justify-content: center;
       gap: 10px;
       font-size: 13.5px;
@@ -903,9 +902,10 @@
     }
     .noticia-card.is-jefatura .alerta-jefatura .triangulo-alerta {
       color: var(--important-text-color);
-      font-size: 18px;
-      flex-shrink: 0;
+      font-size: 16px;
       line-height: 1;
+      margin-right: 4px;
+      vertical-align: -1px;
     }
 
     /* MODO BOLETÍN */
@@ -1750,16 +1750,9 @@ Les invitamos a revisar las principales noticias, novedades y actualizaciones de
 
           <!-- FLECHA CURVA -->
           <div class="flecha-externa-box" id="previewFlechaExterna">
-            <svg class="flecha-externa-svg" viewBox="0 0 95 125" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M 72 2 C 86 26, 84 62, 50 90" 
-                    stroke="var(--primary)" 
-                    stroke-width="16" 
-                    stroke-linecap="round"/>
-              <polygon points="36,78 20,118 60,102" 
-                      fill="var(--primary)" 
-                      stroke="var(--primary)" 
-                      stroke-width="6" 
-                      stroke-linejoin="round"/>
+            <svg class="flecha-externa-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 74 0 C 74 34, 80 56, 54 70" stroke="var(--primary)" stroke-width="24" stroke-linecap="butt"/>
+              <polygon points="40,50 12,96 66,88" fill="var(--primary)" stroke="var(--primary)" stroke-width="10" stroke-linejoin="round"/>
             </svg>
           </div>
         </div>
@@ -3980,8 +3973,8 @@ Les invitamos a revisar las principales noticias, novedades y actualizaciones de
 
       const importanteHtml = dom.checkImportante.checked && dom.inputImportante.value.trim()
         ? (tipoActual === 'jefatura' 
-            ? `<div class="alerta-jefatura"><span class="triangulo-alerta">⚠</span><span>${parsearNegrita(dom.inputImportante.value.trim())}</span></div>`
-            : `<div class="important-notice"><span class="icono-importante" style="margin-right:6px; font-weight:800;">⚠</span><span>${parsearNegrita(dom.inputImportante.value.trim())}</span></div>`
+            ? `<div class="alerta-jefatura"><span class="triangulo-alerta">⚠</span>${parsearNegrita(dom.inputImportante.value.trim())}</div>`
+            : `<div class="important-notice"><span class="icono-importante" style="font-weight:800; margin-right:4px;">⚠</span>${parsearNegrita(dom.inputImportante.value.trim())}</div>`
           )
         : '';
 
@@ -4494,9 +4487,11 @@ Les invitamos a revisar las principales noticias, novedades y actualizaciones de
         });
       }
 
-      const extraAltoFlecha = (modoAppActual === 'noticia' && tieneFlechaExterna) ? 105 : 0;
+      // La flecha sobresale 61px bajo el borde exterior de la tarjeta: el PNG termina justo en su punta
+      const extraAltoFlecha = (modoAppActual === 'noticia' && tieneFlechaExterna) ? 61 : 0;
       const haySellos = modoAppActual === 'noticia' && ((tieneSello && selloB64) || sellosAdicionales.length > 0);
-      const margenInferiorSellos = haySellos ? 28 : 0;
+      // El margen extra para sellos solo se suma si un sello sobresale por abajo y no hay flecha
+      const margenInferiorSellos = (haySellos && extraH > 0 && !extraAltoFlecha) ? 8 : 0;
       const finalExtraH = Math.max(extraH, extraAltoFlecha) + margenInferiorSellos;
 
       html2canvas(cardVisible, { 
